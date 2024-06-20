@@ -267,5 +267,117 @@
       "//fugazi.net/cdn/shop/files/BlueRogueDenimWorkJacket1_900x.jpg?v=1709277022",
       "//fugazi.net/cdn/shop/files/BlueRogueDenimWorkJacket2_900x.jpg?v=1709277022"
     ]
+  },
+  {
+    "Brand": "A BATHING APE",
+    "name": "ABC CAMO REVERSIBLE DOWN VEST MENS",
+    "category": "JACKET",
+    "id": "",
+    "code": "",
+    "url": "https://uk.bape.com/products/0zxdnm144010l?variant=41649598857425",
+    "Price": 435,
+    "currency": "USD",
+    "gender": "Mens",
+    "description": "Product: 0ZXDNM144010L\nManufacturer: CHINA\nMaterial: 100% POLYESTER\n\nA BATHING APE®︎ has a long history with down jackets. The 2023 A/W line is made with recycled down from Kawada Feathers, an expert in the industry. This sustainable choice has garnered attention for its eco-friendly properties. Not only is down plush and soft, but it can also stay resilient for over a century.\n\nThe popular ABC CAMO print adds a unique element to the jacket, while the reversible side sports the iconic ONE POINT APE head design for a more laid-back style.",
+    "color": "Blue",
+    "from": "A BATHING APE",
+    "info": "",
+    "image": [
+      "A-BATHING-APE-ABC-CAMO-REVERSIBLE-DOWN-VEST-MENS-0",
+      "A-BATHING-APE-ABC-CAMO-REVERSIBLE-DOWN-VEST-MENS-1"
+    ],
+    "imagesUrl": [
+      "//uk.bape.com/cdn/shop/files/001DNJ801010_BLU_C.jpg?v=1697883066&width=1000",
+      "//uk.bape.com/cdn/shop/files/001DNJ801010_BLU_B.jpg?v=1697883066&width=1000"
+    ]
+  },
+  {
+    "Brand": "A BATHING APE",
+    "name": "KIMONO JACKET",
+    "category": "JACKET",
+    "id": "",
+    "code": "",
+    "url": "https://uk.bape.com/products/0zxljm140011k?variant=41635355427025",
+    "Price": 365,
+    "currency": "USD",
+    "gender": "Mens",
+    "description": "This KIMONO JACKET is a stylish and versatile addition to your wardrobe. With its traditional kimono design and modern twist, it can be dressed up or down for any occasion. Made with high-quality fabric, it offers both comfort and durability. Elevate your style with this unique and timeless piece",
+    "color": "Black",
+    "from": "A BATHING APE",
+    "info": "",
+    "image": ["A-BATHING-APE-KIMONO-JACKET-0", "A-BATHING-APE-KIMONO-JACKET-1"],
+    "imagesUrl": [
+      "//uk.bape.com/cdn/shop/files/001LJJ301011_BLK_A.jpg?v=1696955623&width=1000",
+      "//uk.bape.com/cdn/shop/files/001LJJ301011_BLK_B.jpg?v=1696955623&width=1000"
+    ]
+  },
+  {
+    "Brand": "A BATHING APE",
+    "name": "BAPE® X BURTON GTX RESERVE BIB",
+    "category": "JACKET",
+    "id": "",
+    "code": "",
+    "url": "https://uk.bape.com/products/0zxptm152915l?variant=41850204586193",
+    "Price": 559,
+    "currency": "USD",
+    "description": "",
+    "gender": "Mens",
+    "color": "Black",
+    "from": "A BATHING APE",
+    "info": "",
+    "image": [
+      "A-BATHING-APE-BAPE®-X-BURTON-GTX-RESERVE-BIB-0",
+      "A-BATHING-APE-BAPE®-X-BURTON-GTX-RESERVE-BIB-1"
+    ],
+    "imagesUrl": [
+      "//uk.bape.com/cdn/shop/files/001PTJ731915C_BLK_A.jpg?v=1703086742&width=1000",
+      "//uk.bape.com/cdn/shop/files/001PTJ731915C_BLK_B.jpg?v=1703086746&width=1000"
+    ]
+  },
+  {
+    "Brand": "A BATHING APE",
+    "name": "BAPE BLACK OVERSIZED COACH JACKET",
+    "category": "JACKET",
+    "id": "",
+    "code": "",
+    "url": "https://uk.bape.com/products/bbkjkjk7302mi?variant=40896629965009",
+    "Price": 765,
+    "currency": "USD",
+    "gender": "Mens",
+    "description": "Explore the urban streets in style with the BAPE BLACK OVERSIZED COACH JACKET. Crafted with an oversized fit, this jacket features a sleek design that is both trendy and functional. Made with high-quality materials, it offers a comfortable and durable wear while making a statement. Perfect for any streetwear enthusiast, this jacket is a must-have addition to your wardrobe.",
+    "color": "LIGHT BEIGE",
+    "from": "A BATHING APE",
+    "info": "",
+    "image": [
+      "A-BATHING-APE-BAPE-BLACK-OVERSIZED-COACH-JACKET-0",
+      "A-BATHING-APE-BAPE-BLACK-OVERSIZED-COACH-JACKET-1"
+    ],
+    "imagesUrl": [
+      "//uk.bape.com/cdn/shop/products/BBKJKJK7302MIBGL_A.jpg?v=1650954749&width=1000",
+      "//uk.bape.com/cdn/shop/products/BBKJKJK7302MIBGL_B.jpg?v=1650954749&width=1000"
+    ]
+  },
+  {
+    "Brand": "A BATHING APE",
+    "name": "COLOR CAMO PADDED CHINESE JACKET",
+    "category": "JACKET",
+    "id": "",
+    "code": "4580534776443",
+    "url": "https://uk.bape.com/products/0zxljm140001i?variant=40647626752209",
+    "Price": 515,
+    "currency": "USD",
+    "gender": "Mens",
+    "description": "This COLOR CAMO PADDED CHINESE JACKET offers both style and warmth. Constructed with a padded fabric and featuring a unique color camouflage pattern, this jacket is perfect for those looking to make a statement while staying cozy. The Chinese-inspired design adds a touch of cultural flair to your wardrobe.",
+    "color": "PURPLE",
+    "from": "A BATHING APE",
+    "info": "",
+    "image": [
+      "A-BATHING-APE-COLOR-CAMO-PADDED-CHINESE-JACKET-0",
+      "A-BATHING-APE-COLOR-CAMO-PADDED-CHINESE-JACKET-1"
+    ],
+    "imagesUrl": [
+      "//uk.bape.com/cdn/shop/products/001LJI201001_PUR_A.jpg?v=1642241844&width=1000",
+      "//uk.bape.com/cdn/shop/products/001LJI201001_PUR_B.jpg?v=1642241844&width=1000"
+    ]
   }
 ]
