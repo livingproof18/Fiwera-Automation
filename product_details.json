@@ -36,9 +36,7 @@
     "color": "Black",
     "from": "Haven Court",
     "info": "",
-    "image": [
-      "Haven-Court-OBSIDIAN-BOMBER-(BACKPACK)0"
-    ],
+    "image": ["Haven-Court-OBSIDIAN-BOMBER-(BACKPACK)0"],
     "imagesUrl": [
       "//www.haven-court.com/cdn/shop/files/ObsidianBomber-01_900x.png?v=1700640811"
     ]
@@ -110,6 +108,164 @@
     "imagesUrl": [
       "//www.haven-court.com/cdn/shop/files/giulialeahterjacket_900x.png?v=1707798324",
       "//www.haven-court.com/cdn/shop/files/giulialeatherjacket-06_900x.png?v=1707807651"
+    ]
+  },
+  {
+    "Brand": "Fugazi",
+    "name": "LAB MECHANIC OVERSHIRT",
+    "category": "JACKET",
+    "id": "",
+    "code": "",
+    "url": "https://fugazi.net/en-gb/collections/all/products/lab-overshirt?variant=42930809438380",
+    "Price": 120,
+    "currency": "USD",
+    "gender": "Mens",
+    "description": "washed heavyweight 11oz cotton twill overshirt with two-way YKK zip closure, double layered hidden hand pockets, screen printed graphic, and woven patches.",
+    "color": "",
+    "from": "Fugazi",
+    "info": "",
+    "image": [
+      "Fugazi-LAB-MECHANIC-OVERSHIRT-0",
+      "Fugazi-LAB-MECHANIC-OVERSHIRT-1"
+    ],
+    "imagesUrl": [
+      "//fugazi.net/cdn/shop/files/LabMechanicOvershirt1_900x.jpg?v=1703640873",
+      "//fugazi.net/cdn/shop/files/LabMechanicOvershirt2_900x.jpg?v=1703640894"
+    ]
+  },
+  {
+    "Brand": "Fugazi",
+    "name": "CHAIN SPLATTER DENIM JACKET LIGHT WASHED",
+    "category": "JACKET",
+    "id": "",
+    "code": "",
+    "url": "https://fugazi.net/en-gb/products/chain-splatter-jacket-light-washed?variant=42724172267692",
+    "Price": 198,
+    "currency": "USD",
+    "gender": "Mens",
+    "description": "washed heavyweight 15oz denim jacket with chain stitch details, metal button closure, back cinch, leather back patch, 11.8oz blanket lining, and cropped boxy fit.",
+    "color": "",
+    "from": "Fugazi",
+    "info": "",
+    "image": [
+      "Fugazi-CHAIN-SPLATTER-DENIM-JACKET-LIGHT-WASHED-0",
+      "Fugazi-CHAIN-SPLATTER-DENIM-JACKET-LIGHT-WASHED-1"
+    ],
+    "imagesUrl": [
+      "//fugazi.net/cdn/shop/files/LightWashChainStitchDenimJacket1_900x.jpg?v=1696098670",
+      "//fugazi.net/cdn/shop/files/LightWashChainStitchDenimJacket2_900x.jpg?v=1696098678"
+    ]
+  },
+  {
+    "Brand": "Fugazi",
+    "name": "CHAIN STITCH TRADE ROUTE WORK JACKET BLACK",
+    "category": "JACKET",
+    "id": "",
+    "code": "",
+    "url": "https://fugazi.net/en-gb/products/chain-stitch-map-jacket-black?variant=42930812879020",
+    "Price": 198,
+    "currency": "USD",
+    "gender": "Mens",
+    "description": "washed heavyweight 16oz cotton canvas work jacket with two-way YKK zip closure, corduroy collar, 11.8oz blanket lining, and all-over chain stitch pattern.",
+    "color": "Black",
+    "from": "Fugazi",
+    "info": "",
+    "image": [
+      "Fugazi-CHAIN-STITCH-TRADE-ROUTE-WORK-JACKET-BLACK-0",
+      "Fugazi-CHAIN-STITCH-TRADE-ROUTE-WORK-JACKET-BLACK-1"
+    ],
+    "imagesUrl": [
+      "//fugazi.net/cdn/shop/files/BlackChainStitchMapJacket1_900x.jpg?v=1703639532",
+      "//fugazi.net/cdn/shop/files/BlackChainStitchMapJacket4_900x.jpg?v=1703639532"
+    ]
+  },
+  {
+    "Brand": "Fugazi",
+    "name": "CADDIE MECHANIC OVERSHIRT",
+    "category": "JACKET",
+    "id": "",
+    "code": "",
+    "url": "https://fugazi.net/en-gb/products/caddie-overshirt?variant=42930809241772",
+    "Price": 120,
+    "currency": "USD",
+    "gender": "Mens",
+    "description": "washed heavyweight 11oz cotton twill overshirt with two-way YKK zip closure, double layered hidden hand pockets, and screen printed graphics.",
+    "color": "White",
+    "from": "Fugazi",
+    "info": "",
+    "image": [
+      "Fugazi-CADDIE-MECHANIC-OVERSHIRT-0",
+      "Fugazi-CADDIE-MECHANIC-OVERSHIRT-1"
+    ],
+    "imagesUrl": [
+      "//fugazi.net/cdn/shop/files/WhiteCaddieMechanicOvershirt1_900x.jpg?v=1703640837",
+      "//fugazi.net/cdn/shop/files/WhiteCaddieMechanicOvershirt2_900x.jpg?v=1703640878"
+    ]
+  },
+  {
+    "Brand": "Fugazi",
+    "name": "FAPE HOODIE",
+    "category": "JACKET",
+    "id": "",
+    "code": "",
+    "url": "https://fugazi.net/en-gb/collections/all/products/face-quad-zip-hoodie?variant=43085076136108",
+    "Price": 134,
+    "currency": "USD",
+    "gender": "Mens",
+    "description": "12oz cotton fleece hoodie with waffle-lined interior, four hoods, two-way YKK zip closure, woven wrist patches, dropped shoulder construction, and cropped boxy fit.",
+    "color": "Black",
+    "from": "Fugazi",
+    "info": "",
+    "image": ["Fugazi-FAPE-HOODIE-0", "Fugazi-FAPE-HOODIE-1"],
+    "imagesUrl": [
+      "//fugazi.net/cdn/shop/files/FaceCamoQuadZipHoodie1_900x.jpg?v=1709232155",
+      "//fugazi.net/cdn/shop/files/FaceCamoQuadZipHoodie2_900x.jpg?v=1709233155"
+    ]
+  },
+  {
+    "Brand": "Fugazi",
+    "name": "CHAIN STITCH TRADE ROUTE WORK PANTS BLACK",
+    "category": "Bottoms",
+    "id": "",
+    "code": "",
+    "url": "https://fugazi.net/en-gb/products/chain-stitch-map-pants-black?variant=42930812616876",
+    "Price": 144,
+    "currency": "USD",
+    "gender": "Mens",
+    "description": "washed heavyweight 16oz cotton work pants with triple stitched seams, metal button fly, corduroy hammer loop, and all-over chain stitch pattern.",
+    "color": "Black",
+    "from": "Fugazi",
+    "info": "",
+    "image": [
+      "Fugazi-CHAIN-STITCH-TRADE-ROUTE-WORK-PANTS-BLACK-0",
+      "Fugazi-CHAIN-STITCH-TRADE-ROUTE-WORK-PANTS-BLACK-1"
+    ],
+    "imagesUrl": [
+      "//fugazi.net/cdn/shop/files/BlackChainStitchMapPants1_900x.jpg?v=1703306864",
+      "//fugazi.net/cdn/shop/files/BlackChainStitchMapPants2_900x.jpg?v=1703306864"
+    ]
+  },
+  {
+    "Brand": "Fugazi",
+    "name": "ROGUE HOODED DENIM WORK JACKET",
+    "category": "JACKET",
+    "id": "",
+    "code": "",
+    "url": "https://fugazi.net/en-gb/collections/all/products/rogue-denim-jacket?variant=43085075873964",
+    "Price": 218,
+    "currency": "USD",
+    "gender": "Mens",
+    "description": "washed heavyweight 15oz denim jacket with removable hood, two-way YKK zip closure, fireman clasps, double layered hand pockets, corduroy collar, 11.8oz blanket lining, all over faded pattern, and boxy fit.",
+    "color": "",
+    "from": "Fugazi",
+    "info": "",
+    "image": [
+      "Fugazi-ROGUE-HOODED-DENIM-WORK-JACKET-0",
+      "Fugazi-ROGUE-HOODED-DENIM-WORK-JACKET-1"
+    ],
+    "imagesUrl": [
+      "//fugazi.net/cdn/shop/files/BlueRogueDenimWorkJacket1_900x.jpg?v=1709277022",
+      "//fugazi.net/cdn/shop/files/BlueRogueDenimWorkJacket2_900x.jpg?v=1709277022"
     ]
   }
 ]
