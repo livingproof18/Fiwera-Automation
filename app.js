@@ -4,7 +4,7 @@ const path = require('path');
 const axios = require('axios');
 
 
-const BRAND_NAME = "Haven Court";
+const BRAND_NAME = "Fugazi";
 const CATEGORY_VALUE = "JACKET";
 const GENDER = "Mens";
 
@@ -34,35 +34,59 @@ async function getProductDetails(url) {
 
 
     // Wait for the specific elements to ensure they are loaded
-    await page.waitForSelector('li[data-index="0"] img');
-    await page.waitForSelector('li[data-index="6"] img');
+    // Cwith fugazi I have to keep chaning the image ids--- longgggg
+    await page.waitForSelector('#ProductImage-36340024541356');
+    await page.waitForSelector('#ProductImage-36340024475820');
 
     const details = await page.evaluate((BRAND_NAME, CATEGORY_VALUE, GENDER) => {
-        const brand = BRAND_NAME;
-        const name = document.querySelector('.product-title-block')?.innerText.trim();
+        const brand = "Fugazi";
+        const name = document.querySelector('.product-single__title')?.innerText.trim();
         const category = CATEGORY_VALUE;
-        const priceText = document.querySelector('span[data-product-price]')?.innerText.trim();
+        const priceText = document.querySelector('#ProductPrice > span > span')?.innerText.trim();
         const price = priceText ? parseFloat(priceText.replace(/[^\d.-]/g, '')) : null;
         const gender = GENDER;
-        const descriptionElements = document.querySelectorAll('div.rte.mt-8 p');
-        const description = Array.from(descriptionElements).map(el => el.innerText.trim()).join(' ');
-        const color = "Black";
+        const description = document.querySelector('#apd-root > section.apd-tab.apd-content.apd-active > p')?.innerText.trim();
+
+        // const description = Array.from(descriptionElements).map(el => el.innerText.trim()).join(' ');
+        const color = "";
         const imagesUrl = [];
         const imageNames = [];
 
-        const indices = [0, 6];
-        indices.forEach((index, i) => {
-            const imgElement = document.querySelector(`li[data-index="${index}"] img`);
-            if (imgElement) {
-                const srcset = imgElement.getAttribute('srcset');
-                if (srcset) {
-                    const firstSrc = srcset.split(',')[4].trim().split(' ')[0]; // Get the first srcset URL
-                    imagesUrl.push(firstSrc);
-                    const imageName = `${brand.replace(/\s+/g, '-')}-${name.replace(/\s+/g, '-')}${i}`;
-                    imageNames.push(imageName);
-                }
+        // /Get first Image,
+
+        const firstImage = document.querySelector("#ProductImage-36340024541356");
+        if (firstImage) {
+            const srcset = firstImage.getAttribute('srcset');
+            if (srcset) {
+                const firstSrc = srcset.split(',')[4].trim().split(' ')[0]; // Get the first srcset URL
+                imagesUrl.push(firstSrc);
+                const imageName = `${brand.replace(/\s+/g, '-')}-${name.replace(/\s+/g, '-')}-0`;
+                imageNames.push(imageName);
             }
-        });
+        }
+        const secondImage = document.querySelector("#ProductImage-36340024475820");
+        if (secondImage) {
+            const srcset = secondImage.getAttribute('srcset');
+            if (srcset) {
+                const firstSrc = srcset.split(',')[4].trim().split(' ')[0]; // Get the first srcset URL
+                imagesUrl.push(firstSrc);
+                const imageName = `${brand.replace(/\s+/g, '-')}-${name.replace(/\s+/g, '-')}-1`;
+                imageNames.push(imageName);
+            }
+        }
+        // const indices = [0, 6];
+        // indices.forEach((index, i) => {
+        //     const imgElement = document.querySelector(`li[data-index="${index}"] img`);
+        //     if (imgElement) {
+        //         const srcset = imgElement.getAttribute('srcset');
+        //         if (srcset) {
+        //             const firstSrc = srcset.split(',')[4].trim().split(' ')[0]; // Get the first srcset URL
+        //             imagesUrl.push(firstSrc);
+        //             const imageName = `${brand.replace(/\s+/g, '-')}-${name.replace(/\s+/g, '-')}${i}`;
+        //             imageNames.push(imageName);
+        //         }
+        //     }
+        // });
 
         return {
             Brand: brand,
@@ -72,7 +96,7 @@ async function getProductDetails(url) {
             code: '',
             url: window.location.href,
             Price: price,
-            currency: 'GBP',
+            currency: 'USD',
             gender: gender,
             description: description,
             color: color,
@@ -120,7 +144,7 @@ async function autoScroll(page) {
     await page.evaluate(async () => {
         await new Promise((resolve, reject) => {
             let totalHeight = 0;
-            const distance = 5000; // Increase the scroll distance
+            const distance = 3000; // Increase the scroll distance
             const timer = setInterval(() => {
                 const scrollHeight = document.body.scrollHeight;
                 window.scrollBy(0, distance);
@@ -138,7 +162,12 @@ async function autoScroll(page) {
 (async () => {
     const urls = [
         // 'https://www.haven-court.com/collections/mens-jackets/products/black-raw-type-ii-jacket',
-        'https://fugazi.net/en-gb/collections/all/products/lab-overshirt?variant=42930809438380',
+        // 'https://fugazi.net/en-gb/collections/all/products/lab-overshirt?variant=42930809438380',
+        // 'https://fugazi.net/en-gb/products/chain-splatter-jacket-light-washed?variant=42724172267692',
+        // 'https://fugazi.net/en-gb/products/caddie-overshirt?variant=42930809241772'
+        // 'https://fugazi.net/en-gb/collections/all/products/face-quad-zip-hoodie?variant=43085076136108'
+        // 'https://fugazi.net/en-gb/products/chain-stitch-map-pants-black?variant=42930812616876'
+        'https://fugazi.net/en-gb/collections/all/products/rogue-denim-jacket?variant=43085075873964',
 
         // Add more URLs as needed
     ];
