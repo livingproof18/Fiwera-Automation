@@ -4,7 +4,7 @@ const path = require('path');
 const axios = require('axios');
 
 
-const BRAND_NAME = "A BATHING APE";
+const BRAND_NAME = "Evisu";
 const CATEGORY_VALUE = "JACKET";
 const GENDER = "Mens";
 
@@ -35,26 +35,30 @@ async function getProductDetails(url) {
 
     // Wait for the specific elements to ensure they are loaded
     // Cwith fugazi I have to keep chaning the image ids--- longgggg
-    await page.waitForSelector('#slider > div > div > div > div:nth-child(1) > div > div > img');
+    await page.waitForSelector('#owl-carousel-gallery > div.owl-stage-outer > div > div:nth-child(1) > div > a > img');
     // await page.waitForSelector('#ProductImage-36340024475820');
 
     const details = await page.evaluate((BRAND_NAME, CATEGORY_VALUE, GENDER) => {
-        const brand = "A BATHING APE";
-        const name = document.querySelector('.product__section-title')?.innerText.trim();
+        const brand = BRAND_NAME;
+        const name = document.querySelector('.product-name > span')?.innerText.trim();
+
         const category = CATEGORY_VALUE;
-        const priceText = document.querySelector('span[data-regular-price]')?.innerText.trim();
+        const priceText = document.querySelector('.price')?.innerText.trim();
         const price = priceText ? parseFloat(priceText.replace(/[^\d.-]/g, '')) : null;
         const gender = GENDER;
-        const descriptionElements = document.querySelector('#product-7286795600081 > div.row.grid_wrapper > div.product__section-content.span-4.md-span-6.sm-span-12.auto > div > div.product__section-details__inner.product__section-details__inner--product_description > div > div');
+
+        const descriptionElements = document.querySelector('#attributedescription > div > div');
         const description = (descriptionElements)?.innerText.trim();
-        const color = document.querySelector("#selected-option-1")?.innerText.trim()
+        const color = document.querySelector("#product-options-wrapper > div > div > div.swatch-attribute.color_family > span.swatch-attribute-selected-option")?.innerText.trim()
+
         const imagesUrl = [];
         const imageNames = [];
 
         // /Get first Image,
 
 
-        const firstImage = document.querySelector("#slider > div > div > div > div:nth-child(1) > div > div > img");
+        const firstImage = document.querySelector("#owl-carousel-gallery > div.owl-stage-outer > div > div:nth-child(1) > div > a > img");
+
         if (firstImage) {
             const srcset = firstImage.getAttribute('srcset');
             if (srcset) {
@@ -62,11 +66,30 @@ async function getProductDetails(url) {
                 imagesUrl.push(firstSrc);
                 const imageName = `${brand.replace(/\s+/g, '-')}-${name.replace(/\s+/g, '-')}-0`;
                 imageNames.push(imageName);
+            } else {
+                imagesUrl.push(firstImage.src);
+                const imageName = `${brand.replace(/\s+/g, '-')}-${name.replace(/\s+/g, '-')}-0`;
+                imageNames.push(imageName);
             }
         }
-        // const secondImage = document.querySelector("#slider > div > div > div > div:nth-child(2) > div > div > img");
-        // if (secondImage) {
-        //     const srcset = secondImage.getAttribute('srcset');
+        const secondImage = document.querySelector("#owl-carousel-gallery > div.owl-stage-outer > div > div:nth-child(2) > div > a > img");
+        if (secondImage) {
+            const srcset = secondImage.getAttribute('srcset');
+            if (srcset) {
+                const firstSrc = srcset.split(',')[7].trim().split(' ')[0]; // Get the first srcset URL
+                imagesUrl.push(firstSrc);
+                const imageName = `${brand.replace(/\s+/g, '-')}-${name.replace(/\s+/g, '-')}-1`;
+                imageNames.push(imageName);
+            }
+            else {
+                imagesUrl.push(secondImage.src);
+                const imageName = `${brand.replace(/\s+/g, '-')}-${name.replace(/\s+/g, '-')}-1`;
+                imageNames.push(imageName);
+            }
+        }
+        // const thirdImage = document.querySelector("#slider > div > div > div > div:nth-child(2) > div > div > img");
+        // if (thirdImage) {
+        //     const srcset = thirdImage.getAttribute('srcset');
         //     if (srcset) {
         //         const firstSrc = srcset.split(',')[7].trim().split(' ')[0]; // Get the first srcset URL
         //         imagesUrl.push(firstSrc);
@@ -74,16 +97,6 @@ async function getProductDetails(url) {
         //         imageNames.push(imageName);
         //     }
         // }
-        const thirdImage = document.querySelector("#slider > div > div > div > div:nth-child(2) > div > div > img");
-        if (thirdImage) {
-            const srcset = thirdImage.getAttribute('srcset');
-            if (srcset) {
-                const firstSrc = srcset.split(',')[7].trim().split(' ')[0]; // Get the first srcset URL
-                imagesUrl.push(firstSrc);
-                const imageName = `${brand.replace(/\s+/g, '-')}-${name.replace(/\s+/g, '-')}-1`;
-                imageNames.push(imageName);
-            }
-        }
 
         return {
             Brand: brand,
@@ -159,7 +172,8 @@ async function autoScroll(page) {
 (async () => {
     const urls = [
         // 'https://uk.bape.com/products/0zxdnm144010l?variant=41649598857425',
-        'https://uk.bape.com/products/0zxljm140001i?variant=40647626752209'
+        'https://www.evisu.com/us/seagull-embroidery-godhead-print-relax-fit-denim-jacket.html?color=INDIGO',
+        'https://www.evisu.com/us/eagle-and-samurai-embroidery-retro-denim-jacket-2eshtm3dj118rxcx.html?color=INDIGO'
 
         // Add more URLs as needed
     ];

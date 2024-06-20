@@ -36,7 +36,9 @@
     "color": "Black",
     "from": "Haven Court",
     "info": "",
-    "image": ["Haven-Court-OBSIDIAN-BOMBER-(BACKPACK)0"],
+    "image": [
+      "Haven-Court-OBSIDIAN-BOMBER-(BACKPACK)0"
+    ],
     "imagesUrl": [
       "//www.haven-court.com/cdn/shop/files/ObsidianBomber-01_900x.png?v=1700640811"
     ]
@@ -216,7 +218,10 @@
     "color": "Black",
     "from": "Fugazi",
     "info": "",
-    "image": ["Fugazi-FAPE-HOODIE-0", "Fugazi-FAPE-HOODIE-1"],
+    "image": [
+      "Fugazi-FAPE-HOODIE-0",
+      "Fugazi-FAPE-HOODIE-1"
+    ],
     "imagesUrl": [
       "//fugazi.net/cdn/shop/files/FaceCamoQuadZipHoodie1_900x.jpg?v=1709232155",
       "//fugazi.net/cdn/shop/files/FaceCamoQuadZipHoodie2_900x.jpg?v=1709233155"
@@ -305,7 +310,10 @@
     "color": "Black",
     "from": "A BATHING APE",
     "info": "",
-    "image": ["A-BATHING-APE-KIMONO-JACKET-0", "A-BATHING-APE-KIMONO-JACKET-1"],
+    "image": [
+      "A-BATHING-APE-KIMONO-JACKET-0",
+      "A-BATHING-APE-KIMONO-JACKET-1"
+    ],
     "imagesUrl": [
       "//uk.bape.com/cdn/shop/files/001LJJ301011_BLK_A.jpg?v=1696955623&width=1000",
       "//uk.bape.com/cdn/shop/files/001LJJ301011_BLK_B.jpg?v=1696955623&width=1000"
@@ -378,6 +386,97 @@
     "imagesUrl": [
       "//uk.bape.com/cdn/shop/products/001LJI201001_PUR_A.jpg?v=1642241844&width=1000",
       "//uk.bape.com/cdn/shop/products/001LJI201001_PUR_B.jpg?v=1642241844&width=1000"
+    ]
+  },
+  {
+    "Brand": "Evisu",
+    "name": "ALLOVER SEAGULL AND KAMON JACQUARD REGULAR FIT DENIM SHORTS",
+    "category": "Bottoms",
+    "id": "",
+    "code": "",
+    "url": "https://www.evisu.com/us/allover-seagull-and-kamon-jacquard-regular-fit-denim-shorts.html",
+    "Price": 325,
+    "currency": "USD",
+    "gender": "Mens",
+    "description": "2ESHTM4DS7050XXDN\n\n\n\n\nCrafted from 10.5-ounce jacquard fabric, our designer has skillfully employed a gradient blending technique to infuse a contemporary essence into the Seagull and Kamon patterns. The addition of shimmering hot drilling craftsmanship to the seagull prints at the back pocket adding a luxurious touch and visually enhances the style of this garment, elevating its overall appeal to a luxurious and trendy level.\n\nRegular fit\n100% Cotton\n10.5oz denim\nAllover Seagull and Kamon jacquard\nDiamond-ironing Seagull\nButton fly, 5 pockets\nGodhead leather patch\n\n\n\n\nFIT & STYLING: REGULAR",
+    "from": "Evisu",
+    "info": "",
+    "image": [
+      "Evisu-ALLOVER-SEAGULL-AND-KAMON-JACQUARD-REGULAR-FIT-DENIM-SHORTS-0",
+      "Evisu-ALLOVER-SEAGULL-AND-KAMON-JACQUARD-REGULAR-FIT-DENIM-SHORTS-1"
+    ],
+    "imagesUrl": [
+      "https://cdn.evisucdn.com/media/catalog/product/2/e/2eshtm4ds7050xxdn-indx_m1_withk271joyliwvt.jpg?quality=80&bg-color=255,255,255&fit=bounds&height=&width=&canvas=:",
+      "https://cdn.evisucdn.com/media/catalog/product/2/e/2eshtm4ds7050xxdn-indx_m2_gnfhavfntredpifk.jpg?quality=80&bg-color=255,255,255&fit=bounds&height=&width=&canvas=:"
+    ]
+  },
+  {
+    "Brand": "Evisu",
+    "name": "SEAGULL AND THE GREAT WAVE EMBROIDERY REGULAR FIT DENIM JACKET",
+    "category": "JACKET",
+    "id": "",
+    "code": "",
+    "url": "https://www.evisu.com/us/seagull-and-the-great-wave-embroidery-regular-fit-denim-jacket-2eshtm4dj7002xxdn.html?color=INDIGO",
+    "Price": 565,
+    "currency": "USD",
+    "gender": "Mens",
+    "description": "2ESHTM4DJ7002XXDN\n\n\n\n\nEVISU’s classic trucker jacket is updated with a touch of Ukiyo-e art. Cut for a regular fit, this jacket features sophisticated embroidery of “The Great Wave off Kanagawa” and the brand’s signature Kamon on the back for a cool take.\n\nRegular fit\n“The Great Wave off Kanagawa” graphic, seagull and Kamon embroidery\nLong sleeves, button fastening, 4 pockets\n\n\n\n\nFIT & STYLING: REGULAR",
+    "color": "INDIGO",
+    "from": "Evisu",
+    "info": "",
+    "image": [
+      "Evisu-SEAGULL-AND-THE-GREAT-WAVE-EMBROIDERY-REGULAR-FIT-DENIM-JACKET-0",
+      "Evisu-SEAGULL-AND-THE-GREAT-WAVE-EMBROIDERY-REGULAR-FIT-DENIM-JACKET-1"
+    ],
+    "imagesUrl": [
+      "https://cdn.evisucdn.com/media/catalog/product/2/e/2eshtm4dj7002xxdn-indx_m1_tb7huzxph56zomf6.jpg?quality=80&bg-color=255,255,255&fit=bounds&height=&width=&canvas=:",
+      "https://cdn.evisucdn.com/media/catalog/product/2/e/2eshtm4dj7002xxdn-indx_m2_t5vgscmq1gfd97dq.jpg?quality=80&bg-color=255,255,255&fit=bounds&height=&width=&canvas=:"
+    ]
+  },
+  {
+    "Brand": "Evisu",
+    "name": "SEAGULL EMBROIDERY GODHEAD PRINT RELAX FIT DENIM JACKET",
+    "category": "JACKET",
+    "id": "",
+    "code": "",
+    "url": "https://www.evisu.com/us/seagull-embroidery-godhead-print-relax-fit-denim-jacket.html?color=INDIGO",
+    "Price": 463.5,
+    "currency": "USD",
+    "gender": "Mens",
+    "description": "2ESHTM4DJ8001RXDN\n\n\n\n\nTaking inspiration from the KOINOBORI culture, this jacket features a Godhead riding a Koinobori on the back, along with a mixed technique logo of embroidery and printing. The front showcases a dual-color embroidered Seagull design with extended lines. The overall jacket has distressed and washed effects, and it is also equipped with military-inspired accessories like logo hanging ribbons and triangular inner plackets on the front closure, showcasing EVISU's exquisite craftsmanship and quality. It creates a rich and vivid aesthetic that is both interesting and captivating.\n\nRelax Fit\n91% Cotton, 9% Viscose\n12.6 oz denim\nDual-color embroidered seagull with extended lines\n'Godhead riding a Koinobori' print and logos with mixed techniques\nFrayed edges and distressed effects\nLogo hanging ribbons and front closure with triangular line design\nButton fastening, 4 pockets\n\n\n\n\nFIT & STYLING: RELAX",
+    "color": "INDIGO",
+    "from": "Evisu",
+    "info": "",
+    "image": [
+      "Evisu-SEAGULL-EMBROIDERY-GODHEAD-PRINT-RELAX-FIT-DENIM-JACKET-0",
+      "Evisu-SEAGULL-EMBROIDERY-GODHEAD-PRINT-RELAX-FIT-DENIM-JACKET-1"
+    ],
+    "imagesUrl": [
+      "https://cdn.evisucdn.com/media/catalog/product/2/e/2eshtm4dj8001rxdn-indm_m1_9j3i8qsz2xmhiypr.jpg?quality=80&bg-color=255,255,255&fit=bounds&height=&width=&canvas=:",
+      "https://cdn.evisucdn.com/media/catalog/product/2/e/2eshtm4dj8001rxdn-indm_m2_zhvtjvgfrnankvzs.jpg?quality=80&bg-color=255,255,255&fit=bounds&height=&width=&canvas=:"
+    ]
+  },
+  {
+    "Brand": "Evisu",
+    "name": "EAGLE AND SAMURAI EMBROIDERY RETRO DENIM JACKET",
+    "category": "JACKET",
+    "id": "",
+    "code": "",
+    "url": "https://www.evisu.com/us/eagle-and-samurai-embroidery-retro-denim-jacket-2eshtm3dj118rxcx.html?color=INDIGO",
+    "Price": 334.75,
+    "currency": "USD",
+    "gender": "Mens",
+    "description": "2ESHTM3DJ118RXCX\n\n\n\n\nDreaming of a fierce eagle that lands on pine branches was considered a realisation of good fortune and luck back in Edo period. This denim jacket draws reference from retro design, featuring a back embroidery of eagle landing on pine tree with a courageous Samurai. The jacket is cut for a relax fit, and equipped with four pockets for optimal functionality.\n\nRelax fit\nEagle, Samurai, EVISU logo and slogans, seagull embroidery\nLong sleeves, 4 pockets\nButton fastening\nGodhead leather patch\n\n\n\n\nFIT & STYLING: RELAX",
+    "color": "INDIGO",
+    "from": "Evisu",
+    "info": "",
+    "image": [
+      "Evisu-EAGLE-AND-SAMURAI-EMBROIDERY-RETRO-DENIM-JACKET-0",
+      "Evisu-EAGLE-AND-SAMURAI-EMBROIDERY-RETRO-DENIM-JACKET-1"
+    ],
+    "imagesUrl": [
+      "https://cdn.evisucdn.com/media/catalog/product/2/e/2eshtm3dj118rxcx-indr_m1_0dmtfcbjzj2iqts0.jpg?quality=80&bg-color=255,255,255&fit=bounds&height=&width=&canvas=:",
+      "https://cdn.evisucdn.com/media/catalog/product/2/e/2eshtm3dj118rxcx-indr_m2_nupe8xwyoqnojpgp.jpg?quality=80&bg-color=255,255,255&fit=bounds&height=&width=&canvas=:"
     ]
   }
 ]
