@@ -584,5 +584,24 @@
     "imagesUrl": [
       "https://cdn-images.farfetch-contents.com/off-white-xray-denim-shorts_22102695_52940173_1000.jpg"
     ]
+  },
+  {
+    "Brand": "Supreme",
+    "name": "Jacquard Soccer Jersey",
+    "category": "TOP",
+    "id": "",
+    "code": "",
+    "url": "https://uk.supreme.com/products/mck7t4w04vnub1vb",
+    "Price": 98,
+    "currency": "GBP",
+    "gender": "Mens",
+    "description": "Poly jersey with jacquard knit graphic. Printed logo and woven patch on chest. Embroidered graphic on back neck and printed graphic on back.",
+    "color": "Blue",
+    "from": "Supreme",
+    "info": "",
+    "image": ["Supreme-Jacquard-Soccer-Jersey-0"],
+    "imagesUrl": [
+      "https://uk.supreme.com/cdn/shop/files/KN31_SS24_TrophiesSoccerJersey_Blue01_Reshoot_720x.jpg?v=1718709105"
+    ]
   }
 ]

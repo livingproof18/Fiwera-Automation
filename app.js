@@ -4,8 +4,8 @@ const path = require('path');
 const axios = require('axios');
 
 
-const BRAND_NAME = "Off-White";
-const CATEGORY_VALUE = "JACKET";
+const BRAND_NAME = "Supreme";
+const CATEGORY_VALUE = "TOP";
 const GENDER = "Mens";
 
 async function getProductDetails(url) {
@@ -35,23 +35,22 @@ async function getProductDetails(url) {
 
     // Wait for the specific elements to ensure they are loaded
     // Cwith fugazi I have to keep chaning the image ids--- longgggg
-    await page.waitForSelector('#image-container4 > div > picture > img');
+    await page.waitForSelector('#MainContent > div.sc-hiTDLB.qVrIJ > div > div.sc-cWUBqk.buBZUq > div > div > img');
     // await page.waitForSelector('#ProductImage-36340024475820');
 
     const details = await page.evaluate((BRAND_NAME, CATEGORY_VALUE, GENDER) => {
         const brand = BRAND_NAME;
-        const name = document.querySelector('#section-wrapper > div.sticky-outer-wrapper.css-1dfgu1b.e1c6gdkz9 > div > div > div.e1c6gdkz7.css-1brj2wq.e79h86v18 > h1')?.innerText.trim();
-        // #section-wrapper > div.sticky-outer-wrapper.css-1dfgu1b.e1c6gdkz9 > div > div > div.e1c6gdkz7.css-1brj2wq.e79h86v18 > h1
+        const name = document.querySelector("#MainContent > div.sc-hiTDLB.qVrIJ > div > div.sc-kGKnMn.cWTLTQ > h1")?.innerText.trim();
 
         const category = CATEGORY_VALUE;
-        const priceText = document.querySelector('#section-wrapper > div.sticky-outer-wrapper.css-1dfgu1b.e1c6gdkz9 > div > div > div.e1c6gdkz7.css-1brj2wq.e79h86v18 > div.e79h86v15.css-ncjfgp.e1933l763 > span')?.innerText.trim();
+        const priceText = document.querySelector('#MainContent > div.sc-hiTDLB.qVrIJ > div > div.sc-kGKnMn.cWTLTQ > h3')?.innerText.trim();
         const price = priceText ? parseFloat(priceText.replace(/[^\d.-]/g, '')) : null;
         const gender = GENDER;
 
-        const descriptionElements = document.querySelector("#section-wrapper > div.sticky-outer-wrapper.css-1dfgu1b.e1c6gdkz9 > div > div > div.e1c6gdkz7.css-1brj2wq.e79h86v18 > div.css-16lmzxg.e79h86v14 > div > div > p")
+        const descriptionElements = document.querySelector("#MainContent > div.sc-hiTDLB.qVrIJ > div > div.sc-kGKnMn.cWTLTQ > div")
         const description = (descriptionElements)?.innerText.trim();
         // const color = document.querySelector("#section-wrapper > div.sticky-outer-wrapper.css-1dfgu1b.e1c6gdkz9.active > div > div > div.e1c6gdkz7.css-1brj2wq.e79h86v18 > div.css-ahry3e.e79h86v8 > ul > li > a > picture > img")?.alt.trim()
-        const color = document.querySelector("#section-wrapper > div.sticky-outer-wrapper.css-1dfgu1b.e1c6gdkz9 > div > div > div.e1c6gdkz7.css-1brj2wq.e79h86v18 > div.css-ahry3e.e79h86v8 > ul > li > a > picture > img")?.alt.trim();
+        const color = document.querySelector("#MainContent > div.sc-hiTDLB.qVrIJ > div > div.sc-kGKnMn.cWTLTQ > h2")?.innerText.trim();
 
         const imagesUrl = [];
         const imageNames = [];
@@ -59,7 +58,7 @@ async function getProductDetails(url) {
         // /Get first Image,
 
 
-        const onlyImage = document.querySelector("#image-container4 > div > picture > img");
+        const onlyImage = document.querySelector("#MainContent > div.sc-hiTDLB.qVrIJ > div > div.sc-cWUBqk.buBZUq > div > div > img");
 
         if (onlyImage) {
             const srcset = onlyImage.getAttribute('srcset');
@@ -74,31 +73,7 @@ async function getProductDetails(url) {
                 imageNames.push(imageName);
             }
         }
-        // const secondImage = document.querySelector("#owl-carousel-gallery > div.owl-stage-outer > div > div:nth-child(2) > div > a > img");
-        // if (secondImage) {
-        //     const srcset = secondImage.getAttribute('srcset');
-        //     if (srcset) {
-        //         const firstSrc = srcset.split(',')[7].trim().split(' ')[0]; // Get the first srcset URL
-        //         imagesUrl.push(firstSrc);
-        //         const imageName = `${brand.replace(/\s+/g, '-')}-${name.replace(/\s+/g, '-')}-1`;
-        //         imageNames.push(imageName);
-        //     }
-        //     else {
-        //         imagesUrl.push(secondImage.src);
-        //         const imageName = `${brand.replace(/\s+/g, '-')}-${name.replace(/\s+/g, '-')}-1`;
-        //         imageNames.push(imageName);
-        //     }
-        // }
-        // const thirdImage = document.querySelector("#slider > div > div > div > div:nth-child(2) > div > div > img");
-        // if (thirdImage) {
-        //     const srcset = thirdImage.getAttribute('srcset');
-        //     if (srcset) {
-        //         const firstSrc = srcset.split(',')[7].trim().split(' ')[0]; // Get the first srcset URL
-        //         imagesUrl.push(firstSrc);
-        //         const imageName = `${brand.replace(/\s+/g, '-')}-${name.replace(/\s+/g, '-')}-1`;
-        //         imageNames.push(imageName);
-        //     }
-        // }
+
 
         return {
             Brand: brand,
@@ -108,7 +83,7 @@ async function getProductDetails(url) {
             code: '',
             url: window.location.href,
             Price: price,
-            currency: 'USD',
+            currency: 'GBP',
             gender: gender,
             description: description,
             color: color,
@@ -173,11 +148,7 @@ async function autoScroll(page) {
 
 (async () => {
     const urls = [
-        // 'https://uk.bape.com/products/0zxdnm144010l?variant=41649598857425',
-        // 'https://www.off---white.com/en-gb/shopping/off-white-full-leather-varsity-jacket-21255521'
-        // 'https://www.off---white.com/en-gb/shopping/off-white-bandana-arrow-crewneck-22102456'
-        // 'https://www.off---white.com/en-gb/shopping/off-white-blue-big-bookish-skate-hoodie-23346668'
-        'https://www.off---white.com/en-gb/shopping/off-white-xray-denim-shorts-22102695',
+        'https://uk.supreme.com/products/mck7t4w04vnub1vb',
         // Add more URLs as needed
     ];
 
