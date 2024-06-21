@@ -603,5 +603,100 @@
     "imagesUrl": [
       "https://uk.supreme.com/cdn/shop/files/KN31_SS24_TrophiesSoccerJersey_Blue01_Reshoot_720x.jpg?v=1718709105"
     ]
+  },
+  {
+    "Brand": "Louis Vuitton",
+    "name": "Mink Gilet",
+    "category": "Jacket",
+    "id": "",
+    "code": "",
+    "url": "https://uk.louisvuitton.com/eng-gb/products/mink-gilet-nvprod4920022v/1AFAKN",
+    "Price": 13600,
+    "currency": "GBP",
+    "gender": "Mens",
+    "description": "This luxuriously soft mink fur gilet is in a deep blue hue inspired by the ethereal tones of the aurora borealis from this clothing collection. It is embellished with a contrasting black intarsia Monogram Flower on the chest and a Louis Vuitton signature at the back. Effortless yet sophisticated, it offers a distinctive winter layering option.",
+    "color": "Oxford Blue",
+    "from": "Louis Vuitton",
+    "info": "",
+    "image": ["Louis-Vuitton-Mink-Gilet-0"],
+    "imagesUrl": [
+      "https://uk.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-mink-gilet--HQL21WAI9611_PM2_Front%20view.png?wid=1090&hei=1090"
+    ]
+  },
+  {
+    "Brand": "Louis Vuitton",
+    "name": "Leather Blouson",
+    "category": "Jacket",
+    "id": "",
+    "code": "",
+    "url": "https://uk.louisvuitton.com/eng-gb/products/leather-blouson-nvprod4920020v/1AFAJW",
+    "Price": 5350,
+    "currency": "GBP",
+    "gender": "Mens",
+    "description": "This sleek Leather Blouson distinguishes an ensemble with its brilliant green, inspired by the luminescent tones of the aurora borealis. The minimalist cut sets off tonal embossed House signatures on the back and chest. This sophisticated piece is easy to pair with both casual and tailored looks.",
+    "color": "Pine Green",
+    "from": "Louis Vuitton",
+    "info": "",
+    "image": ["Louis-Vuitton-Leather-Blouson-0"],
+    "imagesUrl": [
+      "https://uk.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-leather-blouson--HQL15WVN6245_PM2_Front%20view.png?wid=1090&hei=1090"
+    ]
+  },
+  {
+    "Brand": "Louis Vuitton",
+    "name": "Monogram Printed Denim Shorts",
+    "category": "Bottoms",
+    "id": "",
+    "code": "",
+    "url": "https://uk.louisvuitton.com/eng-gb/products/monogram-printed-denim-shorts-nvprod5460015v/1AFQFD",
+    "Price": 1360,
+    "currency": "GBP",
+    "gender": "Mens",
+    "description": "These casual washed denim shorts are perfect for summery days on the beach. Inspired by this collection’s nautical theme, they are embellished with a bleached-effect Monogram Fishnet print incorporating Monogram Flower details. The irregular motif, recalling watery distortions, lends a cool graphic vibe. This piece has a matching short-sleeved shirt for a fresh set.",
+    "color": "Indigo Blue",
+    "from": "Louis Vuitton",
+    "info": "",
+    "image": ["Louis-Vuitton-Monogram-Printed-Denim-Shorts-0"],
+    "imagesUrl": [
+      "https://uk.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-monogram-printed-denim-shorts--HRD24WKOE650_PM2_Front%20view.png?wid=1090&hei=1090"
+    ]
+  },
+  {
+    "Brand": "Louis Vuitton",
+    "name": "Embroidered Denim Blouson",
+    "category": "Jacket",
+    "id": "",
+    "code": "",
+    "url": "https://uk.louisvuitton.com/eng-gb/products/embroidered-denim-blouson-nvprod4920008v/1AF774",
+    "Price": 2630,
+    "currency": "GBP",
+    "gender": "Mens",
+    "description": "This sophisticated denim blouson is inspired by the fluctuating colours of the aurora borealis of this collection. Its graduated tie dye treatment, shifting from black to red, renders each piece unique. An embroidered gradient Monogram adds distinction, beginning at the shoulders and dispersing towards the waist. Perfect for the festive season, this clothing piece has matching trousers for a standout day-to-evening look.",
+    "color": "Red",
+    "from": "Louis Vuitton",
+    "info": "",
+    "image": ["Louis-Vuitton-Embroidered-Denim-Blouson-0"],
+    "imagesUrl": [
+      "https://uk.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-embroidered-denim-blouson--HQA15WTZ0506_PM2_Front%20view.png?wid=1090&hei=1090"
+    ]
+  },
+  {
+    "Brand": "Louis Vuitton",
+    "name": "Mix Leather Varsity Blouson",
+    "category": "Jacket",
+    "id": "",
+    "code": "",
+    "url": "https://uk.louisvuitton.com/eng-gb/products/mix-leather-varsity-blouson-nvprod4940204v/1AFIQA",
+    "Price": 5350,
+    "currency": "GBP",
+    "gender": "Mens",
+    "description": "American tradition meets Louis Vuitton savoir-faire in this vibrant red varsity blouson inspired by Pharrell Williams’ past as a member of the drumline at Princess Anne High School in Virginia. This iconic piece from the Spring-Summer 2024 Show features an embossed tonal Damier on the white calfskin sleeves, a pearl-embroidered Louis Vuitton logo on the back and a crystal-embroidered PA patch on the chest that renders homage to Williams’ story.",
+    "color": "Bright Red",
+    "from": "Louis Vuitton",
+    "info": "",
+    "image": ["Louis-Vuitton-Mix-Leather-Varsity-Blouson-0"],
+    "imagesUrl": [
+      "https://uk.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-mix-leather-varsity-blouson--HQL87EBQV502_PM2_Front%20view.png?wid=1090&hei=1090"
+    ]
   }
 ]
