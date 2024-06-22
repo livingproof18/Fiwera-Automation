@@ -4,9 +4,9 @@ const path = require('path');
 const axios = require('axios');
 
 
-const BRAND_NAME = "Seventh";
-const CATEGORY_VALUE = "Hoodie";
-const GENDER = "Mens & Womens";
+const BRAND_NAME = "Dickies";
+const CATEGORY_VALUE = "Jacket";
+const GENDER = "Mens";
 
 async function getProductDetails(url) {
     console.log("getProductDetails " + url);
@@ -33,28 +33,28 @@ async function getProductDetails(url) {
     console.log("Scroll, and now entering page")
     // Wait for the specific elements to ensure they are loaded
     // Cwith fugazi I have to keep chaning the image ids--- longgggg
-    await page.waitForSelector('#shopify-section-template--22695676870973__main > div:nth-child(6) > div > div > div.md\\:col-span-6.lg\\:col-span-7 > div > div > div:nth-child(2) > img');
+    await page.waitForSelector('#maincontent > div.columns > div > div.product.media > div.gallery-placeholder.product-image-mosaic._block-content-loading > ul > li:nth-child(3) > img.zoomImg');
     // await page.waitForSelector('#ProductImage-36340024475820');
 
     const details = await page.evaluate((BRAND_NAME, CATEGORY_VALUE, GENDER) => {
         const brand = BRAND_NAME;
-        const nameElement = document.querySelector("#shopify-section-template--22695676870973__main > div:nth-child(6) > div > div > div.flex-shrink-0.px-4.py-6.lg\\:pt-10.lg\\:pl-10.lg\\:pr-5.lg\\:sticky.lg\\:top-4.md\\:col-span-6.lg\\:col-span-5.lg\\:self-start > product-form > h1");
+        const nameElement = document.querySelector("#maincontent > div.columns > div > div.product-info-main > div.page-title-wrapper.product > h1 > span");
         const name = nameElement ? nameElement.innerText?.trim() : null;
         console.log('name:', name);
 
         const category = CATEGORY_VALUE;
-        const priceText = document.querySelector("#productPrice4735376162915 > p > span.text-sm")?.innerText?.trim();
+        const priceText = document.querySelector("#product-price-100121 > span")?.innerText?.trim();
         const price = priceText ? parseFloat(priceText.replace(/[^\d.-]/g, '')) : null;
         console.log('price:', price);
 
         const gender = GENDER;
-        const descriptionElement = document.querySelector("#shopify-section-template--22695676870973__main > div:nth-child(6) > div > div > div.flex-shrink-0.px-4.py-6.lg\\:pt-10.lg\\:pl-10.lg\\:pr-5.lg\\:sticky.lg\\:top-4.md\\:col-span-6.lg\\:col-span-5.lg\\:self-start > product-form > details:nth-child(10) > div");
+        const descriptionElement = document.querySelector("#maincontent > div.columns > div > div.product-attribute-desktop > div > div.product-tab-item-desktop.info > div.item-content > div.product-info > div > div > p");
         const description = descriptionElement ? descriptionElement.innerText?.trim() : null;
         console.log('description:', description);
 
         // const description = '';
         // const color = document.querySelector("#product-description-container > div.Product > div.Product__hero.flex.flex-col.md\\:flex-row > div.Product__hero-description-container.relative.flex.items-start.md\\:items-center > div.none.md\\:block.absolute.b0.l0.r0.z1 > div > div.relative.z1 > div > div > div > a.ProductVariantDrawers__color-swatch-wrapper.is-active > span")?.innerText?.trim();
-        const colorElement = document.querySelector("#shopify-section-template--22695676870973__main > div:nth-child(6) > div > div > div.\\[.flex-shrink-0.px-4.py-6.lg\\:pt-10.lg\\:pl-10.lg\\:pr-5.lg\\:sticky.lg\\:top-4.md\\:col-span-6.lg\\:col-span-5.lg\\:self-start.\\] > product-form > div.my-2.lg\\:my-4.flex.lg\\:block.items-center > p");
+        const colorElement = document.querySelector("#option-label-color > span.swatch-attribute-value");
         const color = colorElement ? colorElement.innerText.trim() : null;
         console.log('color:', color);
 
@@ -65,7 +65,8 @@ async function getProductDetails(url) {
         // /Get first Image,
         // console.log("getting image")
 
-        const firstImage = document.querySelector("#shopify-section-template--22695676870973__main > div:nth-child(6) > div > div > div.md\\:col-span-6.lg\\:col-span-7 > div > div > div:nth-child(2) > img");
+        const firstImage = document.querySelector("#maincontent > div.columns > div > div.product.media > div.gallery-placeholder.product-image-mosaic._block-content-loading > ul > li:nth-child(9) > img.zoomImg");
+        // const firstImage = document.querySelector("#maincontent > div.columns > div > div.product.media > div.gallery-placeholder.product-image-mosaic._block-content-loading > ul > li:nth-child(11) > img.zoomImg");
 
         if (firstImage) {
             const srcset = firstImage.getAttribute('srcset');
@@ -81,21 +82,21 @@ async function getProductDetails(url) {
                 imageNames.push(imageName);
             }
         }
-        // const secondImage = document.querySelector("#Image-23062229483614-1400-0");
-        // if (secondImage) {
-        //     const srcset = secondImage.getAttribute('srcset');
-        //     if (srcset) {
-        //         const firstSrc = srcset.split(',')[5].trim().split(' ')[0]; // Get the first srcset URL
-        //         imagesUrl.push(firstSrc);
-        //         const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-1`;
-        //         imageNames.push(imageName);
-        //     }
-        //     else {
-        //         imagesUrl.push(secondImage.src);
-        //         const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-1`;
-        //         imageNames.push(imageName);
-        //     }
-        // }
+        const secondImage = document.querySelector("#maincontent > div.columns > div > div.product.media > div.gallery-placeholder.product-image-mosaic._block-content-loading > ul > li:nth-child(10) > img.zoomImg");
+        if (secondImage) {
+            const srcset = secondImage.getAttribute('srcset');
+            if (srcset) {
+                const firstSrc = srcset.split(',')[1].trim().split(' ')[0]; // Get the first srcset URL
+                imagesUrl.push(firstSrc);
+                const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-1`;
+                imageNames.push(imageName);
+            }
+            else {
+                imagesUrl.push(secondImage.src);
+                const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-1`;
+                imageNames.push(imageName);
+            }
+        }
 
 
         return {
@@ -110,7 +111,7 @@ async function getProductDetails(url) {
             gender: gender,
             description: description,
             color: color,
-            from: 'seventhstores',
+            from: 'dickieslife',
             info: 'Retail Price',
             'image': imageNames,
             'imagesUrl': imagesUrl,
@@ -190,13 +191,9 @@ async function autoScroll(page) {
 
 (async () => {
     const urls = [
-        'https://seventhstores.com/products/copy-of-double-layered-v2-hooded-sweatshirt-in-night',
-        'https://seventhstores.com/collections/shop-all/products/night-v2-stacks-m',
-        'https://seventhstores.com/collections/shop-all/products/cbhs-m',
-        'https://seventhstores.com/collections/shop-all/products/desert-bow-tech-pant',
-        'https://seventhstores.com/collections/shop-all/products/smoke-v2-hoodie',
-        'https://seventhstores.com/collections/shop-all/products/cactus-v2-zipped-hoodie'
-
+        // 'https://www.dickieslife.com/uk_en/newington-jacket-0a4yqn-dble-dye-acd-bl'
+        // 'https://www.dickieslife.com/uk_en/chinese-new-year-eisenhower-jacket-012625-chinese-red',
+        'https://www.dickieslife.com/uk_en/double-knee-denim-trousers-0a4y3f-black-denim?xse_default=true'
 
         // Add more URLs as needed
     ];

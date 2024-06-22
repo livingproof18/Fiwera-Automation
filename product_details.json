@@ -1750,5 +1750,67 @@
     "imagesUrl": [
       "//seventhstores.com/cdn/shop/files/Seventh_08_09_20234227.png?v=1695320289&width=960"
     ]
+  },
+  {
+    "Brand": "Dickies",
+    "name": "Newington Jacket",
+    "category": "Jacket",
+    "id": "",
+    "code": "",
+    "url": "https://www.dickieslife.com/uk_en/newington-jacket-0a4yqn-dble-dye-acd-bl",
+    "Price": 120,
+    "currency": "GBP",
+    "gender": "Mens",
+    "description": "This jacket blends a classic aesthetic with a double-dyed acid wash fabric that creates a stylish and modern stonewashed finish. Add slanted side-entry pockets, a front zip closure and internal pockets to the mix, and you'll get a cold-weather jacket that works hard on laidback days. An extra pocket on the arm offers quick access to your phone and other essentials, making this a jacket you can rely on.",
+    "color": "Black",
+    "from": "dickieslife",
+    "info": "Retail Price",
+    "image": ["Dickies-Newington-Jacket-0", "Dickies-Newington-Jacket-1"],
+    "imagesUrl": [
+      "https://www.dickieslife.com/media/catalog/product/cache/a4fef9ead58a23401f302d3c347a5869/D/K/DK0A4YQNH861-50-1_1_6.jpg",
+      "https://www.dickieslife.com/media/catalog/product/cache/e57fc8bf58628ebb14e1f384e1742bbe/D/K/DK0A4YQNH861-60-1_1_6.jpg"
+    ]
+  },
+  {
+    "Brand": "Dickies",
+    "name": "Washed Denim Eisenhower Jacket",
+    "category": "Jacket",
+    "id": "",
+    "code": "",
+    "url": "https://www.dickieslife.com/uk_en/chinese-new-year-eisenhower-jacket-012625-chinese-red",
+    "Price": 145,
+    "currency": "GBP",
+    "gender": "Mens",
+    "description": "The Washed Denim Eisenhower Jacket was originally developed by General Dwight D. Eisenhower in the first half of the 20th century. This denim jacket has adjustable buttons on the cuffs that ensure a just-right fit, while a handy pen insert keeps your gear safely stashed away.",
+    "color": "Chinese Red",
+    "from": "dickieslife",
+    "info": "Retail Price",
+    "image": ["Dickies-Washed-Denim-Eisenhower-Jacket-0"],
+    "imagesUrl": [
+      "https://www.dickieslife.com/media/catalog/product/cache/a4fef9ead58a23401f302d3c347a5869/d/k/dk012625k351_01.jpg"
+    ]
+  },
+  {
+    "Brand": "Dickies",
+    "name": "Double Knee Denim Trousers",
+    "category": "Bottoms",
+    "id": "",
+    "code": "",
+    "url": "https://www.dickieslife.com/uk_en/double-knee-denim-trousers-0a4y3f-black-denim?xse_default=true",
+    "Price": 85,
+    "currency": "GBP",
+    "gender": "Mens",
+    "description": "Our iconic denim trousers are designed to be hardwearing and comfortable without compromising on laidback style. These relaxed straight fit jeans feature patched detailing at the knee for an authentic look.",
+    "color": "Black",
+    "from": "dickieslife",
+    "info": "Retail Price",
+    "image": [
+      "Dickies-Double-Knee-Denim-Trousers-0",
+      "Dickies-Double-Knee-Denim-Trousers-1"
+    ],
+    "imagesUrl": [
+      "https://www.dickieslife.com/media/catalog/product/cache/a4fef9ead58a23401f302d3c347a5869/D/K/DK0A4Y3FL9D1-50_1_6.jpg",
+      "https://www.dickieslife.com/media/catalog/product/cache/a4fef9ead58a23401f302d3c347a5869/D/K/DK0A4Y3FL9D1-60_1_6.jpg"
+    ]
   }
 ]
