@@ -4,7 +4,7 @@ const path = require('path');
 const axios = require('axios');
 
 
-const BRAND_NAME = "FREE THE YOUTH";
+const BRAND_NAME = "Human Made";
 const CATEGORY_VALUE = "TOP";
 const GENDER = "Mens";
 
@@ -49,23 +49,23 @@ async function getProductDetails(url) {
     console.log("Scroll, and now entering page")
     // Wait for the specific elements to ensure they are loaded
     // Cwith fugazi I have to keep chaning the image ids--- longgggg
-    await page.waitForSelector('#splide01-slide01 > div > div > div > img');
+    await page.waitForSelector('#Slide-template--14627344875556__main-24683360813092 > img');
     // await page.waitForSelector('#ProductImage-36340024475820');
 
     const details = await page.evaluate((BRAND_NAME, CATEGORY_VALUE, GENDER) => {
         const brand = BRAND_NAME;
-        const nameElement = document.querySelector("#shopify-section-template--15735420747932__main > section > div.product-content-container.bg-scheme-background.text-scheme-text.section-x-padding.lg\\:col-span-6 > div > h1");
+        const nameElement = document.querySelector("#product__title");
         const name = nameElement ? nameElement.innerText.trim() : null;
 
         const category = CATEGORY_VALUE;
-        const priceText = document.querySelector("#shopify-section-template--15735420747932__main > section > div.product-content-container.bg-scheme-background.text-scheme-text.section-x-padding.lg\\:col-span-6 > div > div.product-price-block.mt-8.text-base > span:nth-child(2) > span > span:nth-child(1)")?.innerText.trim();
+        const priceText = document.querySelector("#price-template--14627344875556__main > div > div > div.price__regular > div.price-item.price-item--regular")?.innerText.trim();
         const price = priceText ? parseFloat(priceText.replace(/[^\d.-]/g, '')) : null;
         const gender = GENDER;
-        const descriptionElement = document.querySelector("#shopify-section-template--15735420747932__main > section > div.product-content-container.bg-scheme-background.text-scheme-text.section-x-padding.lg\\:col-span-6 > div > div.rte.mt-8 > ul");
+        const descriptionElement = document.querySelector("#ProductInfo-template--14627344875556__main > div.product__description.rte > p:nth-child(1) > span:nth-child(1)");
         const description = descriptionElement ? descriptionElement.innerText.trim() : null;
         // const description = '';
         // const color = document.querySelector("#product-description-container > div.Product > div.Product__hero.flex.flex-col.md\\:flex-row > div.Product__hero-description-container.relative.flex.items-start.md\\:items-center > div.none.md\\:block.absolute.b0.l0.r0.z1 > div > div.relative.z1 > div > div > div > a.ProductVariantDrawers__color-swatch-wrapper.is-active > span")?.innerText.trim();
-        const colorElement = document.querySelector("#shopify-section-template--15735420747932__main > section > div.product-content-container.bg-scheme-background.text-scheme-text.section-x-padding.lg\\:col-span-6 > div > div.rte.mt-8 > ul > li:nth-child(1)");
+        const colorElement = document.querySelector("#lb0 > p");
         const color = colorElement ? colorElement.innerText.trim() : null;
 
         const imagesUrl = [];
@@ -73,7 +73,7 @@ async function getProductDetails(url) {
         // /Get first Image,
         // console.log("getting image")
 
-        const firstImage = document.querySelector("#splide01-slide01 > div > div > div > img")
+        const firstImage = document.querySelector("#Slide-template--14627344875556__main-24683360813092 > img")
 
         if (firstImage) {
             const srcset = firstImage.getAttribute('srcset');
@@ -89,7 +89,7 @@ async function getProductDetails(url) {
                 imageNames.push(imageName);
             }
         }
-        const secondImage = document.querySelector("#splide01-slide02 > div > div > div > img");
+        const secondImage = document.querySelector("#Slide-template--14627344875556__main-24683360845860 > img");
         if (secondImage) {
             const srcset = secondImage.getAttribute('srcset');
             if (srcset) {
@@ -128,7 +128,7 @@ async function getProductDetails(url) {
             gender: gender,
             description: description,
             color: color,
-            from: 'freetheyouth',
+            from: 'humanmade',
             info: 'Retail Price',
             'image': imageNames,
             'imagesUrl': imagesUrl,
@@ -208,10 +208,12 @@ async function autoScroll(page) {
 
 (async () => {
     const urls = [
-        'https://freetheyouth.net/collections/all/products/hero-shorts-navy-blue'
+        'https://humanmade.jp/products/hm27jk015'
+        // 'https://humanmade.jp/products/xx26jk010?variant=41034701897764'
+        // 'https://humanmade.jp/products/xx27jk010'
+        // 'https://humanmade.jp/products/hm27jk024'
+        // 'https://humanmade.jp/products/hm27sh025?variant=41447127842852'
 
-        // 'https://freetheyouth.net/products/fty-new-soccer-jersey-black',
-        // 'https://freetheyouth.net/products/fty-sports-american-football-jersey-new',
         // Add more URLs as needed
     ];
 

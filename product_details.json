@@ -1092,7 +1092,7 @@
     "currency": "GBP",
     "gender": "Mens",
     "description": "navy blue\nmesh design\n\nall-over logo print\nlogo patch to the sides\nelasticated waistband with external drawstring\nstraight leg\nknee-length\ntwo front welt pockets\nWhen buying this unisex item, keep in mind that it is graded in standard men's sizing.",
-    "color": "navy blue",
+    "color": "Navy Blue",
     "from": "freetheyouth",
     "info": "Retail Price",
     "image": [
@@ -1102,6 +1102,112 @@
     "imagesUrl": [
       "//freetheyouth.net/cdn/shop/files/B6813A50-A6C6-447E-AE3F-F3A288FC2B44_700x.png?v=1713458344",
       "//freetheyouth.net/cdn/shop/files/30A3A711-BF29-49CE-94CD-DD3B0713CD6F_700x.png?v=1713890111"
+    ]
+  },
+  {
+    "Brand": "Human Made",
+    "name": "PILE ALOHA SHIRT",
+    "category": "TOP",
+    "id": "",
+    "code": "",
+    "url": "https://humanmade.jp/products/hm27sh025?variant=41447127842852",
+    "Price": 27500,
+    "currency": "YEN",
+    "gender": "Mens",
+    "description": "Aloha shirt in comfortable pile fabric. Details include a heart badge on the left chest and wood buttons. The shirt can be worn with the Pile Shorts in the same material.",
+    "color": "GREEN",
+    "from": "humanmade",
+    "info": "Retail Price",
+    "image": ["Human-Made-PILE-ALOHA-SHIRT-0", "Human-Made-PILE-ALOHA-SHIRT-1"],
+    "imagesUrl": [
+      "https://humanmade.jp/cdn/shop/files/download_6a7b9cb7-1085-43b2-bba3-d1a9ba7bf6e0_1000x.jpg?v=1718687531",
+      "https://humanmade.jp/cdn/shop/files/download_982e02cc-3ce3-4ccf-8e99-e1208b3bf6ce_1000x.jpg?v=1718687531"
+    ]
+  },
+  {
+    "Brand": "Human Made",
+    "name": "DINER JACKET",
+    "category": "JACKET",
+    "id": "",
+    "code": "",
+    "url": "https://humanmade.jp/products/hm27jk024",
+    "Price": 33000,
+    "currency": "YEN",
+    "gender": "Mens",
+    "description": "Light and comfortable nylon jacket that can be worn with ease. Details include patches on both the front and back plus a duck graphic in rubber print.",
+    "color": "Red",
+    "from": "humanmade",
+    "info": "Retail Price",
+    "image": ["Human-Made-DINER-JACKET-0", "Human-Made-DINER-JACKET-1"],
+    "imagesUrl": [
+      "https://humanmade.jp/cdn/shop/files/download_eb297bbb-62b8-43f2-b129-34b24bb0a218_1000x.jpg?v=1715066746",
+      "https://humanmade.jp/cdn/shop/files/download_c925baee-4004-4b05-a134-ddf5485cd771_1000x.jpg?v=1715066746"
+    ]
+  },
+  {
+    "Brand": "Human Made",
+    "name": "DRIZZLER JACKET",
+    "category": "JACKET",
+    "id": "",
+    "code": "",
+    "url": "https://humanmade.jp/products/xx27jk010",
+    "Price": 52800,
+    "currency": "YEN",
+    "gender": "Mens",
+    "description": "Human Made Prototype drizzler jacket with the Verdy-designed brand logo on the left chest and back.",
+    "color": "NAVY",
+    "from": "humanmade",
+    "info": "Retail Price",
+    "image": ["Human-Made-DRIZZLER-JACKET-0", "Human-Made-DRIZZLER-JACKET-1"],
+    "imagesUrl": [
+      "https://humanmade.jp/cdn/shop/files/download_4fef26a2-537f-4b2c-8cea-26661e4c880a_1000x.jpg?v=1712716632",
+      "https://humanmade.jp/cdn/shop/files/download_7c189c89-8908-49fc-89e1-22302fa12a9c_1000x.jpg?v=1712716632"
+    ]
+  },
+  {
+    "Brand": "Human Made",
+    "name": "GDC STADIUM JACKET",
+    "category": "TOP",
+    "id": "",
+    "code": "",
+    "url": "https://humanmade.jp/products/xx26jk010?variant=41034701897764",
+    "Price": 96800,
+    "currency": "YEN",
+    "gender": "Mens",
+    "description": "Wool stadium jacket made in collaboration with Girls Don’t Cry by graphic artist Verdy. Details include the two brands’ logos embroidered on the back.",
+    "color": "RED",
+    "from": "humanmade",
+    "info": "Retail Price",
+    "image": [
+      "Human-Made-GDC-STADIUM-JACKET-0",
+      "Human-Made-GDC-STADIUM-JACKET-1"
+    ],
+    "imagesUrl": [
+      "https://humanmade.jp/cdn/shop/files/download_73971913-0aab-4759-9d43-0a9707811f71_1000x.jpg?v=1711166362",
+      "https://humanmade.jp/cdn/shop/files/download_4ac1d900-75ad-44b9-8aee-c85ba445ce2b_1000x.jpg?v=1711166362"
+    ]
+  },
+  {
+    "Brand": "Human Made",
+    "name": "DENIM WORK JACKET",
+    "category": "TOP",
+    "id": "",
+    "code": "",
+    "url": "https://humanmade.jp/products/hm27jk015",
+    "Price": 55000,
+    "currency": "YEN",
+    "gender": "Mens",
+    "description": "Denim work jacket with chain-stitched graphics. The attention to detail extends to the bar tacks on the heart embroidery.\n\n*Caution when handling indigo dyed products\nPlease do not leave it in direct sunlight for a long time. Avoid leaving it wet. Please do not wash with other items. Please avoid leaving tap water unattended. If you rub it against a white object when it is wet, the color may transfer. Please avoid tumble drying. It will shrink slightly after washing. Accessories may show paint loss or discoloration due to processing.",
+    "color": "INDIGO",
+    "from": "humanmade",
+    "info": "Retail Price",
+    "image": [
+      "Human-Made-DENIM-WORK-JACKET-0",
+      "Human-Made-DENIM-WORK-JACKET-1"
+    ],
+    "imagesUrl": [
+      "https://humanmade.jp/cdn/shop/products/download_6c7d2e52-38c0-4691-bfc1-209bbc16a7f6_1000x.jpg?v=1709890192",
+      "https://humanmade.jp/cdn/shop/products/download_39ede9ff-c7cb-414e-a8b9-aa9605325d56_1000x.jpg?v=1709890087"
     ]
   }
 ]
