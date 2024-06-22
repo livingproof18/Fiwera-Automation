@@ -4,7 +4,7 @@ const path = require('path');
 const axios = require('axios');
 
 
-const BRAND_NAME = "Corteiz";
+const BRAND_NAME = "Nocta";
 const CATEGORY_VALUE = "TOP";
 const GENDER = "Mens";
 
@@ -24,13 +24,13 @@ async function getProductDetails(url) {
 
     await page.goto(url, { waitUntil: 'networkidle2' });
 
-    // Handle cookie modal
-    try {
-        await page.waitForSelector('#onetrust-banner-sdk > div', { timeout: 5000 }); // Change selector to match the actual cookie modal
-        await page.click('#onetrust-accept-btn-handler'); // Change selector to match the actual accept button
-    } catch (error) {
-        console.log('No cookie modal found or failed to accept cookies:', error);
-    }
+    // // Handle cookie modal
+    // try {
+    //     await page.waitForSelector('#onetrust-banner-sdk > div', { timeout: 5000 }); // Change selector to match the actual cookie modal
+    //     await page.click('#onetrust-accept-btn-handler'); // Change selector to match the actual accept button
+    // } catch (error) {
+    //     console.log('No cookie modal found or failed to accept cookies:', error);
+    // }
     // Change country modal
     // Handle change country modal
     // try {
@@ -44,60 +44,58 @@ async function getProductDetails(url) {
     // Scroll down to load all images
     await autoScroll(page);
     // Custom wait function
-    await new Promise(resolve => setTimeout(resolve, 2000)); // Wait for images to load
+    await new Promise(resolve => setTimeout(resolve, 4000)); // Wait for images to load
 
     console.log("Scroll, and now entering page")
-
     // Wait for the specific elements to ensure they are loaded
     // Cwith fugazi I have to keep chaning the image ids--- longgggg
-    await page.waitForSelector('#main > div > div.swiper-slide.swiper-slide-active > div > img');
+    await page.waitForSelector('#image-1');
     // await page.waitForSelector('#ProductImage-36340024475820');
 
     const details = await page.evaluate((BRAND_NAME, CATEGORY_VALUE, GENDER) => {
         const brand = BRAND_NAME;
-        const name = document.querySelector(".ProductInfo__Name-sc-yvcr9v-2")?.innerText.trim();
+        const name = document.querySelector("#product-description-container > div.Product > div.Product__hero.flex.flex-col.md\\:flex-row > div.Product__hero-description-container.relative.flex.items-start.md\\:items-center > div.Product__hero-description-text-container.relative.md\\:absolute.r0.l0.mauto.pb2.md\\:pb0 > h2")?.innerText.trim();
 
         const category = CATEGORY_VALUE;
         const priceText = document.querySelector('#main-page-layout > div > div.ProductDetailPageDesktop__FlexContainer-sc-1l0dpjw-1.kGdLAA > footer > div.ProductTemplateDesktopFooterUpdated__FooterTop-sc-ake9f7-1.fZCCxJ > div.BigBuyBarDesktop__Root-sc-xdkwux-0.llszQj > div > div.BigBuyBarDesktopSwiperSection__Wrapper-sc-196rppg-0.igNAlG > div > div > div:nth-child(3) > div > span')?.innerText.trim();
         const price = priceText ? parseFloat(priceText.replace(/[^\d.-]/g, '')) : null;
         const gender = GENDER;
-        // const description = document.querySelector("#main > div.lv-product > section > div.lv-product-seo-details > p")?.innerText.trim();
-        const description = '';
-        const color = document.querySelector("#pdp-wrapper > div > div.FactsWindow__Wrapper-sc-1hjbbqw-1.bnCzVo > div:nth-child(6) > span.WindowItemShortText__Right-sc-jrzdw-2.XUSFT > button > span")?.innerText.trim();
-
+        const description = document.querySelector("#product-description-container > div.Product > div.Product__hero.flex.flex-col.md\\:flex-row > div.Product__hero-description-container.relative.flex.items-start.md\\:items-center > div.Product__hero-description-text-container.relative.md\\:absolute.r0.l0.mauto.pb2.md\\:pb0 > div")?.innerText.trim();
+        // const description = '';
+        const color = document.querySelector("#product-description-container > div.Product > div.Product__hero.flex.flex-col.md\\:flex-row > div.Product__hero-description-container.relative.flex.items-start.md\\:items-center > div.none.md\\:block.absolute.b0.l0.r0.z1 > div > div.relative.z1 > div > div > div > a.ProductVariantDrawers__color-swatch-wrapper.is-active > span")?.innerText.trim();
         const imagesUrl = [];
         const imageNames = [];
         // /Get first Image,
         // console.log("getting image")
 
-        const firstImage = document.querySelector("#main > div > div.swiper-slide.swiper-slide-active > div > img");
+        const firstImage = document.querySelector("#image-1")
 
         if (firstImage) {
             const srcset = firstImage.getAttribute('srcset');
             if (srcset) {
-                const firstSrc = srcset.split(',')[19].trim().split(' ')[0]; // Get the first srcset URL
+                const firstSrc = srcset.split(',')[0].trim().split(' ')[0]; // Get the first srcset URL
                 imagesUrl.push(firstSrc);
-                // const imageName = `${brand.replace(/\s+/g, '-')}-${name.replace(/\s+/g, '-')}-0`;
-                const imageName = `${brand.replace(/\s+/g, '-').replace(/\//g, '-').replace(/'/g, '')}-${name.replace(/\s+/g, '-').replace(/\//g, '-').replace(/'/g, '')}-0`;
+                const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-0`;
+                // const imageName = `${brand.replace(/\s+/g, '-').replace(/\//g, '-').replace(/'/g, '')}-${name.replace(/\s+/g, '-').replace(/\//g, '-').replace(/'/g, '')}-0`;
                 imageNames.push(imageName);
             } else {
                 imagesUrl.push(firstImage.src);
-                const imageName = `${brand.replace(/\s+/g, '-').replace(/\//g, '-').replace(/'/g, '')}-${name.replace(/\s+/g, '-').replace(/\//g, '-').replace(/'/g, '')}-0`;
+                const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-0`;
                 imageNames.push(imageName);
             }
         }
-        const secondImage = document.querySelector("#main > div > div.swiper-slide.swiper-slide-next > div > img");
+        const secondImage = document.querySelector("#image-2");
         if (secondImage) {
             const srcset = secondImage.getAttribute('srcset');
             if (srcset) {
-                const firstSrc = srcset.split(',')[19].trim().split(' ')[0]; // Get the first srcset URL
+                const firstSrc = srcset.split(',')[0].trim().split(' ')[0]; // Get the first srcset URL
                 imagesUrl.push(firstSrc);
-                const imageName = `${brand.replace(/\s+/g, '-').replace(/\//g, '-').replace(/'/g, '')}-${name.replace(/\s+/g, '-').replace(/\//g, '-').replace(/'/g, '')}-1`;
+                const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-1`;
                 imageNames.push(imageName);
             }
             else {
                 imagesUrl.push(secondImage.src);
-                const imageName = `${brand.replace(/\s+/g, '-').replace(/\//g, '-').replace(/'/g, '')}-${name.replace(/\s+/g, '-').replace(/\//g, '-').replace(/'/g, '')}-1`;
+                const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-1`;
                 imageNames.push(imageName);
             }
         }
@@ -125,7 +123,7 @@ async function getProductDetails(url) {
             gender: gender,
             description: description,
             color: color,
-            from: 'GOAT',
+            from: 'nocta',
             info: 'Retail Price',
             'image': imageNames,
             'imagesUrl': imagesUrl,
@@ -205,9 +203,9 @@ async function autoScroll(page) {
 
 (async () => {
     const urls = [
-        'https://www.goat.com/en-gb/apparel/corteiz-club-rtw-football-jersey-blue-7892-1ss230109crfj-blue',
-        'https://www.goat.com/en-gb/apparel/corteiz-club-rtw-football-jersey-black-7892-1fw230109crfj-blac',
-        'https://www.goat.com/en-gb/apparel/corteiz-mula-guerillaz-cargos-black-green-7892-1ss220210mgc-blac'
+        'https://www.nocta.com/en-gb/products/champions-league-crewneck',
+        'https://www.nocta.com/products/lart-racing-jacket-blue',
+        // 'https://www.nocta.com/en-gb/products/drx-long-sleeve'
         // 'https://uk.louisvuitton.com/eng-gb/products/monogram-printed-denim-shorts-nvprod5460015v/1AFQFD'
         // Add more URLs as needed
     ];
