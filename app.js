@@ -4,7 +4,7 @@ const path = require('path');
 const axios = require('axios');
 
 
-const BRAND_NAME = "Human Made";
+const BRAND_NAME = "Kenzo";
 const CATEGORY_VALUE = "TOP";
 const GENDER = "Mens";
 
@@ -49,23 +49,23 @@ async function getProductDetails(url) {
     console.log("Scroll, and now entering page")
     // Wait for the specific elements to ensure they are loaded
     // Cwith fugazi I have to keep chaning the image ids--- longgggg
-    await page.waitForSelector('#Slide-template--14627344875556__main-24683360813092 > img');
+    await page.waitForSelector('#maincontent > div.pdp-container.product-detail > div.swiper > div.swiper-wrapper.zoom-wrapper > picture:nth-child(1) > img');
     // await page.waitForSelector('#ProductImage-36340024475820');
 
     const details = await page.evaluate((BRAND_NAME, CATEGORY_VALUE, GENDER) => {
         const brand = BRAND_NAME;
-        const nameElement = document.querySelector("#product__title");
+        const nameElement = document.querySelector("#maincontent > div.pdp-container.product-detail > div:nth-child(3) > div > div:nth-child(2) > div.title > h1");
         const name = nameElement ? nameElement.innerText.trim() : null;
 
         const category = CATEGORY_VALUE;
-        const priceText = document.querySelector("#price-template--14627344875556__main > div > div > div.price__regular > div.price-item.price-item--regular")?.innerText.trim();
+        const priceText = document.querySelector("#maincontent > div.pdp-container.product-detail > div:nth-child(3) > div > div:nth-child(2) > div.t-big.mt-4 > div > span")?.innerText.trim();
         const price = priceText ? parseFloat(priceText.replace(/[^\d.-]/g, '')) : null;
         const gender = GENDER;
-        const descriptionElement = document.querySelector("#ProductInfo-template--14627344875556__main > div.product__description.rte > p:nth-child(1) > span:nth-child(1)");
+        const descriptionElement = document.querySelector("#product-description-panel > div");
         const description = descriptionElement ? descriptionElement.innerText.trim() : null;
         // const description = '';
         // const color = document.querySelector("#product-description-container > div.Product > div.Product__hero.flex.flex-col.md\\:flex-row > div.Product__hero-description-container.relative.flex.items-start.md\\:items-center > div.none.md\\:block.absolute.b0.l0.r0.z1 > div > div.relative.z1 > div > div > div > a.ProductVariantDrawers__color-swatch-wrapper.is-active > span")?.innerText.trim();
-        const colorElement = document.querySelector("#lb0 > p");
+        const colorElement = document.querySelector("#maincontent > div.pdp-container.product-detail > div:nth-child(3) > div > div:nth-child(3) > div:nth-child(1) > div.title.t-body.lh-17 > span.info.t-capitalize");
         const color = colorElement ? colorElement.innerText.trim() : null;
 
         const imagesUrl = [];
@@ -73,7 +73,7 @@ async function getProductDetails(url) {
         // /Get first Image,
         // console.log("getting image")
 
-        const firstImage = document.querySelector("#Slide-template--14627344875556__main-24683360813092 > img")
+        const firstImage = document.querySelector("#maincontent > div.pdp-container.product-detail > div.swiper > div.swiper-wrapper.zoom-wrapper > picture:nth-child(1) > img")
 
         if (firstImage) {
             const srcset = firstImage.getAttribute('srcset');
@@ -89,7 +89,7 @@ async function getProductDetails(url) {
                 imageNames.push(imageName);
             }
         }
-        const secondImage = document.querySelector("#Slide-template--14627344875556__main-24683360845860 > img");
+        const secondImage = document.querySelector("#maincontent > div.pdp-container.product-detail > div.swiper > div.swiper-wrapper.zoom-wrapper > picture:nth-child(2) > img");
         if (secondImage) {
             const srcset = secondImage.getAttribute('srcset');
             if (srcset) {
@@ -128,7 +128,7 @@ async function getProductDetails(url) {
             gender: gender,
             description: description,
             color: color,
-            from: 'humanmade',
+            from: 'kenzo',
             info: 'Retail Price',
             'image': imageNames,
             'imagesUrl': imagesUrl,
@@ -208,11 +208,18 @@ async function autoScroll(page) {
 
 (async () => {
     const urls = [
-        'https://humanmade.jp/products/hm27jk015'
-        // 'https://humanmade.jp/products/xx26jk010?variant=41034701897764'
-        // 'https://humanmade.jp/products/xx27jk010'
-        // 'https://humanmade.jp/products/hm27jk024'
-        // 'https://humanmade.jp/products/hm27sh025?variant=41447127842852'
+        // 'https://www.kenzo.com/en-gb/kenzo-orange-hawaiian-shirt/FE55CH1119LO.64.html',
+        // 'https://www.kenzo.com/en-gb/kenzo-by-verdy-sleeveless-jumper/FE55PU4583CB.77.html',
+        // 'https://www.kenzo.com/en-gb/kenzo-fruit-stickers-waistcoat/FE55PU0103BH.02.html',
+        'https://www.kenzo.com/en-gb/boke-flower-embroidered-sleeveless--wool-jumper/FE65PU4863LC.11.html',
+        'https://www.kenzo.com/en-gb/kenzo-constellation-hawaiian-shirt/FE65CH1199LI.01.html',
+        'https://www.kenzo.com/en-gb/kenzo-drawn-varsity-embroidered-genderless-jumper/FE58PU0063BF.02.html',
+        'https://www.kenzo.com/en-gb/boke-flower-trucker-jacket-in-japanese-denim/FE65DV3016C1.BM.html',
+        'https://www.kenzo.com/en-gb/kenzo-constellation-embroidered-kimono-in-japanese-denim/FE65DV1426A1.DM.html',
+        'https://www.kenzo.com/en-gb/kenzo-by-verdy-cropped-jacket/FE55BL1659OX.12.html',
+        'https://www.kenzo.com/en-gb/kenzo-by-verdy-genderless-motorcycle-jacket/FE58LB1420AA.99J.html',
+        'https://www.kenzo.com/en-gb/kenzo-by-verdy-genderless-varsity-jacket/FE58BL1459OH.51.html',
+        'https://www.kenzo.com/en-gb/kenzo-constellation-embroidered-zipped-hoodie/FE65SW2294MG.99J.html'
 
         // Add more URLs as needed
     ];
