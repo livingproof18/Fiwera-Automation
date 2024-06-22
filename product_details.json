@@ -939,5 +939,100 @@
       "//bbcicecream.eu/cdn/shop/files/ICD003_BLACK_01_1_1080x.png?v=1715611260",
       "//bbcicecream.eu/cdn/shop/files/ICD003_BLACK_01_2_1080x.png?v=1715611259"
     ]
+  },
+  {
+    "Brand": "Acne Studios",
+    "name": "DENIM BIKER TROUSERS",
+    "category": "Bottoms",
+    "id": "",
+    "code": "",
+    "url": "https://www.acnestudios.com/uk/en/denim-biker-trousers-mid-blue/BK0597-863.html?g=man",
+    "Price": 630,
+    "currency": "GBP",
+    "gender": "Mens",
+    "description": "Biker trousers are cut to a loose fit with a low waist, straight leg and regular length. Crafted a non-stretch denim in a mid blue wash and detailed with foam protection on the knees.",
+    "color": "Mid Blue",
+    "from": "acnestudios",
+    "info": "Retail Price",
+    "image": ["Acne-Studios-DENIM-BIKER-TROUSERS-0"],
+    "imagesUrl": [
+      "https://www.acnestudios.com/dw/image/v2/AAXV_PRD/on/demandware.static/-/Sites-acne-product-catalog/default/dwf5f2262d/images/BK/BK0597-/2000x/BK0597-863_G.jpg?sw=1500&sh=2250"
+    ]
+  },
+  {
+    "Brand": "Acne Studios",
+    "name": "BIKER LEATHER JACKET",
+    "category": "JACKET",
+    "id": "",
+    "code": "",
+    "url": "https://www.acnestudios.com/uk/en/biker-leather-jacket-black/B70148-900.html?g=man",
+    "Price": 2100,
+    "currency": "GBP",
+    "gender": "Mens",
+    "description": "Biker jacket is crafted from leather with pigmented finish, detailed with an embossed Acne Studios patch at the back. Complete with zipper closure, pockets and cuffs. Cut to a relaxed fit with extra long sleeves and below hip length.",
+    "color": "Black",
+    "from": "acnestudios",
+    "info": "Retail Price",
+    "image": ["Acne-Studios-BIKER-LEATHER-JACKET-0"],
+    "imagesUrl": [
+      "https://www.acnestudios.com/dw/image/v2/AAXV_PRD/on/demandware.static/-/Sites-acne-product-catalog/default/dw04288cb8/images/B7/B70148-/2000x/B70148-900_E.jpg?sw=1120&sh=1680"
+    ]
+  },
+  {
+    "Brand": "Acne Studios",
+    "name": "LEATHER JACKET",
+    "category": "JACKET",
+    "id": "",
+    "code": "",
+    "url": "https://www.acnestudios.com/uk/en/leather-jacket-brown/B70138-700.html?g=man",
+    "Price": 1700,
+    "currency": "GBP",
+    "gender": "Mens",
+    "description": "Zipper jacket is cut to a regular fit and hip length. Crafted from nappa leather with a painted finish , detailed with an Acne Studios trademark logo on the lower back sleeve.",
+    "color": "Brown",
+    "from": "acnestudios",
+    "info": "Retail Price",
+    "image": ["Acne-Studios-LEATHER-JACKET-0"],
+    "imagesUrl": [
+      "https://www.acnestudios.com/dw/image/v2/AAXV_PRD/on/demandware.static/-/Sites-acne-product-catalog/default/dw5e72549b/images/B7/B70138-/2000x/B70138-700_F.jpg?sw=1120&sh=1680"
+    ]
+  },
+  {
+    "Brand": "Acne Studios",
+    "name": "RELAXED FIT WAXED JEANS",
+    "category": "Bottoms",
+    "id": "",
+    "code": "",
+    "url": "https://www.acnestudios.com/uk/en/relaxed-fit-waxed-jeans-caramel-white/AK0762-AII.html?g=woman",
+    "Price": 360,
+    "currency": "GBP",
+    "gender": "Mens",
+    "description": "Jeans are cut to a relaxed fit with a low waist, wide leg and long length. Crafted from non-stretch cotton denim with a wax coating.",
+    "color": "Caramel/white",
+    "from": "acnestudios",
+    "info": "Retail Price",
+    "image": ["Acne-Studios-RELAXED-FIT-WAXED-JEANS-0"],
+    "imagesUrl": [
+      "https://www.acnestudios.com/dw/image/v2/AAXV_PRD/on/demandware.static/-/Sites-acne-product-catalog/default/dwd304075e/images/AK/AK0762-/2000x/AK0762-AII_F.jpg?sw=1120&sh=1680"
+    ]
+  },
+  {
+    "Brand": "Acne Studios",
+    "name": "LOOSE FIT JEANS - 1981M",
+    "category": "JACKET",
+    "id": "",
+    "code": "",
+    "url": "https://www.acnestudios.com/uk/en/acne-studios-1981m-vintage-black/B00375-900.html?g=man",
+    "Price": 390,
+    "currency": "GBP",
+    "gender": "Mens",
+    "description": "1981M jeans are cut to a loose fit with a low waist, wide leg and long length. Crafted from non stretch denim in black wash.",
+    "color": "Black",
+    "from": "acnestudios",
+    "info": "Retail Price",
+    "image": ["Acne-Studios-LOOSE-FIT-JEANS---1981M-0"],
+    "imagesUrl": [
+      "https://www.acnestudios.com/dw/image/v2/AAXV_PRD/on/demandware.static/-/Sites-acne-product-catalog/default/dwbf428a92/images/B0/B00375-/2000x/B00375-900_Y.jpg?sw=1120&sh=1680"
+    ]
   }
 ]

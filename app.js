@@ -4,7 +4,7 @@ const path = require('path');
 const axios = require('axios');
 
 
-const BRAND_NAME = "Billionaire Boys Club";
+const BRAND_NAME = "Acne Studios";
 const CATEGORY_VALUE = "JACKET";
 const GENDER = "Mens";
 
@@ -49,32 +49,32 @@ async function getProductDetails(url) {
     console.log("Scroll, and now entering page")
     // Wait for the specific elements to ensure they are loaded
     // Cwith fugazi I have to keep chaning the image ids--- longgggg
-    await page.waitForSelector('#Image-23031059546206-1400-0');
+    await page.waitForSelector('#productGallery > div.horizontal-slider__slider > div:nth-child(6) > picture > img');
     // await page.waitForSelector('#ProductImage-36340024475820');
 
     const details = await page.evaluate((BRAND_NAME, CATEGORY_VALUE, GENDER) => {
         const brand = BRAND_NAME;
-        const name = document.querySelector("#shopify-section-template--14244478156894__main > div.prd-Product_Inner.lyt-Container.js-ProductImages.show-desktop > div > div > div.prd-Product_GridItem.prd-Product_GridItem-details > div > div > header > h1")?.innerText.trim();
+        const name = document.querySelector("#main > div > div:nth-child(3) > div.grid.text--no-case > div:nth-child(2) > div > div.as-cell.grid.grid--auto-rows > h1")?.innerText.trim();
 
         const category = CATEGORY_VALUE;
-        const priceText = document.querySelector("#shopify-section-template--14244478156894__main > div.prd-Product_Inner.lyt-Container.js-ProductImages.show-desktop > div > div > div.prd-Product_GridItem.prd-Product_GridItem-details > div > div > header > div > div > span.prd-Price_Price.js-Product_Price > span")?.innerText.trim();
+        const priceText = document.querySelector("#main > div > div:nth-child(3) > div.grid.text--no-case > div:nth-child(2) > div > div.as-cell.grid.grid--auto-rows > div > div > span > span > span")?.innerText.trim();
         const price = priceText ? parseFloat(priceText.replace(/[^\d.-]/g, '')) : null;
         const gender = GENDER;
-        const description = document.querySelector("#shopify-section-template--14244478156894__main > div.prd-Product_Inner.lyt-Container.js-ProductImages.show-desktop > div > div > div.prd-Product_GridItem.prd-Product_GridItem-details > div > div > header > p")?.innerText.trim();
+        const description = document.querySelector("#productDescription > div > p")?.innerText.trim();
         // const description = '';
         // const color = document.querySelector("#product-description-container > div.Product > div.Product__hero.flex.flex-col.md\\:flex-row > div.Product__hero-description-container.relative.flex.items-start.md\\:items-center > div.none.md\\:block.absolute.b0.l0.r0.z1 > div > div.relative.z1 > div > div > div > a.ProductVariantDrawers__color-swatch-wrapper.is-active > span")?.innerText.trim();
-        const color = "Black"
+        const color = document.querySelector("#main > div > div:nth-child(3) > div.grid.text--no-case > div:nth-child(2) > div > div.as-cell.grid.grid--auto-rows > h2")?.innerText.trim();
         const imagesUrl = [];
         const imageNames = [];
         // /Get first Image,
         // console.log("getting image")
 
-        const firstImage = document.querySelector("#Image-23031059546206-1400-0")
+        const firstImage = document.querySelector("#productGallery > div.horizontal-slider__slider > div:nth-child(6) > picture > img")
 
         if (firstImage) {
             const srcset = firstImage.getAttribute('srcset');
             if (srcset) {
-                const firstSrc = srcset.split(',')[5].trim().split(' ')[0]; // Get the first srcset URL
+                const firstSrc = srcset.split(',')[4].trim().split(' ')[0]; // Get the first srcset URL
                 imagesUrl.push(firstSrc);
                 const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-0`;
                 // const imageName = `${brand.replace(/\s+/g, '-').replace(/\//g, '-').replace(/'/g, '')}-${name.replace(/\s+/g, '-').replace(/\//g, '-').replace(/'/g, '')}-0`;
@@ -85,21 +85,21 @@ async function getProductDetails(url) {
                 imageNames.push(imageName);
             }
         }
-        const secondImage = document.querySelector("#Image-23031059578974-1400-0");
-        if (secondImage) {
-            const srcset = secondImage.getAttribute('srcset');
-            if (srcset) {
-                const firstSrc = srcset.split(',')[5].trim().split(' ')[0]; // Get the first srcset URL
-                imagesUrl.push(firstSrc);
-                const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-1`;
-                imageNames.push(imageName);
-            }
-            else {
-                imagesUrl.push(secondImage.src);
-                const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-1`;
-                imageNames.push(imageName);
-            }
-        }
+        // const secondImage = document.querySelector("#Image-23031059578974-1400-0");
+        // if (secondImage) {
+        //     const srcset = secondImage.getAttribute('srcset');
+        //     if (srcset) {
+        //         const firstSrc = srcset.split(',')[5].trim().split(' ')[0]; // Get the first srcset URL
+        //         imagesUrl.push(firstSrc);
+        //         const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-1`;
+        //         imageNames.push(imageName);
+        //     }
+        //     else {
+        //         imagesUrl.push(secondImage.src);
+        //         const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-1`;
+        //         imageNames.push(imageName);
+        //     }
+        // }
         // const thirdImage = document.querySelector("#slider > div > div > div > div:nth-child(2) > div > div > img");
         // if (thirdImage) {
         //     const srcset = thirdImage.getAttribute('srcset');
@@ -124,7 +124,7 @@ async function getProductDetails(url) {
             gender: gender,
             description: description,
             color: color,
-            from: 'bbcicecream',
+            from: 'acnestudios',
             info: 'Retail Price',
             'image': imageNames,
             'imagesUrl': imagesUrl,
@@ -204,11 +204,10 @@ async function autoScroll(page) {
 
 (async () => {
     const urls = [
-        'https://bbcicecream.eu/products/running-dog-denim-shorts-black-2'
-        // 'https://bbcicecream.eu/products/running-dog-denim-trucker-jacket-black'
-        // 'https://bbcicecream.eu/products/running-dog-denim-shorts-black-2'
-        // 'https://www.nocta.com/en-gb/products/drx-long-sleeve'
-        // 'https://uk.louisvuitton.com/eng-gb/products/monogram-printed-denim-shorts-nvprod5460015v/1AFQFD'
+        // 'https://www.acnestudios.com/uk/en/biker-leather-jacket-black/B70148-900.html?g=man'
+        // 'https://www.acnestudios.com/uk/en/leather-jacket-brown/B70138-700.html?g=man'
+        // 'https://www.acnestudios.com/uk/en/relaxed-fit-waxed-jeans-caramel-white/AK0762-AII.html?g=woman'
+        'https://www.acnestudios.com/uk/en/acne-studios-1981m-vintage-black/B00375-900.html?g=man'
         // Add more URLs as needed
     ];
 
