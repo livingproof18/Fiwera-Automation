@@ -1034,5 +1034,74 @@
     "imagesUrl": [
       "https://www.acnestudios.com/dw/image/v2/AAXV_PRD/on/demandware.static/-/Sites-acne-product-catalog/default/dwbf428a92/images/B0/B00375-/2000x/B00375-900_Y.jpg?sw=1120&sh=1680"
     ]
+  },
+  {
+    "Brand": "FREE THE YOUTH",
+    "name": "FTY NEW SOCCER JERSEY - NAVY BLUE",
+    "category": "TOP",
+    "id": "",
+    "code": "",
+    "url": "https://freetheyouth.net/products/fty-new-soccer-jersey-black",
+    "Price": 78.67,
+    "currency": "GBP",
+    "gender": "Mens",
+    "description": "Navy Blue\nPatch detail\nStripe detailing\nAppliqué detail\nNumber logo print to the front & rear\nLogo patch at the sleeve\nCollar-neck\nShort sleeves\nStraight hem\nWhen buying this unisex item, keep in mind that it is graded in standard men's sizing.",
+    "color": "Navy Blue",
+    "from": "freetheyouth",
+    "info": "Retail Price",
+    "image": [
+      "FREE-THE-YOUTH-FTY-NEW-SOCCER-JERSEY---NAVY-BLUE-0",
+      "FREE-THE-YOUTH-FTY-NEW-SOCCER-JERSEY---NAVY-BLUE-1"
+    ],
+    "imagesUrl": [
+      "//freetheyouth.net/cdn/shop/files/FTY05_003_1080x.png?v=1700744643",
+      "//freetheyouth.net/cdn/shop/files/FTY05_004_1080x.png?v=1700744655"
+    ]
+  },
+  {
+    "Brand": "FREE THE YOUTH",
+    "name": "FTY NEW AMERICAN FOOTBALL JERSEY - GREEN",
+    "category": "TOP",
+    "id": "",
+    "code": "",
+    "url": "https://freetheyouth.net/products/fty-sports-american-football-jersey-new",
+    "Price": 78.67,
+    "currency": "GBP",
+    "gender": "Mens",
+    "description": "Green\nPatch detail\nStripe detailing\nAppliqué detail\nNumber logo print to the front & rear\nLogo patch at the sleeve\nV-neck\nShort sleeves\nStraight hem\nWhen buying this unisex item, keep in mind that it is graded in standard men's sizing.",
+    "color": "Green",
+    "from": "freetheyouth",
+    "info": "Retail Price",
+    "image": [
+      "FREE-THE-YOUTH-FTY-NEW-AMERICAN-FOOTBALL-JERSEY---GREEN-0",
+      "FREE-THE-YOUTH-FTY-NEW-AMERICAN-FOOTBALL-JERSEY---GREEN-1"
+    ],
+    "imagesUrl": [
+      "//freetheyouth.net/cdn/shop/files/FTY05_005_1080x.png?v=1700743970",
+      "//freetheyouth.net/cdn/shop/files/FTY05_006_1080x.png?v=1700743983"
+    ]
+  },
+  {
+    "Brand": "FREE THE YOUTH",
+    "name": "HERO SHORTS - NAVY BLUE",
+    "category": "Bottoms",
+    "id": "",
+    "code": "",
+    "url": "https://freetheyouth.net/collections/all/products/hero-shorts-navy-blue",
+    "Price": 44.58,
+    "currency": "GBP",
+    "gender": "Mens",
+    "description": "navy blue\nmesh design\n\nall-over logo print\nlogo patch to the sides\nelasticated waistband with external drawstring\nstraight leg\nknee-length\ntwo front welt pockets\nWhen buying this unisex item, keep in mind that it is graded in standard men's sizing.",
+    "color": "navy blue",
+    "from": "freetheyouth",
+    "info": "Retail Price",
+    "image": [
+      "FREE-THE-YOUTH-HERO-SHORTS---NAVY-BLUE-0",
+      "FREE-THE-YOUTH-HERO-SHORTS---NAVY-BLUE-1"
+    ],
+    "imagesUrl": [
+      "//freetheyouth.net/cdn/shop/files/B6813A50-A6C6-447E-AE3F-F3A288FC2B44_700x.png?v=1713458344",
+      "//freetheyouth.net/cdn/shop/files/30A3A711-BF29-49CE-94CD-DD3B0713CD6F_700x.png?v=1713890111"
+    ]
   }
 ]
