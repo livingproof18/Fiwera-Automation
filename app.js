@@ -4,9 +4,9 @@ const path = require('path');
 const axios = require('axios');
 
 
-const BRAND_NAME = "Kenzo";
-const CATEGORY_VALUE = "TOP";
-const GENDER = "Mens";
+const BRAND_NAME = "Seventh";
+const CATEGORY_VALUE = "Hoodie";
+const GENDER = "Mens & Womens";
 
 async function getProductDetails(url) {
     console.log("getProductDetails " + url);
@@ -24,22 +24,6 @@ async function getProductDetails(url) {
 
     await page.goto(url, { waitUntil: 'networkidle2' });
 
-    // // Handle cookie modal
-    // try {
-    //     await page.waitForSelector('#onetrust-banner-sdk > div', { timeout: 5000 }); // Change selector to match the actual cookie modal
-    //     await page.click('#onetrust-accept-btn-handler'); // Change selector to match the actual accept button
-    // } catch (error) {
-    //     console.log('No cookie modal found or failed to accept cookies:', error);
-    // }
-    // Change country modal
-    // Handle change country modal
-    // try {
-    //     await page.waitForSelector('#modalContent', { timeout: 5000 });
-    //     await page.click('#modalContent > div.lv-localize-modal__other-wrapper > button');
-    // } catch (error) {
-    //     console.log('No region modal found or failed to accept region selection:', error);
-    // }
-
 
     // Scroll down to load all images
     await autoScroll(page);
@@ -49,36 +33,44 @@ async function getProductDetails(url) {
     console.log("Scroll, and now entering page")
     // Wait for the specific elements to ensure they are loaded
     // Cwith fugazi I have to keep chaning the image ids--- longgggg
-    await page.waitForSelector('#maincontent > div.pdp-container.product-detail > div.swiper > div.swiper-wrapper.zoom-wrapper > picture:nth-child(1) > img');
+    await page.waitForSelector('#shopify-section-template--22695676870973__main > div:nth-child(6) > div > div > div.md\\:col-span-6.lg\\:col-span-7 > div > div > div:nth-child(2) > img');
     // await page.waitForSelector('#ProductImage-36340024475820');
 
     const details = await page.evaluate((BRAND_NAME, CATEGORY_VALUE, GENDER) => {
         const brand = BRAND_NAME;
-        const nameElement = document.querySelector("#maincontent > div.pdp-container.product-detail > div:nth-child(3) > div > div:nth-child(2) > div.title > h1");
-        const name = nameElement ? nameElement.innerText.trim() : null;
+        const nameElement = document.querySelector("#shopify-section-template--22695676870973__main > div:nth-child(6) > div > div > div.flex-shrink-0.px-4.py-6.lg\\:pt-10.lg\\:pl-10.lg\\:pr-5.lg\\:sticky.lg\\:top-4.md\\:col-span-6.lg\\:col-span-5.lg\\:self-start > product-form > h1");
+        const name = nameElement ? nameElement.innerText?.trim() : null;
+        console.log('name:', name);
 
         const category = CATEGORY_VALUE;
-        const priceText = document.querySelector("#maincontent > div.pdp-container.product-detail > div:nth-child(3) > div > div:nth-child(2) > div.t-big.mt-4 > div > span")?.innerText.trim();
+        const priceText = document.querySelector("#productPrice4735376162915 > p > span.text-sm")?.innerText?.trim();
         const price = priceText ? parseFloat(priceText.replace(/[^\d.-]/g, '')) : null;
+        console.log('price:', price);
+
         const gender = GENDER;
-        const descriptionElement = document.querySelector("#product-description-panel > div");
-        const description = descriptionElement ? descriptionElement.innerText.trim() : null;
+        const descriptionElement = document.querySelector("#shopify-section-template--22695676870973__main > div:nth-child(6) > div > div > div.flex-shrink-0.px-4.py-6.lg\\:pt-10.lg\\:pl-10.lg\\:pr-5.lg\\:sticky.lg\\:top-4.md\\:col-span-6.lg\\:col-span-5.lg\\:self-start > product-form > details:nth-child(10) > div");
+        const description = descriptionElement ? descriptionElement.innerText?.trim() : null;
+        console.log('description:', description);
+
         // const description = '';
-        // const color = document.querySelector("#product-description-container > div.Product > div.Product__hero.flex.flex-col.md\\:flex-row > div.Product__hero-description-container.relative.flex.items-start.md\\:items-center > div.none.md\\:block.absolute.b0.l0.r0.z1 > div > div.relative.z1 > div > div > div > a.ProductVariantDrawers__color-swatch-wrapper.is-active > span")?.innerText.trim();
-        const colorElement = document.querySelector("#maincontent > div.pdp-container.product-detail > div:nth-child(3) > div > div:nth-child(3) > div:nth-child(1) > div.title.t-body.lh-17 > span.info.t-capitalize");
+        // const color = document.querySelector("#product-description-container > div.Product > div.Product__hero.flex.flex-col.md\\:flex-row > div.Product__hero-description-container.relative.flex.items-start.md\\:items-center > div.none.md\\:block.absolute.b0.l0.r0.z1 > div > div.relative.z1 > div > div > div > a.ProductVariantDrawers__color-swatch-wrapper.is-active > span")?.innerText?.trim();
+        const colorElement = document.querySelector("#shopify-section-template--22695676870973__main > div:nth-child(6) > div > div > div.\\[.flex-shrink-0.px-4.py-6.lg\\:pt-10.lg\\:pl-10.lg\\:pr-5.lg\\:sticky.lg\\:top-4.md\\:col-span-6.lg\\:col-span-5.lg\\:self-start.\\] > product-form > div.my-2.lg\\:my-4.flex.lg\\:block.items-center > p");
         const color = colorElement ? colorElement.innerText.trim() : null;
+        console.log('color:', color);
+
+        // const color = "CAMO"
 
         const imagesUrl = [];
         const imageNames = [];
         // /Get first Image,
         // console.log("getting image")
 
-        const firstImage = document.querySelector("#maincontent > div.pdp-container.product-detail > div.swiper > div.swiper-wrapper.zoom-wrapper > picture:nth-child(1) > img")
+        const firstImage = document.querySelector("#shopify-section-template--22695676870973__main > div:nth-child(6) > div > div > div.md\\:col-span-6.lg\\:col-span-7 > div > div > div:nth-child(2) > img");
 
         if (firstImage) {
             const srcset = firstImage.getAttribute('srcset');
             if (srcset) {
-                const firstSrc = srcset.split(',')[3].trim().split(' ')[0]; // Get the first srcset URL
+                const firstSrc = srcset.split(',')[1].trim().split(' ')[0]; // Get the first srcset URL
                 imagesUrl.push(firstSrc);
                 const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-0`;
                 // const imageName = `${brand.replace(/\s+/g, '-').replace(/\//g, '-').replace(/'/g, '')}-${name.replace(/\s+/g, '-').replace(/\//g, '-').replace(/'/g, '')}-0`;
@@ -89,28 +81,18 @@ async function getProductDetails(url) {
                 imageNames.push(imageName);
             }
         }
-        const secondImage = document.querySelector("#maincontent > div.pdp-container.product-detail > div.swiper > div.swiper-wrapper.zoom-wrapper > picture:nth-child(2) > img");
-        if (secondImage) {
-            const srcset = secondImage.getAttribute('srcset');
-            if (srcset) {
-                const firstSrc = srcset.split(',')[3].trim().split(' ')[0]; // Get the first srcset URL
-                imagesUrl.push(firstSrc);
-                const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-1`;
-                imageNames.push(imageName);
-            }
-            else {
-                imagesUrl.push(secondImage.src);
-                const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-1`;
-                imageNames.push(imageName);
-            }
-        }
-        // const thirdImage = document.querySelector("#slider > div > div > div > div:nth-child(2) > div > div > img");
-        // if (thirdImage) {
-        //     const srcset = thirdImage.getAttribute('srcset');
+        // const secondImage = document.querySelector("#Image-23062229483614-1400-0");
+        // if (secondImage) {
+        //     const srcset = secondImage.getAttribute('srcset');
         //     if (srcset) {
-        //         const firstSrc = srcset.split(',')[7].trim().split(' ')[0]; // Get the first srcset URL
+        //         const firstSrc = srcset.split(',')[5].trim().split(' ')[0]; // Get the first srcset URL
         //         imagesUrl.push(firstSrc);
-        //         const imageName = `${brand.replace(/\s+/g, '-')}-${name.replace(/\s+/g, '-')}-1`;
+        //         const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-1`;
+        //         imageNames.push(imageName);
+        //     }
+        //     else {
+        //         imagesUrl.push(secondImage.src);
+        //         const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-1`;
         //         imageNames.push(imageName);
         //     }
         // }
@@ -128,7 +110,7 @@ async function getProductDetails(url) {
             gender: gender,
             description: description,
             color: color,
-            from: 'kenzo',
+            from: 'seventhstores',
             info: 'Retail Price',
             'image': imageNames,
             'imagesUrl': imagesUrl,
@@ -208,18 +190,13 @@ async function autoScroll(page) {
 
 (async () => {
     const urls = [
-        // 'https://www.kenzo.com/en-gb/kenzo-orange-hawaiian-shirt/FE55CH1119LO.64.html',
-        // 'https://www.kenzo.com/en-gb/kenzo-by-verdy-sleeveless-jumper/FE55PU4583CB.77.html',
-        // 'https://www.kenzo.com/en-gb/kenzo-fruit-stickers-waistcoat/FE55PU0103BH.02.html',
-        'https://www.kenzo.com/en-gb/boke-flower-embroidered-sleeveless--wool-jumper/FE65PU4863LC.11.html',
-        'https://www.kenzo.com/en-gb/kenzo-constellation-hawaiian-shirt/FE65CH1199LI.01.html',
-        'https://www.kenzo.com/en-gb/kenzo-drawn-varsity-embroidered-genderless-jumper/FE58PU0063BF.02.html',
-        'https://www.kenzo.com/en-gb/boke-flower-trucker-jacket-in-japanese-denim/FE65DV3016C1.BM.html',
-        'https://www.kenzo.com/en-gb/kenzo-constellation-embroidered-kimono-in-japanese-denim/FE65DV1426A1.DM.html',
-        'https://www.kenzo.com/en-gb/kenzo-by-verdy-cropped-jacket/FE55BL1659OX.12.html',
-        'https://www.kenzo.com/en-gb/kenzo-by-verdy-genderless-motorcycle-jacket/FE58LB1420AA.99J.html',
-        'https://www.kenzo.com/en-gb/kenzo-by-verdy-genderless-varsity-jacket/FE58BL1459OH.51.html',
-        'https://www.kenzo.com/en-gb/kenzo-constellation-embroidered-zipped-hoodie/FE65SW2294MG.99J.html'
+        'https://seventhstores.com/products/copy-of-double-layered-v2-hooded-sweatshirt-in-night',
+        'https://seventhstores.com/collections/shop-all/products/night-v2-stacks-m',
+        'https://seventhstores.com/collections/shop-all/products/cbhs-m',
+        'https://seventhstores.com/collections/shop-all/products/desert-bow-tech-pant',
+        'https://seventhstores.com/collections/shop-all/products/smoke-v2-hoodie',
+        'https://seventhstores.com/collections/shop-all/products/cactus-v2-zipped-hoodie'
+
 
         // Add more URLs as needed
     ];
