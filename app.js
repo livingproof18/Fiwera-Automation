@@ -4,8 +4,8 @@ const path = require('path');
 const axios = require('axios');
 
 
-const BRAND_NAME = "Nocta";
-const CATEGORY_VALUE = "TOP";
+const BRAND_NAME = "Billionaire Boys Club";
+const CATEGORY_VALUE = "JACKET";
 const GENDER = "Mens";
 
 async function getProductDetails(url) {
@@ -49,31 +49,32 @@ async function getProductDetails(url) {
     console.log("Scroll, and now entering page")
     // Wait for the specific elements to ensure they are loaded
     // Cwith fugazi I have to keep chaning the image ids--- longgggg
-    await page.waitForSelector('#image-1');
+    await page.waitForSelector('#Image-23031059546206-1400-0');
     // await page.waitForSelector('#ProductImage-36340024475820');
 
     const details = await page.evaluate((BRAND_NAME, CATEGORY_VALUE, GENDER) => {
         const brand = BRAND_NAME;
-        const name = document.querySelector("#product-description-container > div.Product > div.Product__hero.flex.flex-col.md\\:flex-row > div.Product__hero-description-container.relative.flex.items-start.md\\:items-center > div.Product__hero-description-text-container.relative.md\\:absolute.r0.l0.mauto.pb2.md\\:pb0 > h2")?.innerText.trim();
+        const name = document.querySelector("#shopify-section-template--14244478156894__main > div.prd-Product_Inner.lyt-Container.js-ProductImages.show-desktop > div > div > div.prd-Product_GridItem.prd-Product_GridItem-details > div > div > header > h1")?.innerText.trim();
 
         const category = CATEGORY_VALUE;
-        const priceText = document.querySelector('#main-page-layout > div > div.ProductDetailPageDesktop__FlexContainer-sc-1l0dpjw-1.kGdLAA > footer > div.ProductTemplateDesktopFooterUpdated__FooterTop-sc-ake9f7-1.fZCCxJ > div.BigBuyBarDesktop__Root-sc-xdkwux-0.llszQj > div > div.BigBuyBarDesktopSwiperSection__Wrapper-sc-196rppg-0.igNAlG > div > div > div:nth-child(3) > div > span')?.innerText.trim();
+        const priceText = document.querySelector("#shopify-section-template--14244478156894__main > div.prd-Product_Inner.lyt-Container.js-ProductImages.show-desktop > div > div > div.prd-Product_GridItem.prd-Product_GridItem-details > div > div > header > div > div > span.prd-Price_Price.js-Product_Price > span")?.innerText.trim();
         const price = priceText ? parseFloat(priceText.replace(/[^\d.-]/g, '')) : null;
         const gender = GENDER;
-        const description = document.querySelector("#product-description-container > div.Product > div.Product__hero.flex.flex-col.md\\:flex-row > div.Product__hero-description-container.relative.flex.items-start.md\\:items-center > div.Product__hero-description-text-container.relative.md\\:absolute.r0.l0.mauto.pb2.md\\:pb0 > div")?.innerText.trim();
+        const description = document.querySelector("#shopify-section-template--14244478156894__main > div.prd-Product_Inner.lyt-Container.js-ProductImages.show-desktop > div > div > div.prd-Product_GridItem.prd-Product_GridItem-details > div > div > header > p")?.innerText.trim();
         // const description = '';
-        const color = document.querySelector("#product-description-container > div.Product > div.Product__hero.flex.flex-col.md\\:flex-row > div.Product__hero-description-container.relative.flex.items-start.md\\:items-center > div.none.md\\:block.absolute.b0.l0.r0.z1 > div > div.relative.z1 > div > div > div > a.ProductVariantDrawers__color-swatch-wrapper.is-active > span")?.innerText.trim();
+        // const color = document.querySelector("#product-description-container > div.Product > div.Product__hero.flex.flex-col.md\\:flex-row > div.Product__hero-description-container.relative.flex.items-start.md\\:items-center > div.none.md\\:block.absolute.b0.l0.r0.z1 > div > div.relative.z1 > div > div > div > a.ProductVariantDrawers__color-swatch-wrapper.is-active > span")?.innerText.trim();
+        const color = "Black"
         const imagesUrl = [];
         const imageNames = [];
         // /Get first Image,
         // console.log("getting image")
 
-        const firstImage = document.querySelector("#image-1")
+        const firstImage = document.querySelector("#Image-23031059546206-1400-0")
 
         if (firstImage) {
             const srcset = firstImage.getAttribute('srcset');
             if (srcset) {
-                const firstSrc = srcset.split(',')[0].trim().split(' ')[0]; // Get the first srcset URL
+                const firstSrc = srcset.split(',')[5].trim().split(' ')[0]; // Get the first srcset URL
                 imagesUrl.push(firstSrc);
                 const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-0`;
                 // const imageName = `${brand.replace(/\s+/g, '-').replace(/\//g, '-').replace(/'/g, '')}-${name.replace(/\s+/g, '-').replace(/\//g, '-').replace(/'/g, '')}-0`;
@@ -84,11 +85,11 @@ async function getProductDetails(url) {
                 imageNames.push(imageName);
             }
         }
-        const secondImage = document.querySelector("#image-2");
+        const secondImage = document.querySelector("#Image-23031059578974-1400-0");
         if (secondImage) {
             const srcset = secondImage.getAttribute('srcset');
             if (srcset) {
-                const firstSrc = srcset.split(',')[0].trim().split(' ')[0]; // Get the first srcset URL
+                const firstSrc = srcset.split(',')[5].trim().split(' ')[0]; // Get the first srcset URL
                 imagesUrl.push(firstSrc);
                 const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-1`;
                 imageNames.push(imageName);
@@ -123,7 +124,7 @@ async function getProductDetails(url) {
             gender: gender,
             description: description,
             color: color,
-            from: 'nocta',
+            from: 'bbcicecream',
             info: 'Retail Price',
             'image': imageNames,
             'imagesUrl': imagesUrl,
@@ -203,8 +204,9 @@ async function autoScroll(page) {
 
 (async () => {
     const urls = [
-        'https://www.nocta.com/en-gb/products/champions-league-crewneck',
-        'https://www.nocta.com/products/lart-racing-jacket-blue',
+        'https://bbcicecream.eu/products/running-dog-denim-shorts-black-2'
+        // 'https://bbcicecream.eu/products/running-dog-denim-trucker-jacket-black'
+        // 'https://bbcicecream.eu/products/running-dog-denim-shorts-black-2'
         // 'https://www.nocta.com/en-gb/products/drx-long-sleeve'
         // 'https://uk.louisvuitton.com/eng-gb/products/monogram-printed-denim-shorts-nvprod5460015v/1AFQFD'
         // Add more URLs as needed
