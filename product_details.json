@@ -1824,7 +1824,7 @@
     "currency": "GBP",
     "gender": "Mens",
     "description": "CAT EYE BOMBER JACKET BLACK DETAILS\nCORD COTTON FABRIC BOMBER JACKET\nTWO TONE TWISTED ROPED PIPING\nQUILTED NYLON LINING\nEMBROIDERED ARTWORK ON FRONT AND BACK\nWELT POCKETS\nRIBBED CUFF AND HEM",
-    "color": "",
+    "color": "BLACK",
     "from": "palaceskateboards",
     "info": "Retail Price",
     "image": [
@@ -1847,7 +1847,7 @@
     "currency": "GBP",
     "gender": "Mens",
     "description": "PEN PALS JERSEY BLUE DETAILS\n145GSM POLY JERSEY\nPRINTED ARTWORK\nCHEST WOVEN LABEL WITH EMBROIDERED EDGE\nPIPED CONTRAST PANELS\nBINDED SLEEVE AND HEM",
-    "color": "",
+    "color": "BLUE",
     "from": "palaceskateboards",
     "info": "Retail Price",
     "image": ["Palace-PEN-PALS-JERSEY-BLUE-0", "Palace-PEN-PALS-JERSEY-BLUE-1"],
@@ -1867,7 +1867,7 @@
     "currency": "GBP",
     "gender": "Mens",
     "description": "PIGMENT WASH TRI-FERG ZIP HOOD NAVY DETAILS\n410GSM ZIP HOOD\nPIGMENT WASHED\nPRINTED TRI-FERG ON FRONT AND BACK\nP BRANDED YKK® ZIP\nSPLIT KANGAROO POCKET\n100% COTTON",
-    "color": "",
+    "color": "NAVY",
     "from": "palaceskateboards",
     "info": "Retail Price",
     "image": [
@@ -1890,7 +1890,7 @@
     "currency": "GBP",
     "gender": "Mens",
     "description": "P-TEC FLEECE JACKET BLUE DETAILS\nTECH FLEECE OUTER FABRIC 94% POLYESTER, 6% SPANDEX\nPOLY JERSEY LINED\nYKK® VISLON® ZIPPER\n3-WAY ADJUSTABLE HOOD\nZIP POCKETS\nTRI-FERG DEBOSSED ON BACK PANEL\nMOULDED PALACE ZIP PULLS\nPALACE LOGO ON CHEST",
-    "color": "",
+    "color": "BLUE",
     "from": "palaceskateboards",
     "info": "Retail Price",
     "image": [
@@ -1900,6 +1900,233 @@
     "imagesUrl": [
       "https://cdn.shopify.com/s/files/1/0305/3289/files/Palace-2024-Spring-bag-13525-scaled_a3059d5c-7730-4975-8122-1e68bfe1b193.jpg?v=1715341789&width=1400&height=1400&crop=center",
       "https://cdn.shopify.com/s/files/1/0305/3289/files/Palace-2024-Spring-bag-13518-scaled_7a7aadac-edf4-4798-a314-f21a6f4a115a.jpg?v=1715341789&width=1400&height=1400&crop=center"
+    ]
+  },
+  {
+    "Brand": "Daily Paper",
+    "name": "DP x Mundial Football Jersey",
+    "category": "Tops",
+    "id": "",
+    "code": "",
+    "url": "https://uk.dailypaperclothing.com/collections/all-tops/products/dp-x-mundial-footbal-jersey?view=frontimg",
+    "Price": 65,
+    "currency": "GBP",
+    "gender": "Mens",
+    "description": "Our Daily Paper x MUNDIAL Football Jersey celebrates the things that actually matter about football: community, heritage, and having a good time. The relaxed crew neck silhouette is made from a stretchy lightweight fabric in Pan-African colours with a checkered all-over print that seamlessly blends the Daily Paper and MUNDIAL logos into one. The chest is decorated with two logotypes alongside a 'Unite' crest.",
+    "color": "",
+    "from": "dailypaperclothing",
+    "info": "Retail Price",
+    "image": [
+      "Daily-Paper-DP-x-Mundial-Football-Jersey-0",
+      "Daily-Paper-DP-x-Mundial-Football-Jersey-1"
+    ],
+    "imagesUrl": [
+      "https://uk.dailypaperclothing.com/cdn/shop/files/JERSEY_GREEN_GREEN_FRONT.jpg?v=1718010845",
+      "https://uk.dailypaperclothing.com/cdn/shop/files/JERSEY_GREEN_GREEN_BACK.jpg?v=1718010832"
+    ]
+  },
+  {
+    "Brand": "Daily Paper",
+    "name": "Pristine White Knit T-Shirt",
+    "category": "Tops",
+    "id": "",
+    "code": "",
+    "url": "https://uk.dailypaperclothing.com/collections/all-tops/products/pristine-white-knit-sweater-t-shirt?view=frontimg",
+    "Price": 75,
+    "currency": "GBP",
+    "gender": "Mens",
+    "description": "Our short-sleeved Knit tee is made from a soft, knitted fabric. The boxy crewneck silhouette comes with ribbing around the neckline and a Daily Paper shield logo embroidery on the chest.",
+    "color": "White",
+    "from": "dailypaperclothing",
+    "info": "Retail Price",
+    "image": [
+      "Daily-Paper-Pristine-White-Knit-T-Shirt-0",
+      "Daily-Paper-Pristine-White-Knit-T-Shirt-1"
+    ],
+    "imagesUrl": [
+      "https://uk.dailypaperclothing.com/cdn/shop/files/KNITSST-SHIRT_PRISTINEWHITE_Front.jpg?v=1714657899",
+      "https://uk.dailypaperclothing.com/cdn/shop/files/KNITSST-SHIRT_PRISTINEWHITE_Back.jpg?v=1714657899"
+    ]
+  },
+  {
+    "Brand": "Daily Paper",
+    "name": "Light Blue Nunise Denim Jacket",
+    "category": "JACKET",
+    "id": "",
+    "code": "",
+    "url": "https://uk.dailypaperclothing.com/collections/jackets/products/light-blue-nunise-denim-jacket?view=frontimg",
+    "Price": 135,
+    "currency": "GBP",
+    "gender": "Mens",
+    "description": "Available in a mid blue wash, the Nunise Jacket can be matched with both Kibo and Ayachi pants. The Jacket comes with branded metal buttons and A Daily Paper shield logo embroidery decorates one of the front pockets.",
+    "color": "Blue",
+    "from": "dailypaperclothing",
+    "info": "Retail Price",
+    "image": [
+      "Daily-Paper-Light-Blue-Nunise-Denim-Jacket-0",
+      "Daily-Paper-Light-Blue-Nunise-Denim-Jacket-1"
+    ],
+    "imagesUrl": [
+      "https://uk.dailypaperclothing.com/cdn/shop/files/Nunise-Denim-Jacket_Light-Blue_Front-_2.jpg?v=1714751454",
+      "https://uk.dailypaperclothing.com/cdn/shop/files/Nunise-Denim-Jacket_Light-Blue_Front-_1.jpg?v=1714751454"
+    ]
+  },
+  {
+    "Brand": "Daily Paper",
+    "name": "Daiquiri Green Xois Crochet Vest",
+    "category": "Tops",
+    "id": "",
+    "code": "",
+    "url": "https://uk.dailypaperclothing.com/collections/men-knitwear/products/daiquiri-green-xois-crochet-vest?view=frontimg",
+    "Price": 130,
+    "currency": "GBP",
+    "gender": "Mens",
+    "description": "Our Xois crochet vest is made from a soft cotton fabric with a dip dye technique. The oversized vest comes with a crewneck, a cable and crochet stitch across front and back and a Daily Paper label on the backside.",
+    "color": "Green",
+    "from": "dailypaperclothing",
+    "info": "Retail Price",
+    "image": [
+      "Daily-Paper-Daiquiri-Green-Xois-Crochet-Vest-0",
+      "Daily-Paper-Daiquiri-Green-Xois-Crochet-Vest-1"
+    ],
+    "imagesUrl": [
+      "https://uk.dailypaperclothing.com/cdn/shop/files/XOISCROCHETSPENCER_GRADIENT_Front.jpg?v=1714770884",
+      "https://uk.dailypaperclothing.com/cdn/shop/files/XOISCROCHETSPENCER_GRADIENT_Back.jpg?v=1714770884"
+    ]
+  },
+  {
+    "Brand": "Daily Paper",
+    "name": "Black Nalia T-shirt",
+    "category": "Tops",
+    "id": "",
+    "code": "",
+    "url": "https://uk.dailypaperclothing.com/collections/women-all-tops/products/black-nalia-t-shirt?view=frontimg",
+    "Price": 85,
+    "currency": "GBP",
+    "gender": "Womens",
+    "description": "Our Nalia shirt is made from a ribbed fabric with a denim wash effect. The cropped silhouette with cap sleeves is equipped with tonal all-over coverlock stitches and a peek-a-boo opening on the back. Pair with the matching Nalia skirt for a full denim-on-denim look.",
+    "color": "Black",
+    "from": "dailypaperclothing",
+    "info": "Retail Price",
+    "image": [
+      "Daily-Paper-Black-Nalia-T-shirt-0",
+      "Daily-Paper-Black-Nalia-T-shirt-1"
+    ],
+    "imagesUrl": [
+      "https://uk.dailypaperclothing.com/cdn/shop/files/NALIASST-SHIRT_Front_1.jpg?v=1714983445",
+      "https://uk.dailypaperclothing.com/cdn/shop/files/NALIASST-SHIRT_Back.jpg?v=1714983445"
+    ]
+  },
+  {
+    "Brand": "Daily Paper",
+    "name": "Daiquiri Green Xois Crochet Dress",
+    "category": "Tops",
+    "id": "",
+    "code": "",
+    "url": "https://uk.dailypaperclothing.com/collections/women-all-tops/products/daiquiri-green-xois-crochet-dress?view=frontimg",
+    "Price": 150,
+    "currency": "GBP",
+    "gender": "Womens",
+    "description": "Step out in style with our Xois crochet dress made from soft cotton with a dip dye technique. The figure-hugging dress has an above-the-knee silhouette with ruffles at the bottom and a cable stitch across front and back. a Daily Paper label decorates the back.",
+    "color": "Green",
+    "from": "dailypaperclothing",
+    "info": "Retail Price",
+    "image": [
+      "Daily-Paper-Daiquiri-Green-Xois-Crochet-Dress-0",
+      "Daily-Paper-Daiquiri-Green-Xois-Crochet-Dress-1"
+    ],
+    "imagesUrl": [
+      "https://uk.dailypaperclothing.com/cdn/shop/files/XOISCROCHETDRESS_DAIQUIRIGREEN_Front.jpg?v=1714677581",
+      "https://uk.dailypaperclothing.com/cdn/shop/files/XOISCROCHETDRESS_DAIQUIRIGREEN_Back.jpg?v=1714677581"
+    ]
+  },
+  {
+    "Brand": "Daily Paper",
+    "name": "Navy Eze Jacket",
+    "category": "Tops",
+    "id": "",
+    "code": "",
+    "url": "https://uk.dailypaperclothing.com/collections/sale-men/products/navy-eze-jacket?view=frontimg",
+    "Price": 65,
+    "currency": "GBP",
+    "gender": "Mens",
+    "description": "Perfect for everyday wear, this laid-back collared coach jacket is made from a woven fabric and comes with snap button closure, welt pockets and monogram lining. A shield logo and a Daily Paper logotype print decorate front and back respectively. Available in two seasonal colourways.",
+    "color": "Navy",
+    "from": "dailypaperclothing",
+    "info": "Retail Price",
+    "image": ["Daily-Paper-Navy-Eze-Jacket-0", "Daily-Paper-Navy-Eze-Jacket-1"],
+    "imagesUrl": [
+      "https://uk.dailypaperclothing.com/cdn/shop/files/EZEJACKET_NAVY_FRONT.jpg?v=1714630423",
+      "https://uk.dailypaperclothing.com/cdn/shop/files/EZEJACKET_NAVY_BACK.jpg?v=1714630423"
+    ]
+  },
+  {
+    "Brand": "Daily Paper",
+    "name": "Moonstruck Beige Jabari Herd Jacket",
+    "category": "Tops",
+    "id": "",
+    "code": "",
+    "url": "https://uk.dailypaperclothing.com/collections/sale-men/products/moonstruck-beige-jabari-herd-jacket?view=frontimg",
+    "Price": 140,
+    "currency": "GBP",
+    "gender": "Mens",
+    "description": "Our Jabari Herd jacket is made from a heavy cotton fabric with all-over print and classic collar. The coach jacket is equipped with a snap button closure, stitched on pockets alongside front and back yokes. A Daily Paper label decorates the chest pocket. Pair with the matching Jabari Herd cargo pants for a full workwear look.",
+    "color": "Beige",
+    "from": "dailypaperclothing",
+    "info": "Retail Price",
+    "image": [
+      "Daily-Paper-Moonstruck-Beige-Jabari-Herd-Jacket-0",
+      "Daily-Paper-Moonstruck-Beige-Jabari-Herd-Jacket-1"
+    ],
+    "imagesUrl": [
+      "https://uk.dailypaperclothing.com/cdn/shop/files/JABARIHERDJACKET_AOP_Front.jpg?v=1714654320",
+      "https://uk.dailypaperclothing.com/cdn/shop/files/JABARIHERDJACKET_AOP_Back.jpg?v=1714654320"
+    ]
+  },
+  {
+    "Brand": "Daily Paper",
+    "name": "Jester Red Black Peregia Jacket",
+    "category": "Tops",
+    "id": "",
+    "code": "",
+    "url": "https://uk.dailypaperclothing.com//collections/sale-men/products/jester-red-black-peregia-jacket?view=frontimg",
+    "Price": 101,
+    "currency": "GBP",
+    "gender": "Mens",
+    "description": "Made from a water-resistant woven fabric with monogram lining. The Peregia jacket comes with bomber collar and a metal zipper closure at the center front. An atlas lion logotype felt patch with embroidery decorates the chest while a chenille patch is placed on the center back. Knitted stripes decorate collar, cuffs and armholes.",
+    "color": "Red",
+    "from": "dailypaperclothing",
+    "info": "Retail Price",
+    "image": [
+      "Daily-Paper-Jester-Red-Black-Peregia-Jacket-0",
+      "Daily-Paper-Jester-Red-Black-Peregia-Jacket-1"
+    ],
+    "imagesUrl": [
+      "https://uk.dailypaperclothing.com/cdn/shop/files/Peregia-jacket-jester-red-black_Front.jpg?v=1718031393",
+      "https://uk.dailypaperclothing.com/cdn/shop/files/Peregia-jacket-jester-red-black_Back.jpg?v=1718031393"
+    ]
+  },
+  {
+    "Brand": "Daily Paper",
+    "name": "Blue Jacob Denim Jacket",
+    "category": "Jacket",
+    "id": "",
+    "code": "",
+    "url": "https://dailypaperclothing.com/collections/sale-men/products/blue-jacob-denim-jacket?view=frontimg",
+    "Price": 100,
+    "currency": "GBP",
+    "gender": "Mens",
+    "description": "A timeless denim piece made with a custom all-over destroyed monogram print. The Jacob denim jacket is equipped with a zip closure, a classic shirt collar and pockets. A woven Daily Paper label decorates the chest pocket. Pair with the matching Jacob denim pants for a full denim-on-denim look.",
+    "color": "Blue",
+    "from": "dailypaperclothing",
+    "info": "Retail Price",
+    "image": [
+      "Daily-Blue-Jacob-Denim-Jacket-0",
+      "Daily-Blue-Jacob-Denim-Jacket-1"
+    ],
+    "imagesUrl": [
+      "https://dailypaperclothing.com/cdn/shop/files/JACOBDENIMJACKET-BLUE_Front.jpg?v=1704289838",
+      "https://dailypaperclothing.com/cdn/shop/files/JACOBDENIMJACKET-BLUE_Back.jpg?v=1704289838"
     ]
   }
 ]
