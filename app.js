@@ -4,7 +4,7 @@ const path = require('path');
 const axios = require('axios');
 
 
-const BRAND_NAME = "Dickies";
+const BRAND_NAME = "Palace";
 const CATEGORY_VALUE = "Jacket";
 const GENDER = "Mens";
 
@@ -33,41 +33,50 @@ async function getProductDetails(url) {
     console.log("Scroll, and now entering page")
     // Wait for the specific elements to ensure they are loaded
     // Cwith fugazi I have to keep chaning the image ids--- longgggg
-    await page.waitForSelector('#maincontent > div.columns > div > div.product.media > div.gallery-placeholder.product-image-mosaic._block-content-loading > ul > li:nth-child(3) > img.zoomImg');
+    // await page.waitForSelector('#\\:R6l35\\:-slide-1 > div > img');
     // await page.waitForSelector('#ProductImage-36340024475820');
+
+    // Click to open the modal
+    try {
+        await page.click('#product-view > button.flex.justify-start.uppercase.underline.hover\\:text-gray-300.hover\\:no-underline.phone\\:ml-5.text-sm.phone\\:order-6.phone\\:mb-0');
+        await page.waitForSelector('body > div:nth-child(7) > div > div > div', { timeout: 5000 });
+    } catch (error) {
+        console.log('Failed to open description modal:', error);
+    }
+
 
     const details = await page.evaluate((BRAND_NAME, CATEGORY_VALUE, GENDER) => {
         const brand = BRAND_NAME;
-        const nameElement = document.querySelector("#maincontent > div.columns > div > div.product-info-main > div.page-title-wrapper.product > h1 > span");
+        const nameElement = document.querySelector("#product-title");
         const name = nameElement ? nameElement.innerText?.trim() : null;
         console.log('name:', name);
 
         const category = CATEGORY_VALUE;
-        const priceText = document.querySelector("#product-price-100121 > span")?.innerText?.trim();
+        const priceText = document.querySelector("#product-price > span > div")?.innerText?.trim();
         const price = priceText ? parseFloat(priceText.replace(/[^\d.-]/g, '')) : null;
-        console.log('price:', price);
-
         const gender = GENDER;
-        const descriptionElement = document.querySelector("#maincontent > div.columns > div > div.product-attribute-desktop > div > div.product-tab-item-desktop.info > div.item-content > div.product-info > div > div > p");
+        const descriptionElement = document.querySelector("body > div:nth-child(7) > div > div > div");
         const description = descriptionElement ? descriptionElement.innerText?.trim() : null;
         console.log('description:', description);
 
+
+
+
         // const description = '';
         // const color = document.querySelector("#product-description-container > div.Product > div.Product__hero.flex.flex-col.md\\:flex-row > div.Product__hero-description-container.relative.flex.items-start.md\\:items-center > div.none.md\\:block.absolute.b0.l0.r0.z1 > div > div.relative.z1 > div > div > div > a.ProductVariantDrawers__color-swatch-wrapper.is-active > span")?.innerText?.trim();
-        const colorElement = document.querySelector("#option-label-color > span.swatch-attribute-value");
-        const color = colorElement ? colorElement.innerText.trim() : null;
-        console.log('color:', color);
+        // const colorElement = document.querySelector("#option-label-color > span.swatch-attribute-value");
+        // const color = colorElement ? colorElement.innerText.trim() : null;
+        // console.log('color:', color);
 
-        // const color = "CAMO"
+        const color = ""
 
         const imagesUrl = [];
         const imageNames = [];
         // /Get first Image,
         // console.log("getting image")
 
-        const firstImage = document.querySelector("#maincontent > div.columns > div > div.product.media > div.gallery-placeholder.product-image-mosaic._block-content-loading > ul > li:nth-child(9) > img.zoomImg");
         // const firstImage = document.querySelector("#maincontent > div.columns > div > div.product.media > div.gallery-placeholder.product-image-mosaic._block-content-loading > ul > li:nth-child(11) > img.zoomImg");
-
+        const firstImage = document.querySelector("#\\:R6l35\\:-slide-1 > div > img");
         if (firstImage) {
             const srcset = firstImage.getAttribute('srcset');
             if (srcset) {
@@ -82,7 +91,7 @@ async function getProductDetails(url) {
                 imageNames.push(imageName);
             }
         }
-        const secondImage = document.querySelector("#maincontent > div.columns > div > div.product.media > div.gallery-placeholder.product-image-mosaic._block-content-loading > ul > li:nth-child(10) > img.zoomImg");
+        const secondImage = document.querySelector("#\\:R6l35\\:-slide-2 > div > img");
         if (secondImage) {
             const srcset = secondImage.getAttribute('srcset');
             if (srcset) {
@@ -111,7 +120,7 @@ async function getProductDetails(url) {
             gender: gender,
             description: description,
             color: color,
-            from: 'dickieslife',
+            from: 'palaceskateboards',
             info: 'Retail Price',
             'image': imageNames,
             'imagesUrl': imagesUrl,
@@ -191,10 +200,10 @@ async function autoScroll(page) {
 
 (async () => {
     const urls = [
-        // 'https://www.dickieslife.com/uk_en/newington-jacket-0a4yqn-dble-dye-acd-bl'
-        // 'https://www.dickieslife.com/uk_en/chinese-new-year-eisenhower-jacket-012625-chinese-red',
-        'https://www.dickieslife.com/uk_en/double-knee-denim-trousers-0a4y3f-black-denim?xse_default=true'
-
+        // 'https://shop.palaceskateboards.com/products/x3uc9skc99hz',
+        'https://shop.palaceskateboards.com/products/ght47htg2ifu',
+        'https://shop.palaceskateboards.com/products/5jw5f9jh0vaa',
+        'https://shop.palaceskateboards.com/products/495byy3uacbt'
         // Add more URLs as needed
     ];
 
