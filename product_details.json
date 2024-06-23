@@ -2382,7 +2382,7 @@
   },
   {
     "Brand": "Hunidesign",
-    "name": "Astronaut Bomber „Light Grey“",
+    "name": "Astronaut Bomber Light Grey",
     "category": "JACKET",
     "id": "",
     "code": "",
@@ -2395,9 +2395,9 @@
     "from": "hunidesign",
     "info": "Retail Price",
     "image": [
-      "Hunidesign-Astronaut-Bomber-„Light-Grey“-0",
-      "Hunidesign-Astronaut-Bomber-„Light-Grey“-1",
-      "Hunidesign-Astronaut-Bomber-„Light-Grey“-2"
+      "Hunidesign-Astronaut-Bomber-Light-Grey-0",
+      "Hunidesign-Astronaut-Bomber-Light-Grey-1",
+      "Hunidesign-Astronaut-Bomber-Light-Grey-2"
     ],
     "imagesUrl": [
       "//hunidesign.com/cdn/shop/files/bomber_grey_side_shopify_1080x.png?v=1704644881",
@@ -2407,7 +2407,7 @@
   },
   {
     "Brand": "Hunidesign",
-    "name": "Pillow Pants „Light Grey“",
+    "name": "Pillow Pants Light Grey",
     "category": "Bottoms",
     "id": "",
     "code": "",
@@ -2420,12 +2420,170 @@
     "from": "hunidesign",
     "info": "Retail Price",
     "image": [
-      "Hunidesign-Pillow-Pants-„Light-Grey“-0",
-      "Hunidesign-Pillow-Pants-„Light-Grey“-1"
+      "Hunidesign-Pillow-Pants-Light-Grey-0",
+      "Hunidesign-Pillow-Pants-Light-Grey-1"
     ],
     "imagesUrl": [
       "//hunidesign.com/cdn/shop/files/pants_grey_side_shopify_1080x.png?v=1704644947",
       "//hunidesign.com/cdn/shop/files/pants_grey_front_shopify_1080x.png?v=1704644947"
+    ]
+  },
+  {
+    "Brand": "Carsicko",
+    "name": "CORE T-SHIRT WHITE",
+    "category": "TOP",
+    "id": "",
+    "code": "",
+    "url": "https://car-sicko.com/collections/all/products/core-t-shirt-white",
+    "Price": 60,
+    "currency": "GBP",
+    "gender": "Mens & Womens",
+    "description": "PURE WHITE T-SHIRT WITH A MEDIUM WEIGHT FINISH FOR A COMFORTABLE, BREATHABLE FEEL.\n\n\nTRUE TO SIZE (BOX FIT)\n100% PREMIUM COTTON\nEMBROIDERED LOGO ON CHEST \n305 GSM",
+    "color": "",
+    "from": "car-sicko",
+    "info": "Retail Price",
+    "image": ["Carsicko-CORE-T-SHIRT-WHITE-0", "Carsicko-CORE-T-SHIRT-WHITE-1"],
+    "imagesUrl": [
+      "//car-sicko.com/cdn/shop/files/DA4374C8-366E-4B2C-B3E0-0D48C87809F7_1080x.png?v=1707818522",
+      "//car-sicko.com/cdn/shop/files/02123FA3-B891-4D76-8EB2-1D27DD2A59A0_1080x.png?v=1707818522"
+    ]
+  },
+  {
+    "Brand": "Carsicko",
+    "name": "CORE ZIP HOODIE SEX GREY",
+    "category": "Hoodie",
+    "id": "",
+    "code": "",
+    "url": "https://car-sicko.com/collections/all/products/basics-zip-hoodie-sex-grey",
+    "Price": 140,
+    "currency": "GBP",
+    "gender": "Mens & Womens",
+    "description": "PURE GREY HOODIE CUT FROM OPULENT SOFT COTTON, LINED WITH FLEECE MATERIAL AND FINISHED WITH A CUSTOM CARSICKO TWO WAY YKK ZIP FOR A COMFORTABLE, BREATHABLE FEEL.\n\n\nTRUE TO SIZE \nSOFT FLEECE LINING\nENGRAVED CUSTOM DOUBLE YKK ZIP\nEMBROIDERED LOGO ON CHEST\nRAGLAN SLEEVES\n410 GSM\nRIBBED TRIMS",
+    "color": "",
+    "from": "car-sicko",
+    "info": "Retail Price",
+    "image": [
+      "Carsicko-CORE-ZIP-HOODIE-SEX-GREY-0",
+      "Carsicko-CORE-ZIP-HOODIE-SEX-GREY-1"
+    ],
+    "imagesUrl": [
+      "//car-sicko.com/cdn/shop/files/75EBB9F4-5B00-475E-8B38-C8AC32AFD540_1080x.png?v=1707817359",
+      "//car-sicko.com/cdn/shop/files/2A2451CF-653B-4383-B4B8-287D058DC736_1080x.png?v=1707817359"
+    ]
+  },
+  {
+    "Brand": "Carsicko",
+    "name": "CORE TRACK PANTS SEX GREY",
+    "category": "Bottoms",
+    "id": "",
+    "code": "",
+    "url": "https://car-sicko.com/collections/all/products/basics-track-pants-sex-grey",
+    "Price": 130,
+    "currency": "GBP",
+    "gender": "Mens & Womens",
+    "description": "PURE GREY TRACK PANTS CUT FROM OPULENT SOFT COTTON FOR A COMFORTABLE, BREATHABLE FEEL.\n\nTRUE TO SIZE\nDOUBLE RIBBED ELASTICATED WAISTBAND\nSOFT FLEECE LINING\nEMBROIDERED LOGO\n410 GSM\nBACK POCKET\nINTERIOR DRAWSTRINGS ON WAISTBAND",
+    "color": "",
+    "from": "car-sicko",
+    "info": "Retail Price",
+    "image": [
+      "Carsicko-CORE-TRACK-PANTS-SEX-GREY-0",
+      "Carsicko-CORE-TRACK-PANTS-SEX-GREY-1"
+    ],
+    "imagesUrl": [
+      "//car-sicko.com/cdn/shop/files/IMG-8815_1080x.png?v=1707818040",
+      "//car-sicko.com/cdn/shop/files/IMG-8816_1080x.png?v=1707818040"
+    ]
+  },
+  {
+    "Brand": "Carsicko",
+    "name": "DONT TOUCH HOODIE WASHED GREY",
+    "category": "Hoodie",
+    "id": "",
+    "code": "",
+    "url": "https://car-sicko.com/collections/all/products/dont-touch-hoodie-washed-black",
+    "Price": 160,
+    "currency": "GBP",
+    "gender": "Mens & Womens",
+    "description": "ROCK TONE HOODIE CUT FROM OPULENT SOFT COTTON FOR A COMFORTABLE, BREATHABLE FEEL. PRE-SHRUNK AND PIECE DYED. \n\nOVERSIZED FIT \nROCK WASH TREATMENT \n500 GSM\nSIGNATURE ENGRAVED METAL HARDWARE ZIP\nEMBROIDERED SIGNATURE LOGO ON HOOD\nFRAYED LETTERING ACROSS FRONT BODY\nFADED HEART LOGO PRINT BENEATH FRAYED LETTERING",
+    "color": "",
+    "from": "car-sicko",
+    "info": "Retail Price",
+    "image": [
+      "Carsicko-DONT-TOUCH-HOODIE-WASHED-GREY-0",
+      "Carsicko-DONT-TOUCH-HOODIE-WASHED-GREY-1"
+    ],
+    "imagesUrl": [
+      "//car-sicko.com/cdn/shop/files/IMG-5527_1080x.png?v=1706099230",
+      "//car-sicko.com/cdn/shop/files/IMG-5528_1080x.png?v=1706099230"
+    ]
+  },
+  {
+    "Brand": "Carsicko",
+    "name": "SIGNATURE HOODIE BLACK",
+    "category": "Hoodie",
+    "id": "",
+    "code": "",
+    "url": "https://car-sicko.com/collections/holy-grail/products/signature-hoodie-black",
+    "Price": 140,
+    "currency": "GBP",
+    "gender": "Mens & Womens",
+    "description": "TRUE TO SIZE\nTIGHTENING STRINGS TO AJGUST TO A LOOSE OR TIGHT FIT \n100% COTTON",
+    "color": "",
+    "from": "car-sicko",
+    "info": "Retail Price",
+    "image": [
+      "Carsicko-SIGNATURE-HOODIE-BLACK-0",
+      "Carsicko-SIGNATURE-HOODIE-BLACK-1"
+    ],
+    "imagesUrl": [
+      "//car-sicko.com/cdn/shop/files/qKQqm_bw_1080x.png?v=1706288238",
+      "//car-sicko.com/cdn/shop/files/KCrbC2Nw_1080x.png?v=1706288238"
+    ]
+  },
+  {
+    "Brand": "Carsicko",
+    "name": "LE FADE TRACK PANTS BLACK",
+    "category": "Bottoms",
+    "id": "",
+    "code": "",
+    "url": "https://car-sicko.com/collections/all/products/le-fade-track-pants-black",
+    "Price": 130,
+    "currency": "GBP",
+    "gender": "Mens & Womens",
+    "description": "BLACK FADED WASHED TRACK PANTS CUT FROM OPULENT SOFT COTTON FOR A COMFORTABLE, BREATHABLE FEEL. PRE-SHRUNK AND PIECE DYED. \n\nTRUE TO SIZE\nFADED WASH TREATMENT \nELASTICATED WAISTBAND\n500 GSM\nCUFFED HEMS & RIBBED TRIMS\nEMBROIDERED LOGO \n\nBACK POCKET",
+    "color": "",
+    "from": "car-sicko",
+    "info": "Retail Price",
+    "image": [
+      "Carsicko-LE-FADE-TRACK-PANTS-BLACK-0",
+      "Carsicko-LE-FADE-TRACK-PANTS-BLACK-1"
+    ],
+    "imagesUrl": [
+      "//car-sicko.com/cdn/shop/files/uQzoneYA_1080x.png?v=1706288209",
+      "//car-sicko.com/cdn/shop/files/J8Usgxdg_1080x.png?v=1706288209"
+    ]
+  },
+  {
+    "Brand": "Carsicko",
+    "name": "CARSICKO GARDENS T-SHIRT WHITE",
+    "category": "TOP",
+    "id": "",
+    "code": "",
+    "url": "https://car-sicko.com/collections/all/products/carsicko-gardens-t-shirt-white",
+    "Price": 65,
+    "currency": "GBP",
+    "gender": "Mens & Womens",
+    "description": "WHITE T-SHIRT WITH A MEDIUM WEIGHT FINISH FOR A COMFORTABLE, BREATHABLE FEEL.\n\nTRUE TO SIZE (BOX FIT)\n100% PREMIUM COTTON\n305 GSM",
+    "color": "",
+    "from": "car-sicko",
+    "info": "Retail Price",
+    "image": [
+      "Carsicko-CARSICKO-GARDENS-T-SHIRT-WHITE-0",
+      "Carsicko-CARSICKO-GARDENS-T-SHIRT-WHITE-1"
+    ],
+    "imagesUrl": [
+      "//car-sicko.com/cdn/shop/files/DzNbfbYQ_1080x.png?v=1706289179",
+      "//car-sicko.com/cdn/shop/files/rxvx6izA_1080x.png?v=1706289184"
     ]
   }
 ]

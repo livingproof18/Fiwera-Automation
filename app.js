@@ -4,8 +4,8 @@ const path = require('path');
 const axios = require('axios');
 
 
-const BRAND_NAME = "Hunidesign";
-const CATEGORY_VALUE = "JACKET";
+const BRAND_NAME = "Carsicko";
+const CATEGORY_VALUE = "TOP";
 const GENDER = "Mens & Womens";
 
 async function getProductDetails(url) {
@@ -34,32 +34,23 @@ async function getProductDetails(url) {
     // Wait for the specific elements to ensure they are loaded
     // Cwith fugazi I have to keep chaning the image ids--- longgggg
     // await page.waitForSelector('#\\:R6l35\\:-slide-1 > div > img');
-    await page.waitForSelector('#ProductImage-45562480361738');
-
-    // Click to open the modal
-    // try {
-    //     await page.click('#product-view > button.flex.justify-start.uppercase.underline.hover\\:text-gray-300.hover\\:no-underline.phone\\:ml-5.text-sm.phone\\:order-6.phone\\:mb-0');
-    //     await page.waitForSelector('body > div:nth-child(7) > div > div > div', { timeout: 5000 });
-    // } catch (error) {
-    //     console.log('Failed to open description modal:', error);
-    // }
-
+    await page.waitForSelector('#FeaturedMedia-template--17136623517923__main-33351600505059-wrapper > div > div > div > img');
 
     const details = await page.evaluate((BRAND_NAME, CATEGORY_VALUE, GENDER) => {
         const brand = BRAND_NAME;
         const gender = GENDER;
         const category = CATEGORY_VALUE;
         //depending on catr CATEGORY will need to change, product-jeans, product-template, product-tops e.g
-        const nameElement = document.querySelector("#ProductSection > div.grid.product-single > div.grid-item.large--three-tenths > h1");
+        const nameElement = document.querySelector("#shopify-section-template--17136623517923__main > div > div.product-detail.quickbuy-content.spaced-row.container > div.detail.product-column-right.cc-animate-init.-in.cc-animate-complete > div > div.title-row > h1");
         const name = nameElement ? nameElement.innerText?.trim().replace(/["\\/|<>:*?]/g, '') : null;
         console.log('name:', name);
 
-        const priceText = document.querySelector("#ProductSection > div.grid.product-single > div.grid-item.large--three-tenths > div.h2.product-single__price > span.product-price")?.innerText?.trim();
+        const priceText = document.querySelector("#shopify-section-template--17136623517923__main > div > div.product-detail.quickbuy-content.spaced-row.container > div.detail.product-column-right.cc-animate-init.-in.cc-animate-complete > div > div.price-container > div.variant-visibility-area > div > div > span")?.innerText?.trim();
         const price = priceText ? parseFloat(priceText.replace(/[^\d.-]/g, '')) : null;
         console.log('price:', price);
 
-        const descriptionElement = document.querySelector("#ProductSection > div.grid.product-single > div.grid-item.large--three-tenths > div.product-single__desc.rte");
-        const description = descriptionElement ? descriptionElement.innerText?.trim() : null;
+        const descriptionElement = document.querySelector("#shopify-section-template--17136623517923__main > div > div.product-detail.quickbuy-content.spaced-row.container > div.detail.product-column-right.cc-animate-init.-in.cc-animate-complete > div > div:nth-child(6) > div > details > div > div");
+        const description = descriptionElement ? descriptionElement.textContent?.trim() : null;
         console.log('description:', description);
 
         const color = ""
@@ -70,11 +61,11 @@ async function getProductDetails(url) {
         // console.log("getting image")
 
         // const firstImage = document.querySelector("#maincontent > div.columns > div > div.product.media > div.gallery-placeholder.product-image-mosaic._block-content-loading > ul > li:nth-child(11) > img.zoomImg");
-        const firstImage = document.querySelector("#ProductImage-45562480361738");
+        const firstImage = document.querySelector("#FeaturedMedia-template--17136623517923__main-33351600505059-wrapper > div > div > div > img");
         if (firstImage) {
             const srcset = firstImage.getAttribute('srcset');
             if (srcset) {
-                const firstSrc = srcset.split(',')[5].trim().split(' ')[0]; // Get the first srcset URL
+                const firstSrc = srcset.split(',')[8].trim().split(' ')[0]; // Get the first srcset URL
                 imagesUrl.push(firstSrc);
                 const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-0`;
                 // const imageName = `${brand.replace(/\s+/g, '-').replace(/\//g, '-').replace(/'/g, '')}-${name.replace(/\s+/g, '-').replace(/\//g, '-').replace(/'/g, '')}-0`;
@@ -85,11 +76,11 @@ async function getProductDetails(url) {
                 imageNames.push(imageName);
             }
         }
-        const secondImage = document.querySelector("#ProductImage-45562480427274");
+        const secondImage = document.querySelector("#FeaturedMedia-template--17136623517923__main-33351600570595-wrapper > div > div > div > img");
         if (secondImage) {
             const srcset = secondImage.getAttribute('srcset');
             if (srcset) {
-                const firstSrc = srcset.split(',')[5].trim().split(' ')[0]; // Get the first srcset URL
+                const firstSrc = srcset.split(',')[8].trim().split(' ')[0]; // Get the first srcset URL
                 imagesUrl.push(firstSrc);
                 const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-1`;
                 imageNames.push(imageName);
@@ -100,21 +91,7 @@ async function getProductDetails(url) {
                 imageNames.push(imageName);
             }
         }
-        // const thirdImage = document.querySelector("#ProductImage-45562476036362");
-        // if (thirdImage) {
-        //     const srcset = thirdImage.getAttribute('srcset');
-        //     if (srcset) {
-        //         const firstSrc = srcset.split(',')[5].trim().split(' ')[0]; // Get the first srcset URL
-        //         imagesUrl.push(firstSrc);
-        //         const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-2`;
-        //         imageNames.push(imageName);
-        //     }
-        //     else {
-        //         imagesUrl.push(thirdImage.src);
-        //         const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-2`;
-        //         imageNames.push(imageName);
-        //     }
-        // }
+
 
 
         return {
@@ -125,11 +102,11 @@ async function getProductDetails(url) {
             code: '',
             url: window.location.href,
             Price: price,
-            currency: 'EUR',
+            currency: 'GBP',
             gender: gender,
             description: description,
             color: color,
-            from: 'hunidesign',
+            from: 'car-sicko',
             info: 'Retail Price',
             'image': imageNames,
             'imagesUrl': imagesUrl,
@@ -209,12 +186,13 @@ async function autoScroll(page) {
 
 (async () => {
     const urls = [
-        // 'https://hunidesign.com/products/huni-hoodie-baby-blue?variant=45355226071306',
-        // 'https://hunidesign.com/products/huni-hoodie-pink?variant=43740056060170',
-        // 'https://hunidesign.com/products/huni-hoodie-grey?variant=43412121714954',
-        // 'https://hunidesign.com/collections/apparel/products/astronaut-bomber-grey?variant=45121457422602',
-        // 'https://hunidesign.com/collections/apparel/products/pillow-pants-grey?variant=45121468072202'
-
+        // 'https://car-sicko.com/collections/all/products/core-t-shirt-white',
+        // 'https://car-sicko.com/collections/all/products/basics-zip-hoodie-sex-grey',
+        // 'https://car-sicko.com/collections/all/products/basics-track-pants-sex-grey',
+        // 'https://car-sicko.com/collections/all/products/dont-touch-hoodie-washed-black',
+        // 'https://car-sicko.com/collections/all/products/le-fade-track-pants-black',
+        'https://car-sicko.com/collections/all/products/carsicko-gardens-t-shirt-white'
+        // 'https://car-sicko.com/collections/holy-grail/products/signature-hoodie-black'
         // Add more URLs as needed
     ];
 
