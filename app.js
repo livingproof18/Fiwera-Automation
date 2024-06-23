@@ -4,7 +4,7 @@ const path = require('path');
 const axios = require('axios');
 
 
-const BRAND_NAME = "systemic";
+const BRAND_NAME = "La Fam Amsterdam";
 const CATEGORY_VALUE = "Tops";
 const GENDER = "Mens";
 
@@ -34,7 +34,7 @@ async function getProductDetails(url) {
     // Wait for the specific elements to ensure they are loaded
     // Cwith fugazi I have to keep chaning the image ids--- longgggg
     // await page.waitForSelector('#\\:R6l35\\:-slide-1 > div > img');
-    await page.waitForSelector('#Image43421892509961 > div > img');
+    await page.waitForSelector('#responsiveImageFeatureTemplate-48834112127306 > img');
 
     // Click to open the modal
     // try {
@@ -50,20 +50,18 @@ async function getProductDetails(url) {
         const gender = GENDER;
         const category = CATEGORY_VALUE;
         //depending on catr CATEGORY will need to change, product-jeans, product-template, product-tops e.g
-        const nameElement = document.querySelector("#shopify-section-product-template  > section > div > div.Product__InfoWrapper > div.Product__Info > div > div.ProductMeta > h1");
+        const nameElement = document.querySelector("#shopify-section-template--15957975924976__main-product-horizontal-gallery > section > div.grid.lg\\:grid-cols-12.gap-gutter.bg-border.grid-flow-row-dense.lg\\:border-t-grid.border-grid-color > div.lg\\:col-start-10.lg\\:col-end-13.bg-primary-background.text-primary-text.h-full.section-x-padding > div > h1");
         const name = nameElement ? nameElement.innerText?.trim() : null;
         console.log('name:', name);
 
-        const priceText = document.querySelector("#shopify-section-product-template  > section > div > div.Product__InfoWrapper > div.Product__Info > div > div.ProductMeta > div > span")?.innerText?.trim();
+        const priceText = document.querySelector("#shopify-section-template--15957975924976__main-product-horizontal-gallery > section > div.grid.lg\\:grid-cols-12.gap-gutter.bg-border.grid-flow-row-dense.lg\\:border-t-grid.border-grid-color > div.lg\\:col-start-10.lg\\:col-end-13.bg-primary-background.text-primary-text.h-full.section-x-padding > div > div.product-price-block.mt-8.text-base > span:nth-child(2)")?.innerText?.trim();
         const price = priceText ? parseFloat(priceText.replace(/[^\d.-]/g, '')) : null;
         console.log('price:', price);
 
-        const descriptionElement = document.querySelector("#shopify-section-product-template  > section > div > div.Product__InfoWrapper > div.Product__Info > div > div:nth-child(4) > div");
+        const descriptionElement = document.querySelector("#shopify-section-template--15957975924976__main-product-horizontal-gallery > section > div.grid.lg\\:grid-cols-12.gap-gutter.bg-border.grid-flow-row-dense.lg\\:border-t-grid.border-grid-color > div.product-description.lg\\:col-start-4.lg\\:col-end-10.bg-primary-background.text-primary-text.h-full.section-x-padding.py-theme.product-block-area > div");
         const description = descriptionElement ? descriptionElement.innerText?.trim() : null;
         console.log('description:', description);
 
-        // const colorElement = document.querySelector("#option-label-color > span.swatch-attribute-value");
-        // const color = colorElement ? colorElement.innerText.trim() : null;
         const color = ""
 
         const imagesUrl = [];
@@ -72,11 +70,11 @@ async function getProductDetails(url) {
         // console.log("getting image")
 
         // const firstImage = document.querySelector("#maincontent > div.columns > div > div.product.media > div.gallery-placeholder.product-image-mosaic._block-content-loading > ul > li:nth-child(11) > img.zoomImg");
-        const firstImage = document.querySelector("#Image43421892509961 > div > img");
+        const firstImage = document.querySelector("#responsiveImageFeatureTemplate-48834112127306 > img");
         if (firstImage) {
             const srcset = firstImage.getAttribute('srcset');
             if (srcset) {
-                const firstSrc = srcset.split(',')[6].trim().split(' ')[0]; // Get the first srcset URL
+                const firstSrc = srcset.split(',')[5].trim().split(' ')[0]; // Get the first srcset URL
                 imagesUrl.push(firstSrc);
                 const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-0`;
                 // const imageName = `${brand.replace(/\s+/g, '-').replace(/\//g, '-').replace(/'/g, '')}-${name.replace(/\s+/g, '-').replace(/\//g, '-').replace(/'/g, '')}-0`;
@@ -87,21 +85,21 @@ async function getProductDetails(url) {
                 imageNames.push(imageName);
             }
         }
-        const secondImage = document.querySelector("#Image43421892477193 > div > img");
-        if (secondImage) {
-            const srcset = secondImage.getAttribute('srcset');
-            if (srcset) {
-                const firstSrc = srcset.split(',')[6].trim().split(' ')[0]; // Get the first srcset URL
-                imagesUrl.push(firstSrc);
-                const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-1`;
-                imageNames.push(imageName);
-            }
-            else {
-                imagesUrl.push(secondImage.src);
-                const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-1`;
-                imageNames.push(imageName);
-            }
-        }
+        // const secondImage = document.querySelector("#responsiveImageFeatureTemplate-43242259874122 > img");
+        // if (secondImage) {
+        //     const srcset = secondImage.getAttribute('srcset');
+        //     if (srcset) {
+        //         const firstSrc = srcset.split(',')[5].trim().split(' ')[0]; // Get the first srcset URL
+        //         imagesUrl.push(firstSrc);
+        //         const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-1`;
+        //         imageNames.push(imageName);
+        //     }
+        //     else {
+        //         imagesUrl.push(secondImage.src);
+        //         const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-1`;
+        //         imageNames.push(imageName);
+        //     }
+        // }
 
 
         return {
@@ -112,11 +110,11 @@ async function getProductDetails(url) {
             code: '',
             url: window.location.href,
             Price: price,
-            currency: 'EUR',
+            currency: 'GBP',
             gender: gender,
             description: description,
             color: color,
-            from: 'sys-temic',
+            from: 'lafamamsterdam',
             info: 'Retail Price',
             'image': imageNames,
             'imagesUrl': imagesUrl,
@@ -196,9 +194,12 @@ async function autoScroll(page) {
 
 (async () => {
     const urls = [
-        // 'https://sys-temic.com/collections/all-products/products/striker-logo-jersey',
-        // 'https://sys-temic.com/collections/all-products/products/marine-double-barrel-jeans',
-        'https://sys-temic.com/collections/all-products/products/ecru-teddy-fleece-v2'
+        // 'https://www.lafamamsterdam.com/collections/jackets/products/white-distressed-jacket',
+        // 'https://www.lafamamsterdam.com/collections/jackets/products/red-varsity-jacket',
+        // 'https://www.lafamamsterdam.com/collections/sweaters/products/black-contrast-stitched-trackie',
+        // 'https://www.lafamamsterdam.com/products/retero-leather-jacket?pr_prod_strat=e5_desc&pr_rec_id=03ce6628e&pr_rec_pid=8409258426698&pr_ref_pid=7958368289008&pr_seq=uniform',
+        // 'https://www.lafamamsterdam.com/products/copy-of-retro-leather-jacket',
+        // 'https://www.lafamamsterdam.com/products/black-we-start-and-end-with-the-fam-polo-1'
 
         // Add more URLs as needed
     ];
