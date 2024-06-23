@@ -213,7 +213,7 @@ async function autoScroll(page) {
         // 'https://hunidesign.com/products/huni-hoodie-pink?variant=43740056060170',
         // 'https://hunidesign.com/products/huni-hoodie-grey?variant=43412121714954',
         // 'https://hunidesign.com/collections/apparel/products/astronaut-bomber-grey?variant=45121457422602',
-        // 'https://hunidesign.com/collections/apparel/products/pillow-pants-grey?variant=45121468072202'
+        'https://hunidesign.com/collections/apparel/products/pillow-pants-grey?variant=45121468072202'
 
         // Add more URLs as needed
     ];
