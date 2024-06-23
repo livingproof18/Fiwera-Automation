@@ -2585,5 +2585,100 @@
       "//car-sicko.com/cdn/shop/files/DzNbfbYQ_1080x.png?v=1706289179",
       "//car-sicko.com/cdn/shop/files/rxvx6izA_1080x.png?v=1706289184"
     ]
+  },
+  {
+    "Brand": "Weekday",
+    "name": "ASTRO LOOSE BAGGY JEANS",
+    "category": "Bottoms",
+    "id": "",
+    "code": "Tuned Black",
+    "url": "https://www.weekday.com/en-gb/p/men/jeans/loose-fit/astro-loose-baggy-jeans-tuned-black-010/",
+    "Price": 50,
+    "currency": "GBP",
+    "gender": "Mens & Womens",
+    "description": "A pair of loose and baggy wide leg jeans made from a rigid cotton denim. These favourites have classic five pocket details, a button fly, large back pockets, and stitched rivets.",
+    "color": "",
+    "from": "weekday",
+    "info": "Retail Price",
+    "image": ["Weekday-ASTRO-LOOSE-BAGGY-JEANS-0"],
+    "imagesUrl": [
+      "https://public.assets.hmgroup.com/assets/003/c0/a5/c0a5a67224923c6c20f5faca1ae80208a9c6416e_lg-1.jpg"
+    ]
+  },
+  {
+    "Brand": "Weekday",
+    "name": "ASTRO LOOSE CANVAS DUNGAREES",
+    "category": "Bottoms",
+    "id": "",
+    "code": "Black Contrast",
+    "url": "https://www.weekday.com/en-gb/p/men/jeans/loose-fit/astro-loose-canvas-dungarees-black-contrast-1224939001/",
+    "Price": 65,
+    "currency": "GBP",
+    "gender": "Mens",
+    "description": "A stand-out pair of loose fit carpenter-inspired dungarees made from a sturdy cotton canvas. This is a take on our popular Astro jeans, transformed into dungarees. Features include adjustable shoulder straps with buckle closures, a kangaroo chest pocket, contrasting seams, carpenter inspired thigh pockets with a hammer-loop detail, and side button closures.",
+    "color": "",
+    "from": "weekday",
+    "info": "Retail Price",
+    "image": ["Weekday-ASTRO-LOOSE-CANVAS-DUNGAREES-0"],
+    "imagesUrl": [
+      "https://public.assets.hmgroup.com/assets/003/6e/2d/6e2d125b130bda1002989d0ec6a6a8e590b62525_lg-1.jpg"
+    ]
+  },
+  {
+    "Brand": "Weekday",
+    "name": "REMY HOODED BOMBER JACKET",
+    "category": "JACKET",
+    "id": "",
+    "code": "",
+    "url": "https://www.weekday.com/en-gb/p/men/jackets-and-coats/bomber/remy-hooded-bomber-jacket-bleach-washed-black-1204008005/",
+    "Price": 69,
+    "currency": "GBP",
+    "gender": "Mens",
+    "description": "A regular fit hooded bomber jacket made from a strong cotton and recycled polyester fabric. This statement favourite has a roomy hood and is fully lined with quilted padding, has side seam pockets, slightly dropped shoulders, a sturdy front zipper, and ribbed cuffs and hemline.",
+    "color": "Bleach Washed Black",
+    "from": "weekday",
+    "info": "Retail Price",
+    "image": ["Weekday-REMY-HOODED-BOMBER-JACKET-0"],
+    "imagesUrl": [
+      "https://public.assets.hmgroup.com/assets/003/d2/12/d2122dd8ab303301366fdfdc83aa73b9b3f304e9_lg-1.jpg"
+    ]
+  },
+  {
+    "Brand": "Weekday",
+    "name": "RELAXED COTTON BOMBER JACKET",
+    "category": "JACKET",
+    "id": "",
+    "code": "",
+    "url": "https://www.weekday.com/en-gb/p/men/jackets-and-coats/bomber/relaxed-cotton-bomber-jacket-black-1219372001/",
+    "Price": 65,
+    "currency": "GBP",
+    "gender": "Mens",
+    "description": "A short relaxed fit bomber jacket made from a sturdy cotton fabric. It has a ribbed neckline, a sturdy front zip closure, side pockets with velcro-closure, and ribbed cuffs and hemline.",
+    "color": "Black",
+    "from": "weekday",
+    "info": "Retail Price",
+    "image": ["Weekday-RELAXED-COTTON-BOMBER-JACKET-0"],
+    "imagesUrl": [
+      "https://public.assets.hmgroup.com/assets/003/1a/90/1a90ecea7c9719457c2eb76a4270d5e3805f1b98_lg-1.jpg"
+    ]
+  },
+  {
+    "Brand": "Weekday",
+    "name": "SIMON SCUBA ZIP HOODIE",
+    "category": "Hoodie",
+    "id": "",
+    "code": "",
+    "url": "https://www.weekday.com/en-gb/p/men/hoodies/zip/simon-scuba-zip-hoodie-black-001/",
+    "Price": 55,
+    "currency": "GBP",
+    "gender": "Mens & Womens",
+    "description": "A regular fit zip hoodie made from a chunky scuba fabric with a recycled polyester and viscose blend, enhanced with a touch of recycled elastane. It has slightly dropped shoulders, ribbed cuffs and hemline, and a sturdy two-way front zipper.",
+    "color": "Black",
+    "from": "weekday",
+    "info": "Retail Price",
+    "image": ["Weekday-SIMON-SCUBA-ZIP-HOODIE-0"],
+    "imagesUrl": [
+      "https://public.assets.hmgroup.com/assets/003/9f/e5/9fe50f7560241b9c6f3342821e28372abf14b1c7_lg-1.jpg"
+    ]
   }
 ]

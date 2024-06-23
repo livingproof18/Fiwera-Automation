@@ -4,8 +4,8 @@ const path = require('path');
 const axios = require('axios');
 
 
-const BRAND_NAME = "Carsicko";
-const CATEGORY_VALUE = "TOP";
+const BRAND_NAME = "Weekday";
+const CATEGORY_VALUE = "";
 const GENDER = "Mens & Womens";
 
 async function getProductDetails(url) {
@@ -34,26 +34,28 @@ async function getProductDetails(url) {
     // Wait for the specific elements to ensure they are loaded
     // Cwith fugazi I have to keep chaning the image ids--- longgggg
     // await page.waitForSelector('#\\:R6l35\\:-slide-1 > div > img');
-    await page.waitForSelector('#FeaturedMedia-template--17136623517923__main-33351600505059-wrapper > div > div > div > img');
+    await page.waitForSelector('#__next > main > div > div:nth-child(5) > section > div.z-0.max-w-\\[100vw\\].desktop\\:col-span-2.desktop\\:pl-3 > div.hidden.gap-3.desktop\\:grid.desktop\\:grid-cols-\\[32px_1fr\\] > div:nth-child(2) > div > div.swiper-wrapper > div:nth-child(3) > div.aspect-w-2.aspect-h-3 > img');
 
     const details = await page.evaluate((BRAND_NAME, CATEGORY_VALUE, GENDER) => {
         const brand = BRAND_NAME;
         const gender = GENDER;
         const category = CATEGORY_VALUE;
-        //depending on catr CATEGORY will need to change, product-jeans, product-template, product-tops e.g
-        const nameElement = document.querySelector("#shopify-section-template--17136623517923__main > div > div.product-detail.quickbuy-content.spaced-row.container > div.detail.product-column-right.cc-animate-init.-in.cc-animate-complete > div > div.title-row > h1");
+        // Select name element and sanitize its content
+        const nameElement = document.querySelector("#__next > main > div > div:nth-child(5) > section > div.flex.flex-col.bg-white.px-2.desktop\\:pr-3.desktop\\:pl-3 > div:nth-child(1)");
         const name = nameElement ? nameElement.innerText?.trim().replace(/["\\/|<>:*?]/g, '') : null;
         console.log('name:', name);
 
-        const priceText = document.querySelector("#shopify-section-template--17136623517923__main > div > div.product-detail.quickbuy-content.spaced-row.container > div.detail.product-column-right.cc-animate-init.-in.cc-animate-complete > div > div.price-container > div.variant-visibility-area > div > div > span")?.innerText?.trim();
+        // Select price element and parse its content
+        const priceText = document.querySelector("#__next > main > div > div:nth-child(5) > section > div.flex.flex-col.bg-white.px-2.desktop\\:pr-3.desktop\\:pl-3 > div.leading-tight.hidden.text-14.leading-20.desktop\\:block")?.innerText?.trim();
         const price = priceText ? parseFloat(priceText.replace(/[^\d.-]/g, '')) : null;
         console.log('price:', price);
 
-        const descriptionElement = document.querySelector("#shopify-section-template--17136623517923__main > div > div.product-detail.quickbuy-content.spaced-row.container > div.detail.product-column-right.cc-animate-init.-in.cc-animate-complete > div > div:nth-child(6) > div > details > div > div");
+        // Select description element and get its text content
+        const descriptionElement = document.querySelector("#__next > main > div > div:nth-child(5) > section > div.flex.flex-col.bg-white.px-2.desktop\\:pr-3.desktop\\:pl-3 > section > div > div:nth-child(1) > div > div > div");
         const description = descriptionElement ? descriptionElement.textContent?.trim() : null;
         console.log('description:', description);
 
-        const color = ""
+        const color = document.querySelector("#product-color-select > div > div.css-1d8n9bt > div > div > div").textContent?.trim()
 
         const imagesUrl = [];
         const imageNames = [];
@@ -61,11 +63,11 @@ async function getProductDetails(url) {
         // console.log("getting image")
 
         // const firstImage = document.querySelector("#maincontent > div.columns > div > div.product.media > div.gallery-placeholder.product-image-mosaic._block-content-loading > ul > li:nth-child(11) > img.zoomImg");
-        const firstImage = document.querySelector("#FeaturedMedia-template--17136623517923__main-33351600505059-wrapper > div > div > div > img");
+        const firstImage = document.querySelector("#__next > main > div > div:nth-child(5) > section > div.z-0.max-w-\\[100vw\\].desktop\\:col-span-2.desktop\\:pl-3 > div.hidden.gap-3.desktop\\:grid.desktop\\:grid-cols-\\[32px_1fr\\] > div:nth-child(2) > div > div.swiper-wrapper > div:nth-child(3) > div.aspect-w-2.aspect-h-3 > img");
         if (firstImage) {
             const srcset = firstImage.getAttribute('srcset');
             if (srcset) {
-                const firstSrc = srcset.split(',')[8].trim().split(' ')[0]; // Get the first srcset URL
+                const firstSrc = srcset.split(',')[5].trim().split(' ')[0]; // Get the first srcset URL
                 imagesUrl.push(firstSrc);
                 const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-0`;
                 // const imageName = `${brand.replace(/\s+/g, '-').replace(/\//g, '-').replace(/'/g, '')}-${name.replace(/\s+/g, '-').replace(/\//g, '-').replace(/'/g, '')}-0`;
@@ -76,21 +78,21 @@ async function getProductDetails(url) {
                 imageNames.push(imageName);
             }
         }
-        const secondImage = document.querySelector("#FeaturedMedia-template--17136623517923__main-33351600570595-wrapper > div > div > div > img");
-        if (secondImage) {
-            const srcset = secondImage.getAttribute('srcset');
-            if (srcset) {
-                const firstSrc = srcset.split(',')[8].trim().split(' ')[0]; // Get the first srcset URL
-                imagesUrl.push(firstSrc);
-                const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-1`;
-                imageNames.push(imageName);
-            }
-            else {
-                imagesUrl.push(secondImage.src);
-                const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-1`;
-                imageNames.push(imageName);
-            }
-        }
+        // const secondImage = document.querySelector("#FeaturedMedia-template--17136623517923__main-33351600570595-wrapper > div > div > div > img");
+        // if (secondImage) {
+        //     const srcset = secondImage.getAttribute('srcset');
+        //     if (srcset) {
+        //         const firstSrc = srcset.split(',')[8].trim().split(' ')[0]; // Get the first srcset URL
+        //         imagesUrl.push(firstSrc);
+        //         const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-1`;
+        //         imageNames.push(imageName);
+        //     }
+        //     else {
+        //         imagesUrl.push(secondImage.src);
+        //         const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-1`;
+        //         imageNames.push(imageName);
+        //     }
+        // }
 
 
 
@@ -106,7 +108,7 @@ async function getProductDetails(url) {
             gender: gender,
             description: description,
             color: color,
-            from: 'car-sicko',
+            from: 'weekday',
             info: 'Retail Price',
             'image': imageNames,
             'imagesUrl': imagesUrl,
@@ -186,13 +188,11 @@ async function autoScroll(page) {
 
 (async () => {
     const urls = [
-        // 'https://car-sicko.com/collections/all/products/core-t-shirt-white',
-        // 'https://car-sicko.com/collections/all/products/basics-zip-hoodie-sex-grey',
-        // 'https://car-sicko.com/collections/all/products/basics-track-pants-sex-grey',
-        // 'https://car-sicko.com/collections/all/products/dont-touch-hoodie-washed-black',
-        // 'https://car-sicko.com/collections/all/products/le-fade-track-pants-black',
-        'https://car-sicko.com/collections/all/products/carsicko-gardens-t-shirt-white'
-        // 'https://car-sicko.com/collections/holy-grail/products/signature-hoodie-black'
+        // 'https://www.weekday.com/en-gb/p/men/jeans/loose-fit/astro-loose-baggy-jeans-tuned-black-010/',
+        // 'https://www.weekday.com/en-gb/p/men/jeans/loose-fit/astro-loose-canvas-dungarees-black-contrast-1224939001/',
+        // 'https://www.weekday.com/en-gb/p/men/jackets-and-coats/bomber/remy-hooded-bomber-jacket-bleach-washed-black-1204008005/',
+        // 'https://www.weekday.com/en-gb/p/men/jackets-and-coats/bomber/relaxed-cotton-bomber-jacket-black-1219372001/',
+        'https://www.weekday.com/en-gb/p/men/hoodies/zip/simon-scuba-zip-hoodie-black-001/'
         // Add more URLs as needed
     ];
 
