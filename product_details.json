@@ -2043,7 +2043,7 @@
   {
     "Brand": "Daily Paper",
     "name": "Navy Eze Jacket",
-    "category": "Tops",
+    "category": "Jacket",
     "id": "",
     "code": "",
     "url": "https://uk.dailypaperclothing.com/collections/sale-men/products/navy-eze-jacket?view=frontimg",
@@ -2063,7 +2063,7 @@
   {
     "Brand": "Daily Paper",
     "name": "Moonstruck Beige Jabari Herd Jacket",
-    "category": "Tops",
+    "category": "Jacket",
     "id": "",
     "code": "",
     "url": "https://uk.dailypaperclothing.com/collections/sale-men/products/moonstruck-beige-jabari-herd-jacket?view=frontimg",
@@ -2086,7 +2086,7 @@
   {
     "Brand": "Daily Paper",
     "name": "Jester Red Black Peregia Jacket",
-    "category": "Tops",
+    "category": "Jacket",
     "id": "",
     "code": "",
     "url": "https://uk.dailypaperclothing.com//collections/sale-men/products/jester-red-black-peregia-jacket?view=frontimg",
@@ -2114,7 +2114,7 @@
     "code": "",
     "url": "https://dailypaperclothing.com/collections/sale-men/products/blue-jacob-denim-jacket?view=frontimg",
     "Price": 100,
-    "currency": "GBP",
+    "currency": "EUR",
     "gender": "Mens",
     "description": "A timeless denim piece made with a custom all-over destroyed monogram print. The Jacob denim jacket is equipped with a zip closure, a classic shirt collar and pockets. A woven Daily Paper label decorates the chest pocket. Pair with the matching Jacob denim pants for a full denim-on-denim look.",
     "color": "Blue",
@@ -2127,6 +2127,68 @@
     "imagesUrl": [
       "https://dailypaperclothing.com/cdn/shop/files/JACOBDENIMJACKET-BLUE_Front.jpg?v=1704289838",
       "https://dailypaperclothing.com/cdn/shop/files/JACOBDENIMJACKET-BLUE_Back.jpg?v=1704289838"
+    ]
+  },
+  {
+    "Brand": "systemic",
+    "name": "Striker Logo Jersey",
+    "category": "Tops",
+    "id": "",
+    "code": "",
+    "url": "https://sys-temic.com/collections/all-products/products/striker-logo-jersey",
+    "Price": 95,
+    "currency": "EUR",
+    "gender": "Mens",
+    "description": "Our Striker Logo Jersey, features a custom two tone patterning and outstanding ornamental seams around the neck. Various colorful *systemic logos are printed on the front, sides and back which make the jersey incredibly eye-catching. The Jersey is rounded up with a *systemic sporting goods tag at the bottom front.\n\n*Aged to Perfection, Made in Portugal.\n\nOur Jersey fits oversized, size down for a more true to size fit.",
+    "color": "",
+    "from": "sys-temic",
+    "info": "Retail Price",
+    "image": [
+      "systemic-Striker-Logo-Jersey-0",
+      "systemic-Striker-Logo-Jersey-1"
+    ],
+    "imagesUrl": [
+      "//sys-temic.com/cdn/shop/files/TT_23941_1000x.png?v=1687290435",
+      "//sys-temic.com/cdn/shop/files/TT_23943_1000x.png?v=1687290437"
+    ]
+  },
+  {
+    "Brand": "systemic",
+    "name": "MARINE DOUBLE BARREL JEANS",
+    "category": "Tops",
+    "id": "",
+    "code": "",
+    "url": "https://sys-temic.com/collections/all-products/products/marine-double-barrel-jeans",
+    "Price": 12995,
+    "currency": "EUR",
+    "gender": "Mens",
+    "description": "Our Double Barrel Jeans feature a flared cut with compartments on the front and back which optimize the shape. The individual dying process makes every pair unique. The pockets on the front are rounded and feature a second coin pocket inside. A double belt loop can be found on the front as well, which we call the double barrel. The back of our jeans feature a suede leather tag with a gold *systemic logo pin. The back pockets have our usual \"V\" shape, which give the jeans interesting characteristics.\n\n\n*Aged to Perfection, Made in Turkey.\n\n\nOur Jeans fits true to size, take your regular size for the best fit.",
+    "color": "",
+    "from": "sys-temic",
+    "info": "Retail Price",
+    "image": ["systemic-MARINE-DOUBLE-BARREL-JEANS-0"],
+    "imagesUrl": [
+      "//sys-temic.com/cdn/shop/files/TT_23986_1000x.png?v=1687290517"
+    ]
+  },
+  {
+    "Brand": "systemic",
+    "name": "Wheat Teddy Fleece",
+    "category": "Tops",
+    "id": "",
+    "code": "",
+    "url": "https://sys-temic.com/collections/all-products/products/ecru-teddy-fleece-v2",
+    "Price": 150,
+    "currency": "EUR",
+    "gender": "Mens",
+    "description": "The Systemic Teddy Fleece is made out of a soft teddy fabric with a velvet underlay. The Teddy Fleece has been individually dyed and handled in the making progress featuring our signature two-tone patterns on the sleeves, front and back. \n\n*Aged to Perfection, sourced in Italy, made in Portugal.\n\nFits true to size, take your average size for the best fit.",
+    "color": "",
+    "from": "sys-temic",
+    "info": "Retail Price",
+    "image": ["systemic-Wheat-Teddy-Fleece-0", "systemic-Wheat-Teddy-Fleece-1"],
+    "imagesUrl": [
+      "//sys-temic.com/cdn/shop/products/DSC_25870_1000x.jpg?v=1680257879",
+      "//sys-temic.com/cdn/shop/products/DSC_25872_1000x.jpg?v=1680257897"
     ]
   }
 ]

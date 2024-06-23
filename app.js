@@ -4,7 +4,7 @@ const path = require('path');
 const axios = require('axios');
 
 
-const BRAND_NAME = "Daily Paper";
+const BRAND_NAME = "systemic";
 const CATEGORY_VALUE = "Tops";
 const GENDER = "Mens";
 
@@ -34,7 +34,7 @@ async function getProductDetails(url) {
     // Wait for the specific elements to ensure they are loaded
     // Cwith fugazi I have to keep chaning the image ids--- longgggg
     // await page.waitForSelector('#\\:R6l35\\:-slide-1 > div > img');
-    await page.waitForSelector('#\\#zoom1 > img');
+    await page.waitForSelector('#Image43421892509961 > div > img');
 
     // Click to open the modal
     // try {
@@ -49,16 +49,16 @@ async function getProductDetails(url) {
         const brand = BRAND_NAME;
         const gender = GENDER;
         const category = CATEGORY_VALUE;
-
-        const nameElement = document.querySelector("#shopify-section-template--20450900213965__main > section > div.product-wrap > div.product-info > div.sticky-info > div.product-toptitle > div:nth-child(1) > h1");
+        //depending on catr CATEGORY will need to change, product-jeans, product-template, product-tops e.g
+        const nameElement = document.querySelector("#shopify-section-product-template  > section > div > div.Product__InfoWrapper > div.Product__Info > div > div.ProductMeta > h1");
         const name = nameElement ? nameElement.innerText?.trim() : null;
         console.log('name:', name);
 
-        const priceText = document.querySelector("#price-template--20450900213965__main > span")?.innerText?.trim();
+        const priceText = document.querySelector("#shopify-section-product-template  > section > div > div.Product__InfoWrapper > div.Product__Info > div > div.ProductMeta > div > span")?.innerText?.trim();
         const price = priceText ? parseFloat(priceText.replace(/[^\d.-]/g, '')) : null;
         console.log('price:', price);
 
-        const descriptionElement = document.querySelector("#shopify-section-template--20450900213965__main > section > div.product-wrap > div.product-info > div.sticky-info > div.product-description > div:nth-child(1)");
+        const descriptionElement = document.querySelector("#shopify-section-product-template  > section > div > div.Product__InfoWrapper > div.Product__Info > div > div:nth-child(4) > div");
         const description = descriptionElement ? descriptionElement.innerText?.trim() : null;
         console.log('description:', description);
 
@@ -72,11 +72,11 @@ async function getProductDetails(url) {
         // console.log("getting image")
 
         // const firstImage = document.querySelector("#maincontent > div.columns > div > div.product.media > div.gallery-placeholder.product-image-mosaic._block-content-loading > ul > li:nth-child(11) > img.zoomImg");
-        const firstImage = document.querySelector("#\\#zoom1 > img");
+        const firstImage = document.querySelector("#Image43421892509961 > div > img");
         if (firstImage) {
             const srcset = firstImage.getAttribute('srcset');
             if (srcset) {
-                const firstSrc = srcset.split(',')[1].trim().split(' ')[0]; // Get the first srcset URL
+                const firstSrc = srcset.split(',')[6].trim().split(' ')[0]; // Get the first srcset URL
                 imagesUrl.push(firstSrc);
                 const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-0`;
                 // const imageName = `${brand.replace(/\s+/g, '-').replace(/\//g, '-').replace(/'/g, '')}-${name.replace(/\s+/g, '-').replace(/\//g, '-').replace(/'/g, '')}-0`;
@@ -87,11 +87,11 @@ async function getProductDetails(url) {
                 imageNames.push(imageName);
             }
         }
-        const secondImage = document.querySelector("#\\#zoom2 > img");
+        const secondImage = document.querySelector("#Image43421892477193 > div > img");
         if (secondImage) {
             const srcset = secondImage.getAttribute('srcset');
             if (srcset) {
-                const firstSrc = srcset.split(',')[1].trim().split(' ')[0]; // Get the first srcset URL
+                const firstSrc = srcset.split(',')[6].trim().split(' ')[0]; // Get the first srcset URL
                 imagesUrl.push(firstSrc);
                 const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-1`;
                 imageNames.push(imageName);
@@ -112,11 +112,11 @@ async function getProductDetails(url) {
             code: '',
             url: window.location.href,
             Price: price,
-            currency: 'GBP',
+            currency: 'EUR',
             gender: gender,
             description: description,
             color: color,
-            from: 'dailypaperclothing',
+            from: 'sys-temic',
             info: 'Retail Price',
             'image': imageNames,
             'imagesUrl': imagesUrl,
@@ -196,16 +196,9 @@ async function autoScroll(page) {
 
 (async () => {
     const urls = [
-        'https://uk.dailypaperclothing.com/collections/all-tops/products/dp-x-mundial-footbal-jersey?view=frontimg',
-        'https://uk.dailypaperclothing.com/collections/all-tops/products/pristine-white-knit-sweater-t-shirt?view=frontimg',
-        'https://uk.dailypaperclothing.com/collections/jackets/products/light-blue-nunise-denim-jacket?view=frontimg',
-        'https://uk.dailypaperclothing.com/collections/men-knitwear/products/daiquiri-green-xois-crochet-vest?view=frontimg',
-        'https://uk.dailypaperclothing.com/collections/women-all-tops/products/black-nalia-t-shirt?view=frontimg',
-        'https://uk.dailypaperclothing.com/collections/women-all-tops/products/daiquiri-green-xois-crochet-dress?view=frontimg',
-        'https://uk.dailypaperclothing.com/collections/sale-men/products/navy-eze-jacket?view=frontimg',
-        'https://uk.dailypaperclothing.com/collections/sale-men/products/moonstruck-beige-jabari-herd-jacket?view=frontimg',
-        'https://uk.dailypaperclothing.com//collections/sale-men/products/jester-red-black-peregia-jacket?view=frontimg',
-        'https://dailypaperclothing.com/collections/sale-men/products/blue-jacob-denim-jacket?view=frontimg'
+        // 'https://sys-temic.com/collections/all-products/products/striker-logo-jersey',
+        // 'https://sys-temic.com/collections/all-products/products/marine-double-barrel-jeans',
+        'https://sys-temic.com/collections/all-products/products/ecru-teddy-fleece-v2'
 
         // Add more URLs as needed
     ];
