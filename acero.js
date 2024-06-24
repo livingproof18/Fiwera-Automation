@@ -4,8 +4,8 @@ const path = require('path');
 const axios = require('axios');
 
 
-const BRAND_NAME = "Hunidesign";
-const CATEGORY_VALUE = "JACKET";
+const BRAND_NAME = "FREE THE YOUTH";
+const CATEGORY_VALUE = "Accessories";
 const GENDER = "Mens & Womens";
 
 async function getProductDetails(url) {
@@ -18,63 +18,51 @@ async function getProductDetails(url) {
     });
 
     const page = await browser.newPage();
-
     // Set viewport to desired width and height
     await page.setViewport({ width: 1920, height: 1080 });
-
     await page.goto(url, { waitUntil: 'networkidle2' });
-
 
     // Scroll down to load all images
     await autoScroll(page);
     // Custom wait function
     await new Promise(resolve => setTimeout(resolve, 4000)); // Wait for images to load
 
-    console.log("Scroll, and now entering page")
-    // Wait for the specific elements to ensure they are loaded
-    // Cwith fugazi I have to keep chaning the image ids--- longgggg
-    // await page.waitForSelector('#\\:R6l35\\:-slide-1 > div > img');
-    await page.waitForSelector('#ProductImage-45562480361738');
 
-    // Click to open the modal
-    // try {
-    //     await page.click('#product-view > button.flex.justify-start.uppercase.underline.hover\\:text-gray-300.hover\\:no-underline.phone\\:ml-5.text-sm.phone\\:order-6.phone\\:mb-0');
-    //     await page.waitForSelector('body > div:nth-child(7) > div > div > div', { timeout: 5000 });
-    // } catch (error) {
-    //     console.log('Failed to open description modal:', error);
-    // }
+    // Wait for the specific elements to ensure they are loaded
+    await page.waitForSelector('#splide01-slide01 > div > div > div > img');
+
 
 
     const details = await page.evaluate((BRAND_NAME, CATEGORY_VALUE, GENDER) => {
-        const brand = BRAND_NAME;
-        const gender = GENDER;
-        const category = CATEGORY_VALUE;
-        //depending on catr CATEGORY will need to change, product-jeans, product-template, product-tops e.g
-        const nameElement = document.querySelector("#ProductSection > div.grid.product-single > div.grid-item.large--three-tenths > h1");
+        const brand = BRAND_NAME; const category = CATEGORY_VALUE; const gender = GENDER;
+
+
+        const nameElement = document.querySelector("#shopify-section-template--15735420747932__main > section > div.product-content-container.bg-scheme-background.text-scheme-text.section-x-padding.lg\\:col-span-6 > div > h1");
         const name = nameElement ? nameElement.innerText?.trim().replace(/["\\/|<>:*?]/g, '') : null;
-        console.log('name:', name);
 
-        const priceText = document.querySelector("#ProductSection > div.grid.product-single > div.grid-item.large--three-tenths > div.h2.product-single__price > span.product-price")?.innerText?.trim();
+        const priceText = document.querySelector("#shopify-section-template--15735420747932__main > section > div.product-content-container.bg-scheme-background.text-scheme-text.section-x-padding.lg\\:col-span-6 > div > div.product-price-block.mt-8.text-base > span:nth-child(2) > span > span:nth-child(1)")?.innerText.trim();
         const price = priceText ? parseFloat(priceText.replace(/[^\d.-]/g, '')) : null;
-        console.log('price:', price);
 
-        const descriptionElement = document.querySelector("#ProductSection > div.grid.product-single > div.grid-item.large--three-tenths > div.product-single__desc.rte");
-        const description = descriptionElement ? descriptionElement.innerText?.trim() : null;
-        console.log('description:', description);
+        const descriptionElement = document.querySelector("#shopify-section-template--15735420747932__main > section > div.product-content-container.bg-scheme-background.text-scheme-text.section-x-padding.lg\\:col-span-6 > div > div.rte.mt-8 > ul");
+        const description = descriptionElement ? descriptionElement.innerText.trim() : null;
+        const colorElement = document.querySelector("#shopify-section-template--15735420747932__main > section > div.product-content-container.bg-scheme-background.text-scheme-text.section-x-padding.lg\\:col-span-6 > div > div.rte.mt-8 > ul > li:nth-child(1)");
+        const color = colorElement ? colorElement.innerText.trim() : null;
 
-        const color = ""
+        console.log("name", name)
+        console.log("price", price)
+        console.log("description", description)
+        console.log("color", color)
+
 
         const imagesUrl = [];
         const imageNames = [];
-        // /Get first Image,
-        // console.log("getting image")
 
-        // const firstImage = document.querySelector("#maincontent > div.columns > div > div.product.media > div.gallery-placeholder.product-image-mosaic._block-content-loading > ul > li:nth-child(11) > img.zoomImg");
-        const firstImage = document.querySelector("#ProductImage-45562480361738");
+        const firstImage = document.querySelector("#splide01-slide01 > div > div > div > img")
+
         if (firstImage) {
             const srcset = firstImage.getAttribute('srcset');
             if (srcset) {
-                const firstSrc = srcset.split(',')[5].trim().split(' ')[0]; // Get the first srcset URL
+                const firstSrc = srcset.split(',')[3].trim().split(' ')[0]; // Get the first srcset URL
                 imagesUrl.push(firstSrc);
                 const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-0`;
                 // const imageName = `${brand.replace(/\s+/g, '-').replace(/\//g, '-').replace(/'/g, '')}-${name.replace(/\s+/g, '-').replace(/\//g, '-').replace(/'/g, '')}-0`;
@@ -85,11 +73,11 @@ async function getProductDetails(url) {
                 imageNames.push(imageName);
             }
         }
-        const secondImage = document.querySelector("#ProductImage-45562480427274");
+        const secondImage = document.querySelector("#splide01-slide02 > div > div > div > img");
         if (secondImage) {
             const srcset = secondImage.getAttribute('srcset');
             if (srcset) {
-                const firstSrc = srcset.split(',')[5].trim().split(' ')[0]; // Get the first srcset URL
+                const firstSrc = srcset.split(',')[3].trim().split(' ')[0]; // Get the first srcset URL
                 imagesUrl.push(firstSrc);
                 const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-1`;
                 imageNames.push(imageName);
@@ -100,22 +88,21 @@ async function getProductDetails(url) {
                 imageNames.push(imageName);
             }
         }
-        // const thirdImage = document.querySelector("#ProductImage-45562476036362");
-        // if (thirdImage) {
-        //     const srcset = thirdImage.getAttribute('srcset');
-        //     if (srcset) {
-        //         const firstSrc = srcset.split(',')[5].trim().split(' ')[0]; // Get the first srcset URL
-        //         imagesUrl.push(firstSrc);
-        //         const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-2`;
-        //         imageNames.push(imageName);
-        //     }
-        //     else {
-        //         imagesUrl.push(thirdImage.src);
-        //         const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-2`;
-        //         imageNames.push(imageName);
-        //     }
-        // }
-
+        const thirdImage = document.querySelector("#splide01-slide03 > div > div > div > img");
+        if (thirdImage) {
+            const srcset = thirdImage.getAttribute('srcset');
+            if (srcset) {
+                const firstSrc = srcset.split(',')[3].trim().split(' ')[0]; // Get the first srcset URL
+                imagesUrl.push(firstSrc);
+                const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-2`;
+                imageNames.push(imageName);
+            }
+            else {
+                imagesUrl.push(thirdImage.src);
+                const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-2`;
+                imageNames.push(imageName);
+            }
+        }
 
         return {
             Brand: brand,
@@ -125,11 +112,11 @@ async function getProductDetails(url) {
             code: '',
             url: window.location.href,
             Price: price,
-            currency: 'EUR',
+            currency: 'GBP',
             gender: gender,
             description: description,
             color: color,
-            from: 'hunidesign',
+            from: 'freetheyouth',
             info: 'Retail Price',
             'image': imageNames,
             'imagesUrl': imagesUrl,
@@ -148,7 +135,7 @@ async function getProductDetails(url) {
         const imageName = details.image[i];
         try {
             console.log(`Downloading image ${imageName} from ${imageUrl}`);
-            await downloadImage(imageUrl, path.join(__dirname, 'clothing', `${imageName}.jpg`));
+            await downloadImage(imageUrl, path.join(__dirname, 'acero', `${imageName}.jpg`));
         } catch (error) {
             console.error(`Failed to download image ${imageName} from ${imageUrl}:`, error);
         }
@@ -209,19 +196,18 @@ async function autoScroll(page) {
 
 (async () => {
     const urls = [
-        // 'https://hunidesign.com/products/huni-hoodie-baby-blue?variant=45355226071306',
-        // 'https://hunidesign.com/products/huni-hoodie-pink?variant=43740056060170',
-        // 'https://hunidesign.com/products/huni-hoodie-grey?variant=43412121714954',
-        // 'https://hunidesign.com/collections/apparel/products/astronaut-bomber-grey?variant=45121457422602',
-        'https://hunidesign.com/collections/apparel/products/pillow-pants-grey?variant=45121468072202'
+        // 'https://freetheyouth.net/collections/accessories/products/logo-belt-silver-black',
+        // 'https://freetheyouth.net/collections/accessories/products/logo-belt-silver-red',
+        'https://freetheyouth.net/collections/accessories/products/fty-power-conference-fitted-hat'
 
-        // Add more URLs as needed
+
+        // // Add more URLs as needed
     ];
 
     // Load existing data if available
     let existingData = [];
-    if (fs.existsSync('product_details.json')) {
-        const rawData = fs.readFileSync('product_details.json');
+    if (fs.existsSync('acero_details.json')) {
+        const rawData = fs.readFileSync('acero_details.json');
         existingData = JSON.parse(rawData);
     }
 
@@ -236,7 +222,7 @@ async function autoScroll(page) {
     // Append new results to existing data
     const updatedData = existingData.concat(results);
 
-    fs.writeFileSync('product_details.json', JSON.stringify(updatedData, null, 2), 'utf-8');
+    fs.writeFileSync('acero_details.json', JSON.stringify(updatedData, null, 2), 'utf-8');
     console.log('Product details saved to product_details.json');
 })();
 
