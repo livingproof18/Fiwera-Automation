@@ -476,5 +476,65 @@
       "//freetheyouth.net/cdn/shop/files/POWERCONFERENCEHATBACK_720x.png?v=1684242815",
       "//freetheyouth.net/cdn/shop/files/HATDETAIL_720x.png?v=1684242827"
     ]
+  },
+  {
+    "Brand": "Chrome Hearts",
+    "name": "TUMBLER",
+    "category": "Accessories",
+    "id": "",
+    "code": "",
+    "url": "https://www.chromehearts.com/baccarat/tumbler/174132CRYXXX015.html",
+    "Price": 2415,
+    "currency": "GBP",
+    "gender": "Mens & Womens",
+    "description": "BACCARAT FOR CHROME HEARTS\nCROSSTAIL DESIGN\nSET OF TWO\nMADE IN FRANCE",
+    "color": "",
+    "from": "chromehearts",
+    "info": "Retail Price",
+    "image": ["Chrome-Hearts-TUMBLER-0", "Chrome-Hearts-TUMBLER-1"],
+    "imagesUrl": [
+      "https://www.chromehearts.com/dw/image/v2/BFBV_PRD/on/demandware.static/-/Sites-ch-master-catalog/default/dwdfa7b865/img_products/hi-res/503174132CRYXXX015_0676.png?sw=540&sh=675",
+      "https://www.chromehearts.com/dw/image/v2/BFBV_PRD/on/demandware.static/-/Sites-ch-master-catalog/default/dw8e83cdfc/img_products/hi-res/503174132CRYXXX015_0695.png?sw=540&sh=675"
+    ]
+  },
+  {
+    "Brand": "Chrome Hearts",
+    "name": "DECANTER",
+    "category": "Accessories",
+    "id": "",
+    "code": "",
+    "url": "https://www.chromehearts.com/baccarat/decanter/174131CRYXXX013.html",
+    "Price": 4395,
+    "currency": "GBP",
+    "gender": "Mens & Womens",
+    "description": "BACCARAT FOR CHROME HEARTS\nPYRAMID PLUS DESIGN\nMADE IN FRANCE",
+    "color": "",
+    "from": "chromehearts",
+    "info": "Retail Price",
+    "image": ["Chrome-Hearts-DECANTER-0", "Chrome-Hearts-DECANTER-1"],
+    "imagesUrl": [
+      "https://www.chromehearts.com/dw/image/v2/BFBV_PRD/on/demandware.static/-/Sites-ch-master-catalog/default/dw9ee673d9/img_products/hi-res/503174131CRYXXX013_0700.png?sw=540&sh=675",
+      "https://www.chromehearts.com/dw/image/v2/BFBV_PRD/on/demandware.static/-/Sites-ch-master-catalog/default/dw221569b5/img_products/hi-res/503174131CRYXXX013_0704.png?sw=540&sh=675"
+    ]
+  },
+  {
+    "Brand": "Chrome Hearts",
+    "name": "ASHTRAY",
+    "category": "Accessories",
+    "id": "",
+    "code": "",
+    "url": "https://www.chromehearts.com/baccarat/ashtray/177730CRYXXX013.html",
+    "Price": 3235,
+    "currency": "GBP",
+    "gender": "Mens & Womens",
+    "description": "BACCARAT FOR CHROME HEARTS\nPYRAMID PLUS DESIGN\nMADE IN FRANCE",
+    "color": "",
+    "from": "chromehearts",
+    "info": "Retail Price",
+    "image": ["Chrome-Hearts-ASHTRAY-0", "Chrome-Hearts-ASHTRAY-1"],
+    "imagesUrl": [
+      "https://www.chromehearts.com/dw/image/v2/BFBV_PRD/on/demandware.static/-/Sites-ch-master-catalog/default/dw58a64855/img_products/hi-res/503177730CRYXXX013_0731.png?sw=540&sh=675",
+      "https://www.chromehearts.com/dw/image/v2/BFBV_PRD/on/demandware.static/-/Sites-ch-master-catalog/default/dw84d05f57/img_products/hi-res/503177730CRYXXX013_0739.png?sw=540&sh=675"
+    ]
   }
 ]

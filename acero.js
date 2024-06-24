@@ -4,7 +4,7 @@ const path = require('path');
 const axios = require('axios');
 
 
-const BRAND_NAME = "FREE THE YOUTH";
+const BRAND_NAME = "Chrome Hearts";
 const CATEGORY_VALUE = "Accessories";
 const GENDER = "Mens & Womens";
 
@@ -29,7 +29,7 @@ async function getProductDetails(url) {
 
 
     // Wait for the specific elements to ensure they are loaded
-    await page.waitForSelector('#splide01-slide01 > div > div > div > img');
+    await page.waitForSelector('#pdpCarousel-177730CRYXXX013 > div > div.carousel-item.active > picture > img');
 
 
 
@@ -37,16 +37,17 @@ async function getProductDetails(url) {
         const brand = BRAND_NAME; const category = CATEGORY_VALUE; const gender = GENDER;
 
 
-        const nameElement = document.querySelector("#shopify-section-template--15735420747932__main > section > div.product-content-container.bg-scheme-background.text-scheme-text.section-x-padding.lg\\:col-span-6 > div > h1");
+        const nameElement = document.querySelector(".product-name");
         const name = nameElement ? nameElement.innerText?.trim().replace(/["\\/|<>:*?]/g, '') : null;
 
-        const priceText = document.querySelector("#shopify-section-template--15735420747932__main > section > div.product-content-container.bg-scheme-background.text-scheme-text.section-x-padding.lg\\:col-span-6 > div > div.product-price-block.mt-8.text-base > span:nth-child(2) > span > span:nth-child(1)")?.innerText.trim();
+        const priceText = document.querySelector("#maincontent > div.container.product-detail > div.row.justify-content-center.align-items-center > div.product-info > div.attributes > div.prices > div > span > span > span")?.innerText.trim();
         const price = priceText ? parseFloat(priceText.replace(/[^\d.-]/g, '')) : null;
 
-        const descriptionElement = document.querySelector("#shopify-section-template--15735420747932__main > section > div.product-content-container.bg-scheme-background.text-scheme-text.section-x-padding.lg\\:col-span-6 > div > div.rte.mt-8 > ul");
+        const descriptionElement = document.querySelector("#collapseMenu > div");
         const description = descriptionElement ? descriptionElement.innerText.trim() : null;
-        const colorElement = document.querySelector("#shopify-section-template--15735420747932__main > section > div.product-content-container.bg-scheme-background.text-scheme-text.section-x-padding.lg\\:col-span-6 > div > div.rte.mt-8 > ul > li:nth-child(1)");
-        const color = colorElement ? colorElement.innerText.trim() : null;
+        // const colorElement = document.querySelector("#collapseMenu > div");
+        // const color = colorElement ? colorElement.innerText.trim() : null;
+        const color = "";
 
         console.log("name", name)
         console.log("price", price)
@@ -56,8 +57,8 @@ async function getProductDetails(url) {
 
         const imagesUrl = [];
         const imageNames = [];
-
-        const firstImage = document.querySelector("#splide01-slide01 > div > div > div > img")
+        // 174131CRYXXX013
+        const firstImage = document.querySelector("#pdpCarousel-177730CRYXXX013 > div > div.carousel-item.active > picture > img")
 
         if (firstImage) {
             const srcset = firstImage.getAttribute('srcset');
@@ -73,7 +74,7 @@ async function getProductDetails(url) {
                 imageNames.push(imageName);
             }
         }
-        const secondImage = document.querySelector("#splide01-slide02 > div > div > div > img");
+        const secondImage = document.querySelector("#pdpCarousel-177730CRYXXX013 > div > div:nth-child(2) > picture > img");
         if (secondImage) {
             const srcset = secondImage.getAttribute('srcset');
             if (srcset) {
@@ -88,21 +89,7 @@ async function getProductDetails(url) {
                 imageNames.push(imageName);
             }
         }
-        const thirdImage = document.querySelector("#splide01-slide03 > div > div > div > img");
-        if (thirdImage) {
-            const srcset = thirdImage.getAttribute('srcset');
-            if (srcset) {
-                const firstSrc = srcset.split(',')[3].trim().split(' ')[0]; // Get the first srcset URL
-                imagesUrl.push(firstSrc);
-                const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-2`;
-                imageNames.push(imageName);
-            }
-            else {
-                imagesUrl.push(thirdImage.src);
-                const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-2`;
-                imageNames.push(imageName);
-            }
-        }
+
 
         return {
             Brand: brand,
@@ -116,7 +103,7 @@ async function getProductDetails(url) {
             gender: gender,
             description: description,
             color: color,
-            from: 'freetheyouth',
+            from: 'chromehearts',
             info: 'Retail Price',
             'image': imageNames,
             'imagesUrl': imagesUrl,
@@ -196,9 +183,9 @@ async function autoScroll(page) {
 
 (async () => {
     const urls = [
-        // 'https://freetheyouth.net/collections/accessories/products/logo-belt-silver-black',
-        // 'https://freetheyouth.net/collections/accessories/products/logo-belt-silver-red',
-        'https://freetheyouth.net/collections/accessories/products/fty-power-conference-fitted-hat'
+        // 'https://www.chromehearts.com/baccarat/tumbler/174132CRYXXX015.html',
+        // 'https://www.chromehearts.com/baccarat/decanter/177730CRYXXX013.html',
+        // 'https://www.chromehearts.com/baccarat/ashtray/177730CRYXXX013.html'
 
 
         // // Add more URLs as needed
