@@ -7,3 +7,4 @@ node_modules/
 # Ignore all .env files
 .env
 clothing/
+acero/
