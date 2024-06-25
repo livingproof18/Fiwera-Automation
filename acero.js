@@ -4,7 +4,7 @@ const path = require('path');
 const axios = require('axios');
 
 
-const BRAND_NAME = "Chrome Hearts";
+const BRAND_NAME = "Aimé Leon Dore";
 const CATEGORY_VALUE = "Accessories";
 const GENDER = "Mens & Womens";
 
@@ -18,52 +18,72 @@ async function getProductDetails(url) {
     });
 
     const page = await browser.newPage();
+
     // Set viewport to desired width and height
     await page.setViewport({ width: 1920, height: 1080 });
+
     await page.goto(url, { waitUntil: 'networkidle2' });
+    await new Promise(resolve => setTimeout(resolve, 4000)); // Wait for images to load
+
+    // Click to open the modal
+    try {
+        await page.waitForSelector('body > div:nth-child(27) > div.bbH7WoqZY3ke7xCgZyKy.cc-banner.cc-bottom.cc-default.cc-window.isense-cc-window.cc-type-opt-in.cc-theme-block.cc-color-override > div', { timeout: 5000 });
+        await page.click('body > div:nth-child(27) > div.bbH7WoqZY3ke7xCgZyKy.cc-banner.cc-bottom.cc-default.cc-window.isense-cc-window.cc-type-opt-in.cc-theme-block.cc-color-override > div > div.R_Kdn01fKqDETfqfQq47.cc-compliance.cc-highlight.isense-cc-compliance.isense-cc-highlight > button.pKrqgcVNmqUx8tgLuy22.FGuZn6Hqld825JDQ3Obf.cc-btn.cc-allow.isense-cc-btn.isense-cc-allow.isense-cc-submit-consent');
+    } catch (error) {
+        console.log('Failed to open COOKIE modal:', error);
+    }
+
+    try {
+        await page.waitForSelector('#popup-country-switcher > div.popup-country-switcher__container', { timeout: 5000 });
+        await page.click('#save-locale');
+    } catch (error) {
+        console.log('Failed to open country modal:', error);
+    }
+
 
     // Scroll down to load all images
     await autoScroll(page);
     // Custom wait function
     await new Promise(resolve => setTimeout(resolve, 4000)); // Wait for images to load
 
-
+    console.log("Scroll, and now entering page")
     // Wait for the specific elements to ensure they are loaded
-    await page.waitForSelector('#pdpCarousel-177730CRYXXX013 > div > div.carousel-item.active > picture > img');
-
-
+    // Cwith fugazi I have to keep chaning the image ids--- longgggg
+    // await page.waitForSelector('#\\:R6l35\\:-slide-1 > div > img');
+    await page.waitForSelector('.swiper-wrapper.swiper-wrapper--grid > div:nth-child(1) > div > img');
 
     const details = await page.evaluate((BRAND_NAME, CATEGORY_VALUE, GENDER) => {
-        const brand = BRAND_NAME; const category = CATEGORY_VALUE; const gender = GENDER;
-
-
-        const nameElement = document.querySelector(".product-name");
+        const brand = BRAND_NAME;
+        const gender = GENDER;
+        const category = CATEGORY_VALUE;
+        // Select name element and sanitize its content
+        const nameElement = document.querySelector(".product__title");
         const name = nameElement ? nameElement.innerText?.trim().replace(/["\\/|<>:*?]/g, '') : null;
+        console.log('name:', name);
 
-        const priceText = document.querySelector("#maincontent > div.container.product-detail > div.row.justify-content-center.align-items-center > div.product-info > div.attributes > div.prices > div > span > span > span")?.innerText.trim();
+        // Select price element and parse its content
+        const priceText = document.querySelector(".product__pricing > span")?.innerText?.trim();
         const price = priceText ? parseFloat(priceText.replace(/[^\d.-]/g, '')) : null;
+        console.log('price:', price);
 
-        const descriptionElement = document.querySelector("#collapseMenu > div");
-        const description = descriptionElement ? descriptionElement.innerText.trim() : null;
-        // const colorElement = document.querySelector("#collapseMenu > div");
-        // const color = colorElement ? colorElement.innerText.trim() : null;
+        // Select description element and get its text content
+        const descriptionElement = document.querySelector("#panel-content-details");
+        const description = descriptionElement ? descriptionElement.textContent?.trim() : null;
+        console.log('description:', description);
+
+        // const color = document.querySelector("#product-color-select > div > div.css-1d8n9bt > div > div > div").textContent?.trim()
         const color = "";
-
-        console.log("name", name)
-        console.log("price", price)
-        console.log("description", description)
-        console.log("color", color)
-
-
         const imagesUrl = [];
         const imageNames = [];
-        // 174131CRYXXX013
-        const firstImage = document.querySelector("#pdpCarousel-177730CRYXXX013 > div > div.carousel-item.active > picture > img")
+        // /Get first Image,
+        // console.log("getting image")
 
+        // const firstImage = document.querySelector("#maincontent > div.columns > div > div.product.media > div.gallery-placeholder.product-image-mosaic._block-content-loading > ul > li:nth-child(11) > img.zoomImg");
+        const firstImage = document.querySelector(".swiper-wrapper.swiper-wrapper--grid > div:nth-child(1) > div > img");
         if (firstImage) {
             const srcset = firstImage.getAttribute('srcset');
             if (srcset) {
-                const firstSrc = srcset.split(',')[3].trim().split(' ')[0]; // Get the first srcset URL
+                const firstSrc = srcset.split(',')[1].trim().split(' ')[0]; // Get the first srcset URL
                 imagesUrl.push(firstSrc);
                 const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-0`;
                 // const imageName = `${brand.replace(/\s+/g, '-').replace(/\//g, '-').replace(/'/g, '')}-${name.replace(/\s+/g, '-').replace(/\//g, '-').replace(/'/g, '')}-0`;
@@ -74,11 +94,11 @@ async function getProductDetails(url) {
                 imageNames.push(imageName);
             }
         }
-        const secondImage = document.querySelector("#pdpCarousel-177730CRYXXX013 > div > div:nth-child(2) > picture > img");
+        const secondImage = document.querySelector(".swiper-wrapper.swiper-wrapper--grid > div:nth-child(3) > div > img");
         if (secondImage) {
             const srcset = secondImage.getAttribute('srcset');
             if (srcset) {
-                const firstSrc = srcset.split(',')[3].trim().split(' ')[0]; // Get the first srcset URL
+                const firstSrc = srcset.split(',')[1].trim().split(' ')[0]; // Get the first srcset URL
                 imagesUrl.push(firstSrc);
                 const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-1`;
                 imageNames.push(imageName);
@@ -89,6 +109,7 @@ async function getProductDetails(url) {
                 imageNames.push(imageName);
             }
         }
+
 
 
         return {
@@ -103,7 +124,7 @@ async function getProductDetails(url) {
             gender: gender,
             description: description,
             color: color,
-            from: 'chromehearts',
+            from: 'aimeleondore',
             info: 'Retail Price',
             'image': imageNames,
             'imagesUrl': imagesUrl,
@@ -183,12 +204,10 @@ async function autoScroll(page) {
 
 (async () => {
     const urls = [
-        // 'https://www.chromehearts.com/baccarat/tumbler/174132CRYXXX015.html',
-        // 'https://www.chromehearts.com/baccarat/decanter/177730CRYXXX013.html',
-        // 'https://www.chromehearts.com/baccarat/ashtray/177730CRYXXX013.html'
-
-
-        // // Add more URLs as needed
+        'https://eu.aimeleondore.com/products/ald-rimowa-classic-chest',
+        'https://eu.aimeleondore.com/products/14kt-gold-smoky-quartz-signet-ring',
+        'https://eu.aimeleondore.com/products/ald-new-balance-thermal-print-mesh-balaclava'
+        // Add more URLs as needed
     ];
 
     // Load existing data if available
@@ -210,7 +229,7 @@ async function autoScroll(page) {
     const updatedData = existingData.concat(results);
 
     fs.writeFileSync('acero_details.json', JSON.stringify(updatedData, null, 2), 'utf-8');
-    console.log('Product details saved to product_details.json');
+    console.log('Product details saved to acero_details.json');
 })();
 
 

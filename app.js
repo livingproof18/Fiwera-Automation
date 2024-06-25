@@ -23,7 +23,13 @@ async function getProductDetails(url) {
     await page.setViewport({ width: 1920, height: 1080 });
 
     await page.goto(url, { waitUntil: 'networkidle2' });
-
+    // Handle cookie modal
+    try {
+        await page.waitForSelector('#ucm-details > div.ucm-popin.ucm-popin--pushpop.ucm-popin--active > div', { timeout: 5000 }); // Change selector to match the actual cookie modal
+        await page.click('#ucm-details > div.ucm-popin.ucm-popin--pushpop.ucm-popin--active > div > form > ul > li:nth-child(3) > button'); // Change selector to match the actual accept button
+    } catch (error) {
+        console.log('No cookie modal found or failed to accept cookies:', error);
+    }
 
     // Scroll down to load all images
     await autoScroll(page);
@@ -34,28 +40,19 @@ async function getProductDetails(url) {
     // Wait for the specific elements to ensure they are loaded
     // Cwith fugazi I have to keep chaning the image ids--- longgggg
     // await page.waitForSelector('#\\:R6l35\\:-slide-1 > div > img');
-    await page.waitForSelector('#__next > main > div > div:nth-child(5) > section > div.z-0.max-w-\\[100vw\\].desktop\\:col-span-2.desktop\\:pl-3 > div.hidden.gap-3.desktop\\:grid.desktop\\:grid-cols-\\[32px_1fr\\] > div:nth-child(2) > div > div.swiper-wrapper > div:nth-child(3) > div.aspect-w-2.aspect-h-3 > img');
+    await page.waitForSelector('#main > div.lv-product > div > section > div.lv-product-page-header__primary > div > div > ul > li:nth-child(2) > div > div > picture > img');
 
     const details = await page.evaluate((BRAND_NAME, CATEGORY_VALUE, GENDER) => {
         const brand = BRAND_NAME;
-        const gender = GENDER;
+        const name = document.querySelector(".lv-product__name")?.innerText.trim();
+
         const category = CATEGORY_VALUE;
-        // Select name element and sanitize its content
-        const nameElement = document.querySelector("#__next > main > div > div:nth-child(5) > section > div.flex.flex-col.bg-white.px-2.desktop\\:pr-3.desktop\\:pl-3 > div:nth-child(1)");
-        const name = nameElement ? nameElement.innerText?.trim().replace(/["\\/|<>:*?]/g, '') : null;
-        console.log('name:', name);
-
-        // Select price element and parse its content
-        const priceText = document.querySelector("#__next > main > div > div:nth-child(5) > section > div.flex.flex-col.bg-white.px-2.desktop\\:pr-3.desktop\\:pl-3 > div.leading-tight.hidden.text-14.leading-20.desktop\\:block")?.innerText?.trim();
+        const priceText = document.querySelector('.lv-product__price > span')?.innerText.trim();
         const price = priceText ? parseFloat(priceText.replace(/[^\d.-]/g, '')) : null;
-        console.log('price:', price);
+        const gender = GENDER;
+        const description = document.querySelector("#main > div.lv-product > section > div.lv-product-seo-details > p")?.innerText.trim();
+        const color = document.querySelector("#main > div.lv-product > section > div.lv-product-seo-details > div > div > div > ul:nth-child(1) > li:nth-child(2)")?.innerText.trim();
 
-        // Select description element and get its text content
-        const descriptionElement = document.querySelector("#__next > main > div > div:nth-child(5) > section > div.flex.flex-col.bg-white.px-2.desktop\\:pr-3.desktop\\:pl-3 > section > div > div:nth-child(1) > div > div > div");
-        const description = descriptionElement ? descriptionElement.textContent?.trim() : null;
-        console.log('description:', description);
-
-        const color = document.querySelector("#product-color-select > div > div.css-1d8n9bt > div > div > div").textContent?.trim()
 
         const imagesUrl = [];
         const imageNames = [];
@@ -63,18 +60,18 @@ async function getProductDetails(url) {
         // console.log("getting image")
 
         // const firstImage = document.querySelector("#maincontent > div.columns > div > div.product.media > div.gallery-placeholder.product-image-mosaic._block-content-loading > ul > li:nth-child(11) > img.zoomImg");
-        const firstImage = document.querySelector("#__next > main > div > div:nth-child(5) > section > div.z-0.max-w-\\[100vw\\].desktop\\:col-span-2.desktop\\:pl-3 > div.hidden.gap-3.desktop\\:grid.desktop\\:grid-cols-\\[32px_1fr\\] > div:nth-child(2) > div > div.swiper-wrapper > div:nth-child(3) > div.aspect-w-2.aspect-h-3 > img");
-        if (firstImage) {
-            const srcset = firstImage.getAttribute('srcset');
+        const onlyImage = document.querySelector("#main > div.lv-product > div > section > div.lv-product-page-header__primary > div > div > ul > li.-critical > div > div > picture > img");
+
+        if (onlyImage) {
+            const srcset = onlyImage.getAttribute('srcset');
             if (srcset) {
-                const firstSrc = srcset.split(',')[5].trim().split(' ')[0]; // Get the first srcset URL
+                const firstSrc = srcset.split(',')[4].trim().split(' ')[0]; // Get the first srcset URL
                 imagesUrl.push(firstSrc);
-                const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-0`;
-                // const imageName = `${brand.replace(/\s+/g, '-').replace(/\//g, '-').replace(/'/g, '')}-${name.replace(/\s+/g, '-').replace(/\//g, '-').replace(/'/g, '')}-0`;
+                const imageName = `${brand.replace(/\s+/g, '-')}-${name.replace(/\s+/g, '-')}-0`;
                 imageNames.push(imageName);
             } else {
-                imagesUrl.push(firstImage.src);
-                const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-0`;
+                imagesUrl.push(onlyImage.src);
+                const imageName = `${brand.replace(/\s+/g, '-')}-${name.replace(/\s+/g, '-')}-0`;
                 imageNames.push(imageName);
             }
         }
@@ -192,9 +189,10 @@ async function autoScroll(page) {
         // 'https://www.weekday.com/en-gb/p/men/jeans/loose-fit/astro-loose-canvas-dungarees-black-contrast-1224939001/',
         // 'https://www.weekday.com/en-gb/p/men/jackets-and-coats/bomber/remy-hooded-bomber-jacket-bleach-washed-black-1204008005/',
         // 'https://www.weekday.com/en-gb/p/men/jackets-and-coats/bomber/relaxed-cotton-bomber-jacket-black-1219372001/',
-        'https://www.weekday.com/en-gb/p/men/hoodies/zip/simon-scuba-zip-hoodie-black-001/'
+        'https://uk.louisvuitton.com/eng-gb/products/leather-blouson-nvprod4920020v/1AFAJW'
         // Add more URLs as needed
     ];
+    console.log("calling app.js")
 
     // Load existing data if available
     let existingData = [];
@@ -208,8 +206,10 @@ async function autoScroll(page) {
         const details = await getProductDetails(url);
         if (details) {
             results.push(details);
+            console.log(details)
         }
     }
+    return;
 
     // Append new results to existing data
     const updatedData = existingData.concat(results);
