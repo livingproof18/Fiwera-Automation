@@ -1,6 +1,19 @@
 {
   "dependencies": {
     "axios": "^1.7.2",
+    "dotenv": "^16.4.5",
+    "openai": "^4.52.2",
     "puppeteer": "^22.11.2"
-  }
+  },
+  "name": "word-automation",
+  "version": "1.0.0",
+  "description": "\"# Fiwera-Automation\"",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node script.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
