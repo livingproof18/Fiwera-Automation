@@ -13,10 +13,7 @@
     "color": "",
     "from": "haven-court",
     "info": "Retail Price",
-    "image": [
-      "Haven-Court-HC-MICRO-PENDANT0",
-      "Haven-Court-HC-MICRO-PENDANT1"
-    ],
+    "image": ["Haven-Court-HC-MICRO-PENDANT0", "Haven-Court-HC-MICRO-PENDANT1"],
     "imagesUrl": [
       "//www.haven-court.com/cdn/shop/products/IMG_6387_jpg_1080x.jpg?v=1664062225",
       "//www.haven-court.com/cdn/shop/products/IMG_6364_jpg_1080x.jpg?v=1633131391"
@@ -134,9 +131,7 @@
     "color": "BLACK",
     "from": "Evisu",
     "info": "Retail Price",
-    "image": [
-      "Evisu-LOGO-AND-GODHEAD-EMBROIDERY-REGULAR-FIT-SHOULDER-BAG-0"
-    ],
+    "image": ["Evisu-LOGO-AND-GODHEAD-EMBROIDERY-REGULAR-FIT-SHOULDER-BAG-0"],
     "imagesUrl": [
       "https://cdn.evisucdn.com/media/catalog/product/2/e/2eshtu4bg8092xxsn-blkx_m1_clno6k9skftfrltw.jpg?quality=80&bg-color=255,255,255&fit=bounds&height=&width=&canvas=:"
     ]
@@ -178,9 +173,7 @@
     "color": "Red",
     "from": "Supreme",
     "info": "Retail Price",
-    "image": [
-      "Supreme-Repeat-Leather-Belt-0"
-    ],
+    "image": ["Supreme-Repeat-Leather-Belt-0"],
     "imagesUrl": [
       "https://uk.supreme.com/cdn/shop/files/A27_SS24_WaistbandBelt_Red01_720x.jpg?v=1710961810"
     ]
@@ -199,9 +192,7 @@
     "color": "Grey",
     "from": "Supreme",
     "info": "Retail Price",
-    "image": [
-      "Supreme-Fuse-Sunglasses-0"
-    ],
+    "image": ["Supreme-Fuse-Sunglasses-0"],
     "imagesUrl": [
       "https://uk.supreme.com/cdn/shop/files/G4_SS24_FuseSunglasses_Grey01_a8c07a6a-8bd4-40ba-a267-6384bcef811a_720x.jpg?v=1715203340"
     ]
@@ -220,9 +211,7 @@
     "color": "Black",
     "from": "Supreme",
     "info": "Retail Price",
-    "image": [
-      "Supreme-Cleo-Sunglasses-0"
-    ],
+    "image": ["Supreme-Cleo-Sunglasses-0"],
     "imagesUrl": [
       "https://uk.supreme.com/cdn/shop/files/G3_SS24_CleoSunglasses_Black01_66df8652-00eb-43b7-beeb-eb7abc9bafb9_720x.jpg?v=1715203341"
     ]
@@ -241,9 +230,7 @@
     "color": "Black - 8.5\" x 32.25\"",
     "from": "Supreme",
     "info": "Retail Price",
-    "image": [
-      "Supreme-Margaret-Keane-Teardrop-Skateboard-0"
-    ],
+    "image": ["Supreme-Margaret-Keane-Teardrop-Skateboard-0"],
     "imagesUrl": [
       "https://uk.supreme.com/cdn/shop/files/SB5_SS24_Teardrop_Black_Comp_1c19a03f-c0c6-4189-b0c2-f31326753acd_720x.jpg?v=1712775851"
     ]
@@ -262,9 +249,7 @@
     "color": "Purple - 8.25\" x 32\"",
     "from": "Supreme",
     "info": "Retail Price",
-    "image": [
-      "Supreme-Futura-Skateboard-0"
-    ],
+    "image": ["Supreme-Futura-Skateboard-0"],
     "imagesUrl": [
       "https://uk.supreme.com/cdn/shop/files/SB6_SS24_FuturaSkateboard_Purple_Comp_558db946-de34-429f-9d01-6efff3513ced_720x.jpg?v=1707951819"
     ]
@@ -283,9 +268,7 @@
     "color": "Red",
     "from": "Supreme",
     "info": "Retail Price",
-    "image": [
-      "Supreme-Supreme®Tetris®-Mini-0"
-    ],
+    "image": ["Supreme-Supreme®Tetris®-Mini-0"],
     "imagesUrl": [
       "https://uk.supreme.com/cdn/shop/files/A34_SS24_TetrisMini_Red01_36a10160-1f4a-455c-9bd4-7af073decb75_720x.jpg?v=1718221108"
     ]
@@ -304,9 +287,7 @@
     "color": "Red",
     "from": "Supreme",
     "info": "Retail Price",
-    "image": [
-      "Supreme-Supreme®Franklin®-Playground-Ball-0"
-    ],
+    "image": ["Supreme-Supreme®Franklin®-Playground-Ball-0"],
     "imagesUrl": [
       "https://uk.supreme.com/cdn/shop/files/A39_SS24_FranklinPlaygroundBall_Red01_d80b3943-58a7-4626-b56b-33876fbdcc8f_720x.jpg?v=1718828656"
     ]
@@ -325,9 +306,7 @@
     "color": "Multicolor",
     "from": "Supreme",
     "info": "Retail Price",
-    "image": [
-      "Supreme-Supreme®Nite-Ize®-Buglit®-0"
-    ],
+    "image": ["Supreme-Supreme®Nite-Ize®-Buglit®-0"],
     "imagesUrl": [
       "https://uk.supreme.com/cdn/shop/files/A79_SS24_NiteizeBuglight_Harlequin01_af97e7f7-1192-46ed-a1c9-175349bc004f_720x.jpg?v=1717614997"
     ]
@@ -346,9 +325,7 @@
     "color": "Trebark Camo®",
     "from": "Supreme",
     "info": "Retail Price",
-    "image": [
-      "Supreme-Supreme®AO-24-Pack-Cooler-Bag-0"
-    ],
+    "image": ["Supreme-Supreme®AO-24-Pack-Cooler-Bag-0"],
     "imagesUrl": [
       "https://uk.supreme.com/cdn/shop/files/A30_SS24_AOCoolerBag_24Pack02_720x.jpg?v=1718828656"
     ]
@@ -367,9 +344,7 @@
     "color": "Orange",
     "from": "Supreme",
     "info": "Retail Price",
-    "image": [
-      "Supreme-Futura-New-Era®-0"
-    ],
+    "image": ["Supreme-Futura-New-Era®-0"],
     "imagesUrl": [
       "https://uk.supreme.com/cdn/shop/files/H95_SS24_FuturaNE_SafetyOrange02_9c384901-9397-4f24-b667-90650e1686d5_720x.jpg?v=1717618803"
     ]
@@ -388,9 +363,7 @@
     "color": "Red",
     "from": "Supreme",
     "info": "Retail Price",
-    "image": [
-      "Supreme-Mesh-Lightweight-Balaclava-Red-0"
-    ],
+    "image": ["Supreme-Mesh-Lightweight-Balaclava-Red-0"],
     "imagesUrl": [
       "https://uk.supreme.com/cdn/shop/files/H96_SS24_MeshBalaclava_Red02_720x.jpg?v=1717019380"
     ]
@@ -409,9 +382,7 @@
     "color": "Black",
     "from": "Supreme",
     "info": "Retail Price",
-    "image": [
-      "Supreme-Mesh-Lightweight-Balaclava-Black-0"
-    ],
+    "image": ["Supreme-Mesh-Lightweight-Balaclava-Black-0"],
     "imagesUrl": [
       "https://uk.supreme.com/cdn/shop/files/H96_SS24_MeshBalaclava_Black02_720x.jpg?v=1716990573"
     ]
@@ -430,9 +401,7 @@
     "color": "Woodland Camo",
     "from": "Supreme",
     "info": "Retail Price",
-    "image": [
-      "Supreme-Mesh-Lightweight-Balaclava-Woodland-Camo-0"
-    ],
+    "image": ["Supreme-Mesh-Lightweight-Balaclava-Woodland-Camo-0"],
     "imagesUrl": [
       "https://uk.supreme.com/cdn/shop/files/H96_SS24_MeshBalaclava_Camo02_720x.jpg?v=1716990578"
     ]
@@ -522,10 +491,7 @@
     "color": "",
     "from": "chromehearts",
     "info": "Retail Price",
-    "image": [
-      "Chrome-Hearts-TUMBLER-0",
-      "Chrome-Hearts-TUMBLER-1"
-    ],
+    "image": ["Chrome-Hearts-TUMBLER-0", "Chrome-Hearts-TUMBLER-1"],
     "imagesUrl": [
       "https://www.chromehearts.com/dw/image/v2/BFBV_PRD/on/demandware.static/-/Sites-ch-master-catalog/default/dwdfa7b865/img_products/hi-res/503174132CRYXXX015_0676.png?sw=540&sh=675",
       "https://www.chromehearts.com/dw/image/v2/BFBV_PRD/on/demandware.static/-/Sites-ch-master-catalog/default/dw8e83cdfc/img_products/hi-res/503174132CRYXXX015_0695.png?sw=540&sh=675"
@@ -545,10 +511,7 @@
     "color": "",
     "from": "chromehearts",
     "info": "Retail Price",
-    "image": [
-      "Chrome-Hearts-DECANTER-0",
-      "Chrome-Hearts-DECANTER-1"
-    ],
+    "image": ["Chrome-Hearts-DECANTER-0", "Chrome-Hearts-DECANTER-1"],
     "imagesUrl": [
       "https://www.chromehearts.com/dw/image/v2/BFBV_PRD/on/demandware.static/-/Sites-ch-master-catalog/default/dw9ee673d9/img_products/hi-res/503174131CRYXXX013_0700.png?sw=540&sh=675",
       "https://www.chromehearts.com/dw/image/v2/BFBV_PRD/on/demandware.static/-/Sites-ch-master-catalog/default/dw221569b5/img_products/hi-res/503174131CRYXXX013_0704.png?sw=540&sh=675"
@@ -568,10 +531,7 @@
     "color": "",
     "from": "chromehearts",
     "info": "Retail Price",
-    "image": [
-      "Chrome-Hearts-ASHTRAY-0",
-      "Chrome-Hearts-ASHTRAY-1"
-    ],
+    "image": ["Chrome-Hearts-ASHTRAY-0", "Chrome-Hearts-ASHTRAY-1"],
     "imagesUrl": [
       "https://www.chromehearts.com/dw/image/v2/BFBV_PRD/on/demandware.static/-/Sites-ch-master-catalog/default/dw58a64855/img_products/hi-res/503177730CRYXXX013_0731.png?sw=540&sh=675",
       "https://www.chromehearts.com/dw/image/v2/BFBV_PRD/on/demandware.static/-/Sites-ch-master-catalog/default/dw84d05f57/img_products/hi-res/503177730CRYXXX013_0739.png?sw=540&sh=675"
@@ -641,10 +601,7 @@
     "color": "Black",
     "from": "nocta",
     "info": "Retail Price",
-    "image": [
-      "Nocta-COLD-BREATH-BALA-0",
-      "Nocta-COLD-BREATH-BALA-1"
-    ],
+    "image": ["Nocta-COLD-BREATH-BALA-0", "Nocta-COLD-BREATH-BALA-1"],
     "imagesUrl": [
       "https://www.nocta.com/cdn/shop/files/CBB_1_1200x@2x.png?v=1701721376",
       "https://www.nocta.com/cdn/shop/files/CBB_3_1200x@2x.png?v=1701721376"
@@ -664,10 +621,7 @@
     "color": "",
     "from": "nocta",
     "info": "Retail Price",
-    "image": [
-      "Nocta-NOCTA-GLOVES-0",
-      "Nocta-NOCTA-GLOVES-1"
-    ],
+    "image": ["Nocta-NOCTA-GLOVES-0", "Nocta-NOCTA-GLOVES-1"],
     "imagesUrl": [
       "https://www.nocta.com/cdn/shop/files/NOCTA_GLOVE_1_1200x@2x.png?v=1713392975",
       "https://www.nocta.com/cdn/shop/files/NOCTA_GLOVE_2_1200x@2x.png?v=1713392975"
@@ -687,10 +641,7 @@
     "color": "Black",
     "from": "nocta",
     "info": "Retail Price",
-    "image": [
-      "Nocta-NOCTA-GLOVES-Black-0",
-      "Nocta-NOCTA-GLOVES-Black-1"
-    ],
+    "image": ["Nocta-NOCTA-GLOVES-Black-0", "Nocta-NOCTA-GLOVES-Black-1"],
     "imagesUrl": [
       "https://www.nocta.com/cdn/shop/files/GLOVES-INSIDE_1200x@2x.png?v=1698095058",
       "https://www.nocta.com/cdn/shop/files/GLOVES-OUTSIDE_1200x@2x.png?v=1698095058"
@@ -756,10 +707,7 @@
     "color": "",
     "from": "Louis Vuitton",
     "info": "",
-    "image": [
-      "Louis-Vuitton-Buffalo-0",
-      "Louis-Vuitton-Buffalo-1"
-    ],
+    "image": ["Louis-Vuitton-Buffalo-0", "Louis-Vuitton-Buffalo-1"],
     "imagesUrl": [
       "https://uk.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-louis-buffalo--GI1125_PM2_Front%20view.png?wid=1090&hei=1090",
       "https://uk.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-louis-buffalo--GI1125_PM1_Back%20view.png?wid=1090&hei=1090"

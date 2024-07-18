@@ -1,0 +1,41 @@
+name,FirstName,SecondName,Hint,BirthDate,Genre,category,KnownFor,copyrightTerms,image
+Naruto Uzumaki,Naruto,Uzumaki,Energetic ninja dreaming to be the best,1999,"Action manga, Fantasy",Anime ,"""Naruto"", ""Naruto: Shippuden""",,NarutoUzumaki
+Son Goku,Son,Goku,Saiyan raised on Earth,1984,"Shōnen, Action, Adventure, Comedy, Fantasy, Martial Arts",Anime ,"""Dragon Ball Z"", ""Dragon Ball Super""",,SonGoku
+Usagi Tsukino,Usagi,Tsukino,Schoolgirl turned magical heroine,1992,Anime ,Anime ,"""Sailor Moon"" series",,UsagiTsukino
+Monkey D Luffy,Monkey D,Luffy,Aspires to be the Pirate King,1999,Anime ,Anime ,"""One Piece""",,MonkeyDLuffy
+Mikasa Ackerman,Mikasa,Ackerman,Stoic and protective,2013,Anime ,Anime ,"""Attack on Titan""",,MikasaAckerman
+Light Yagami,Light,Yagami,High school student with a dark power,2006,Anime ,Anime ,"""Death Note""",,LightYagami
+Tanjiro Kamado,Tanjiro,Kamado,Kind-hearted demon slayer,2019,Anime ,Anime ,"""Demon Slayer""",,TanjiroKamado
+Spike Spiegel,Spike,Spiegel,Bounty hunter with a cool demeanor,1998,Anime ,Anime ,"""Cowboy Bebop""",,SpikeSpiegel
+Totoro,Totoro,,Mystical forest spirit,1988,Anime ,Anime ,"""My Neighbor Totoro""",,Totoro
+Ash Ketchum,Ash,Ketchum,Eternal Pokémon trainer,1997,Anime ,Anime ,"""Pokémon"" series",,AshKetchum
+All Might,All,Might,Symbol of Peace,2016,Anime ,Anime ,"""My Hero Academia""",,AllMight
+Edward Elric,Edward,Elric,Young alchemist on a quest,2001,Anime ,Anime ,"""Fullmetal Alchemist""",,EdwardElric
+Vegeta,Vegeta,,Proud Saiyan prince,1989,Anime ,Anime ,"""Dragon Ball Z"", ""Dragon Ball Super""",,Vegeta
+Kakashi Hatake,Kakashi,Hatake,Ninja with the Copy Wheel Eye,1999,Anime ,Anime ,"""Naruto"", ""Naruto: Shippuden""",,KakashiHatake
+Motoko Kusanagi,Motoko,Kusanagi,Cyber-enhanced law enforcement officer,1989,Anime ,Anime ,"""Ghost in the Shell""",,MotokoKusanagi
+Harry Potter,Harry,Potter,Boy wizard,2001,Movie ,Movie ,"""Harry Potter"" series",,HarryPotter
+Katniss Everdeen,Katniss,Everdeen,Archer from District 12,2012,Movie ,Movie ,"""The Hunger Games"" series",,KatnissEverdeen
+Tony Stark,Tony,Stark,Billionaire inventor,2008,Movie ,Movie ,"""Iron Man"", ""The Avengers""",,TonyStark
+Dorothy Gale,Dorothy,Gale,Girl from Kansas,1939,Movie ,Movie ,"""The Wizard of Oz""",,DorothyGale
+Jack Sparrow,Jack,Sparrow,Pirate Captain,2003,Movie ,Movie ,"""Pirates of the Caribbean"" series",,JackSparrow
+Luke Skywalker,Luke,Skywalker,Jedi Knight,1977,Movie ,Movie ,"""Star Wars"" series",,LukeSkywalker
+Forrest Gump,Forrest,Gump,Man with childlike innocence,1994,Movie ,Movie ,"""Forrest Gump""",,ForrestGump
+Elsa,Elsa,,Ice Queen,2013,Movie ,Movie ,"""Frozen""",,Elsa
+Simba,Simba,,Lion prince,1994,Movie ,Movie ,"""The Lion King""",,Simba
+James Bond,James,Bond,British secret agent,1962,Movie ,Movie ,"""James Bond"" series",,JamesBond
+Indiana Jones,Indiana,Jones,Archaeologist and adventurer,1981,Movie ,Movie ,"""Indiana Jones"" series",,IndianaJones
+Bruce Wayne,Bruce,Wayne,Vigilante billionaire,2008,Movie ,Movie ,"""The Dark Knight""",,BruceWayne
+Neo,Neo,,The One in the Matrix,1999,Movie ,Movie ,"""The Matrix"" series",,Neo
+Joker,Joker,,Chaotic villain,2008,Movie ,Movie ,"""The Dark Knight""",,Joker
+Walter White,Walter,White,High school chemistry teacher turned meth producer,2008,TV Show ,TV Show ,"""Breaking Bad"" - Mastermind behind ""Blue Sky"" meth",,WalterWhite
+Daenerys Targaryen,Daenerys,Targaryen,Last surviving member of a deposed royal family,2011,TV Show ,TV Show ,"""Game of Thrones"" - The Mother of Dragons, quest for the Iron Throne",,DaenerysTargaryen
+Michael Scott,Michael,Scott,Clueless regional manager,2005,TV Show ,TV Show ,"""The Office"" - Inappropriate comments and antics",,MichaelScott
+Rick Grimes,Rick,Grimes,Sheriff's deputy in a zombie apocalypse,2010,TV Show ,TV Show ,"""The Walking Dead"" - Leader of the survivors",,RickGrimes
+Sherlock Holmes,Sherlock,Holmes,Brilliant detective in modern London,2010,TV Show ,TV Show ,"""Sherlock"" - Solving complex cases",,SherlockHolmes
+Jon Snow,Jon,Snow,Known as the Bastard of Winterfell,2011,TV Show ,TV Show ,"""Game of Thrones"" - Fight against the White Walkers",,JonSnow
+BoJack Horseman,BoJack,Horseman,Washed-up TV star,2014,TV Show ,TV Show ,"""BoJack Horseman"" - Struggles with fame, addiction, and relationships",,BoJackHorseman
+Leslie Knope,Leslie,Knope,Eternally optimistic public servant,2009,TV Show ,TV Show ,"""Parks and Recreation"" - Work in Pawnee's Parks department",,LeslieKnope
+Homer Simpson,Homer,Simpson,"Overweight, lazy, and often ignorant father",1989,TV Show ,TV Show ,"""The Simpsons"" - Various antics in Springfield",,HomerSimpson
+Rachel Green,Rachel,Green,Fashion enthusiast and Ross's love interest,1994,TV Show ,TV Show ,"""Friends"" - Journey from waitress to fashion industry professional",,RachelGreen
+Barney Stinson,Barney,Stinson,Womanizer and wearer of suits,2005,TV Show ,TV Show ,"""How I Met Your Mother"" - Famous for his one-liners",,BarneyStinson

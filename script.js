@@ -49,8 +49,8 @@ async function summarizeDescription(brand, name, category, description) {
 
 // Main function to read products, summarize descriptions, and save new data
 async function main() {
-    const inputFilePath = path.join(__dirname, 'acero_details.json');
-    const outputFilePath = path.join(__dirname, 'aceroGPT_details.json');
+    const inputFilePath = path.join(__dirname, 'footwear_details.json');
+    const outputFilePath = path.join(__dirname, 'footwearGPT_details.json');
 
     let products = [];
 
