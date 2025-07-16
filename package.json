@@ -4,7 +4,8 @@
     "csv-parser": "^3.0.0",
     "dotenv": "^16.4.5",
     "openai": "^4.52.2",
-    "puppeteer": "^22.11.2"
+    "puppeteer": "^22.11.2",
+    "sharp": "^0.34.3"
   },
   "name": "word-automation",
   "version": "1.0.0",
