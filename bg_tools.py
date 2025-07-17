@@ -81,6 +81,42 @@ def expand_alpha(alpha: Image.Image, pixels: int) -> Image.Image:
         alpha = alpha.filter(ImageFilter.MaxFilter(3))
     return alpha
 
+### NEW ###
+def feather_alpha(alpha: Image.Image, radius: float) -> Image.Image:
+    """
+    Blur alpha edges for smoother compositing.
+    radius ~1-2 is usually enough.
+    """
+    if radius <= 0:
+        return alpha
+    # Because alpha might be 0/255 hard edge, blur then scale
+    blurred = alpha.filter(ImageFilter.GaussianBlur(radius))
+    return blurred
+
+
+def premultiply_rgba(img: Image.Image) -> Image.Image:
+    """
+    Multiply RGB by alpha/255 to eliminate bright halo when composited over dark backgrounds.
+    """
+    if img.mode != "RGBA":
+        img = img.convert("RGBA")
+    r, g, b, a = img.split()
+    # Convert channels to "L" mode raw bytes, scale via point
+    def scale_channel(ch):
+        # Use alpha as lookup table; we need elementwise multiply
+        lut = []
+        a_data = list(a.getdata())
+        c_data = list(ch.getdata())
+        # Compute scaled per-pixel (fast enough for moderate images; could use numpy if needed)
+        lut = [int((c * aa) / 255) for c, aa in zip(c_data, a_data)]
+        out = Image.new("L", img.size)
+        out.putdata(lut)
+        return out
+    r2 = scale_channel(r)
+    g2 = scale_channel(g)
+    b2 = scale_channel(b)
+    return Image.merge("RGBA", (r2, g2, b2, a))
+
 
 def color_decontaminate_edge(
     img: Image.Image,
@@ -140,6 +176,8 @@ def halo_cleanup(
     contract_px: int = 1,
     decontaminate: bool = True,
     edge_band: int = 2,
+    feather_px: float = 0.0,       ### NEW ###
+    premultiply: bool = False,     ### NEW ###
 ) -> Image.Image:
     """
     Convenience wrapper: shrink alpha + optionally decontaminate fringe colors.
@@ -148,13 +186,24 @@ def halo_cleanup(
         rgba = rgba.convert("RGBA")
     alpha = rgba.getchannel("A")
 
+    # 1. contract
     alpha = shrink_alpha(alpha, contract_px)
+
+    # 2. feather soften edge
+    if feather_px > 0:
+        alpha = feather_alpha(alpha, feather_px)
+
+    # 3. recompose & decontam fringe color
     if decontaminate:
         rgba = color_decontaminate_edge(rgba, alpha, edge_band=edge_band)
     else:
         rgba.putalpha(alpha)
-    return rgba
 
+    # 4. premultiply edge color (kills white glow)
+    if premultiply:
+        rgba = premultiply_rgba(rgba)
+
+    return rgba
 
 # -----------------------------------------------------------
 # Core removal (single image)
@@ -171,6 +220,8 @@ def remove_bg_single(
     halo_contract: int = 0,
     halo_decontaminate: bool = False,
     halo_edge_band: int = 2,
+    feather_px: float = 0.0,          ### NEW ###
+    premultiply: bool = False,        ### NEW ###
     skip_if_transparent: bool = True,
     upscale: int = 1,
 ) -> bool:
@@ -185,16 +236,12 @@ def remove_bg_single(
                 print(f"🟡  Skip (already transparent): {src_path.name}")
                 return False
 
-            orig_mode = im.mode
-
-            # Optional upscale for thin detail
             if upscale > 1:
                 w, h = im.size
                 im = im.resize((w * upscale, h * upscale), Image.LANCZOS)
 
-            # Run rembg
             buf = BytesIO()
-            im.save(buf, format="PNG")  # encode to bytes
+            im.save(buf, format="PNG")
             result = remove(
                 buf.getvalue(),
                 session=session,
@@ -204,21 +251,19 @@ def remove_bg_single(
                 alpha_matting_erode_size=mat_erode,
             )
 
-        # Load result & post-process
         out_im = Image.open(BytesIO(result)).convert("RGBA")
 
-        if halo_contract or halo_decontaminate:
+        if halo_contract or halo_decontaminate or feather_px > 0 or premultiply:
             out_im = halo_cleanup(
                 out_im,
                 contract_px=halo_contract,
                 decontaminate=halo_decontaminate,
                 edge_band=halo_edge_band,
+                feather_px=feather_px,
+                premultiply=premultiply,
             )
 
-        # Optional downscale back to original size if we upscaled
         if upscale > 1:
-            # preserve aspect — we trust original width/height
-            # NOTE: We downscale to original dims, not dividing by float to avoid rounding differences
             with Image.open(src_path) as im_check:
                 out_im = out_im.resize(im_check.size, Image.LANCZOS)
 
@@ -256,6 +301,8 @@ def remove_bg_batch(
     halo_contract: int = 0,
     halo_decontaminate: bool = False,
     halo_edge_band: int = 2,
+    feather_px: float = 0.0,      ### NEW ###
+    premultiply: bool = False,    ### NEW ###
     skip_if_transparent: bool = True,
     upscale: int = 1,
 ) -> None:
@@ -266,8 +313,7 @@ def remove_bg_batch(
     session = new_session(model_name=model_name)
 
     images = list(iter_images(input_dir, recursive=recursive))
-    total = len(images)
-    if total == 0:
+    if not images:
         print("No images found.")
         return
 
@@ -294,6 +340,8 @@ def remove_bg_batch(
             halo_contract=halo_contract,
             halo_decontaminate=halo_decontaminate,
             halo_edge_band=halo_edge_band,
+            feather_px=feather_px,
+            premultiply=premultiply,
             skip_if_transparent=skip_if_transparent,
             upscale=upscale,
         )
@@ -327,25 +375,24 @@ def build_parser() -> argparse.ArgumentParser:
 def _add_common_args(sp: argparse.ArgumentParser) -> None:
     sp.add_argument("--model", default="u2net", help="Model name (u2net, isnet-general-use, ...).")
     sp.add_argument("--matting", action="store_true", help="Enable alpha matting refine.")
-    sp.add_argument("--mat-foreground", type=int, default=240, help="Alpha matting foreground threshold.")
-    sp.add_argument("--mat-background", type=int, default=10, help="Alpha matting background threshold.")
-    sp.add_argument("--mat-erode", type=int, default=10, help="Alpha matting erosion size (px).")
+    sp.add_argument("--mat-foreground", type=int, default=240, help="Matting foreground threshold.")
+    sp.add_argument("--mat-background", type=int, default=10, help="Matting background threshold.")
+    sp.add_argument("--mat-erode", type=int, default=10, help="Matting erosion size (px).")
     sp.add_argument("--clean-halo", type=int, default=0, metavar="PX", help="Contract alpha by N px (halo cleanup).")
-    sp.add_argument("--clean-halo-no-color", action="store_true",
-                    help="Do NOT decontaminate fringe colors (just shrink alpha).")
-    sp.add_argument("--clean-halo-band", type=int, default=2,
-                    help="Edge band (px) sampled for color decontaminate.")
-    sp.add_argument("--no-skip-transparent", action="store_true",
-                    help="Process even if already transparent.")
-    sp.add_argument("--upscale", type=int, default=1,
-                    help="Upscale factor before removal (try 2 for thin jewelry).")
+    sp.add_argument("--no-decontam", action="store_true", help="Disable fringe color decontamination.")
+    sp.add_argument("--clean-halo-band", type=int, default=2, help="Edge band sampled for decontam color.")
+    sp.add_argument("--feather", type=float, default=0.0, help="Feather alpha edge (px float).")   ### NEW ###
+    sp.add_argument("--premultiply", action="store_true", help="Premultiply RGB by alpha (anti-halo).")  ### NEW ###
+    sp.add_argument("--no-skip-transparent", action="store_true", help="Process even if already transparent.")
+    sp.add_argument("--upscale", type=int, default=1, help="Upscale factor before removal (try 2 for thin jewelry).")
 
 
 def main() -> None:
     p = build_parser()
     args = p.parse_args()
 
-    halo_decontaminate = not args.clean_halo_no_color
+    # halo_decontaminate = not args.clean_halo_no_color
+    decontam = (args.clean_halo > 0) and (not args.no_decontam)
 
     if args.cmd == "single":
         src = Path(args.src)
@@ -359,8 +406,10 @@ def main() -> None:
             mat_background=args.mat_background,
             mat_erode=args.mat_erode,
             halo_contract=args.clean_halo,
-            halo_decontaminate=halo_decontaminate,
+            halo_decontaminate=decontam,
             halo_edge_band=args.clean_halo_band,
+            feather_px=args.feather,
+            premultiply=args.premultiply,
             skip_if_transparent=not args.no_skip_transparent,
             upscale=args.upscale,
         )
@@ -377,11 +426,14 @@ def main() -> None:
             mat_background=args.mat_background,
             mat_erode=args.mat_erode,
             halo_contract=args.clean_halo,
-            halo_decontaminate=halo_decontaminate,
+            halo_decontaminate=decontam,
             halo_edge_band=args.clean_halo_band,
+            feather_px=args.feather,
+            premultiply=args.premultiply,
             skip_if_transparent=not args.no_skip_transparent,
             upscale=args.upscale,
         )
+
 
 
 if __name__ == "__main__":

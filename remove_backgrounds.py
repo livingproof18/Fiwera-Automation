@@ -2,9 +2,6 @@
 """
 Batch-remove backgrounds with rembg.
 Usage:
-cd C:\Users\livin\Desktop\code\word Automation
-.venv\Scripts\activate
-
     python remove_backgrounds.py -i acero -o transparent/acero
 """
 import argparse
