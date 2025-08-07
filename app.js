@@ -4,15 +4,15 @@ const path = require('path');
 const axios = require('axios');
 
 
-const BRAND_NAME = "Weekday";
-const CATEGORY_VALUE = "";
-const GENDER = "Mens & Womens";
+const BRAND_NAME = "Corteiz";
+const CATEGORY_VALUE = "TOP";
+const GENDER = "All";
 
 async function getProductDetails(url) {
     console.log("getProductDetails " + url);
     const browser = await puppeteer.launch({
         headless: false,
-        // headless: 'new',
+        headless: 'new',
         args: ['--no-sandbox', '--disable-setuid-sandbox', '--ignore-certificate-errors', '--enable-http2', '--disable-web-security'],
         ignoreHTTPSErrors: true
     });
@@ -23,13 +23,13 @@ async function getProductDetails(url) {
     await page.setViewport({ width: 1920, height: 1080 });
 
     await page.goto(url, { waitUntil: 'networkidle2' });
-    // Handle cookie modal
-    try {
-        await page.waitForSelector('#ucm-details > div.ucm-popin.ucm-popin--pushpop.ucm-popin--active > div', { timeout: 5000 }); // Change selector to match the actual cookie modal
-        await page.click('#ucm-details > div.ucm-popin.ucm-popin--pushpop.ucm-popin--active > div > form > ul > li:nth-child(3) > button'); // Change selector to match the actual accept button
-    } catch (error) {
-        console.log('No cookie modal found or failed to accept cookies:', error);
-    }
+    // // Handle cookie modal
+    // try {
+    //     await page.waitForSelector('#ucm-details > div.ucm-popin.ucm-popin--pushpop.ucm-popin--active > div', { timeout: 5000 }); // Change selector to match the actual cookie modal
+    //     await page.click('#ucm-details > div.ucm-popin.ucm-popin--pushpop.ucm-popin--active > div > form > ul > li:nth-child(3) > button'); // Change selector to match the actual accept button
+    // } catch (error) {
+    //     console.log('No cookie modal found or failed to accept cookies:', error);
+    // }
 
     // Scroll down to load all images
     await autoScroll(page);
@@ -40,18 +40,20 @@ async function getProductDetails(url) {
     // Wait for the specific elements to ensure they are loaded
     // Cwith fugazi I have to keep chaning the image ids--- longgggg
     // await page.waitForSelector('#\\:R6l35\\:-slide-1 > div > img');
-    await page.waitForSelector('#main > div.lv-product > div > section > div.lv-product-page-header__primary > div > div > ul > li:nth-child(2) > div > div > picture > img');
+    // await page.waitForSelector('#main > div.lv-product > div > section > div.lv-product-page-header__primary > div > div > ul > li:nth-child(2) > div > div > picture > img');
+    await page.waitForSelector('#ProductSection > div > div:nth-child(1) > div.flexslider.product-gallery-slider > div > ul > li.flex-active-slide > a > img');
+
 
     const details = await page.evaluate((BRAND_NAME, CATEGORY_VALUE, GENDER) => {
         const brand = BRAND_NAME;
-        const name = document.querySelector(".lv-product__name")?.innerText.trim();
+        const name = document.querySelector("#ProductSection > div > div:nth-child(2) > div > h1")?.innerText.trim();
 
         const category = CATEGORY_VALUE;
-        const priceText = document.querySelector('.lv-product__price > span')?.innerText.trim();
+        const priceText = document.querySelector('#ProductPrice')?.innerText.trim();
         const price = priceText ? parseFloat(priceText.replace(/[^\d.-]/g, '')) : null;
         const gender = GENDER;
-        const description = document.querySelector("#main > div.lv-product > section > div.lv-product-seo-details > p")?.innerText.trim();
-        const color = document.querySelector("#main > div.lv-product > section > div.lv-product-seo-details > div > div > div > ul:nth-child(1) > li:nth-child(2)")?.innerText.trim();
+        const description = document.querySelector("#ProductSection > div > div:nth-child(2) > div > div.product-single__description.rte > ul:nth-child(1)")?.innerText.trim();
+        // const color = document.querySelector("#main > div.lv-product > section > div.lv-product-seo-details > div > div > div > ul:nth-child(1) > li:nth-child(2)")?.innerText.trim();
 
 
         const imagesUrl = [];
@@ -59,37 +61,42 @@ async function getProductDetails(url) {
         // /Get first Image,
         // console.log("getting image")
 
-        // const firstImage = document.querySelector("#maincontent > div.columns > div > div.product.media > div.gallery-placeholder.product-image-mosaic._block-content-loading > ul > li:nth-child(11) > img.zoomImg");
-        const onlyImage = document.querySelector("#main > div.lv-product > div > section > div.lv-product-page-header__primary > div > div > ul > li.-critical > div > div > picture > img");
+        const firstImage = document.querySelector("#ProductSection > div > div:nth-child(1) > div.flexslider.product-gallery-slider > div > ul > li.flex-active-slide > a > img");
+        // const onlyImage = document.querySelector("#main > div.lv-product > div > section > div.lv-product-page-header__primary > div > div > ul > li.-critical > div > div > picture > img");
+        const sanitize = (str) =>
+            String(str)
+                .replace(/\s+/g, '-')   // Replace spaces with hyphens
+                .replace(/[\/\\\[\]'":]/g, '') // Remove problematic chars
+                .replace(/-+/g, '-');   // Collapse repeated dashes
 
-        if (onlyImage) {
-            const srcset = onlyImage.getAttribute('srcset');
+        if (firstImage) {
+            const srcset = firstImage.getAttribute('srcset');
             if (srcset) {
                 const firstSrc = srcset.split(',')[4].trim().split(' ')[0]; // Get the first srcset URL
                 imagesUrl.push(firstSrc);
-                const imageName = `${brand.replace(/\s+/g, '-')}-${name.replace(/\s+/g, '-')}-0`;
+                const imageName = `${sanitize(brand)}-${sanitize(name)}-0`;
                 imageNames.push(imageName);
             } else {
-                imagesUrl.push(onlyImage.src);
-                const imageName = `${brand.replace(/\s+/g, '-')}-${name.replace(/\s+/g, '-')}-0`;
+                imagesUrl.push(firstImage.src);
+                const imageName = `${sanitize(brand)}-${sanitize(name)}-0`;
                 imageNames.push(imageName);
             }
         }
-        // const secondImage = document.querySelector("#FeaturedMedia-template--17136623517923__main-33351600570595-wrapper > div > div > div > img");
-        // if (secondImage) {
-        //     const srcset = secondImage.getAttribute('srcset');
-        //     if (srcset) {
-        //         const firstSrc = srcset.split(',')[8].trim().split(' ')[0]; // Get the first srcset URL
-        //         imagesUrl.push(firstSrc);
-        //         const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-1`;
-        //         imageNames.push(imageName);
-        //     }
-        //     else {
-        //         imagesUrl.push(secondImage.src);
-        //         const imageName = `${String(brand).replace(/\s+/g, '-')}-${String(name).replace(/\s+/g, '-')}-1`;
-        //         imageNames.push(imageName);
-        //     }
-        // }
+        const secondImage = document.querySelector("#ProductSection > div > div:nth-child(1) > div.flexslider.product-gallery-slider > div > ul > li:nth-child(2) > a > img");
+        if (secondImage) {
+            const srcset = secondImage.getAttribute('srcset');
+            if (srcset) {
+                const firstSrc = srcset.split(',')[8].trim().split(' ')[0]; // Get the first srcset URL
+                imagesUrl.push(firstSrc);
+                const imageName = `${sanitize(brand)}-${sanitize(name)}-1`;
+                imageNames.push(imageName);
+            }
+            else {
+                imagesUrl.push(secondImage.src);
+                const imageName = `${sanitize(brand)}-${sanitize(name)}-1`;
+                imageNames.push(imageName);
+            }
+        }
 
 
 
@@ -104,8 +111,8 @@ async function getProductDetails(url) {
             currency: 'GBP',
             gender: gender,
             description: description,
-            color: color,
-            from: 'weekday',
+            color: "",
+            from: 'corteiz',
             info: 'Retail Price',
             'image': imageNames,
             'imagesUrl': imagesUrl,
@@ -124,7 +131,7 @@ async function getProductDetails(url) {
         const imageName = details.image[i];
         try {
             console.log(`Downloading image ${imageName} from ${imageUrl}`);
-            await downloadImage(imageUrl, path.join(__dirname, 'clothing', `${imageName}.jpg`));
+            await downloadImage(imageUrl, path.join(__dirname, 'corteiz', `${imageName}.jpg`));
         } catch (error) {
             console.error(`Failed to download image ${imageName} from ${imageUrl}:`, error);
         }
@@ -135,6 +142,7 @@ async function getProductDetails(url) {
 }
 // Function to download image
 async function downloadImage(url, filepath) {
+    console.log(`Downloading image from ${url} to ${filepath}`);
     try {
         const response = await axios({
             url,
@@ -185,19 +193,36 @@ async function autoScroll(page) {
 
 (async () => {
     const urls = [
-        // 'https://www.weekday.com/en-gb/p/men/jeans/loose-fit/astro-loose-baggy-jeans-tuned-black-010/',
-        // 'https://www.weekday.com/en-gb/p/men/jeans/loose-fit/astro-loose-canvas-dungarees-black-contrast-1224939001/',
-        // 'https://www.weekday.com/en-gb/p/men/jackets-and-coats/bomber/remy-hooded-bomber-jacket-bleach-washed-black-1204008005/',
-        // 'https://www.weekday.com/en-gb/p/men/jackets-and-coats/bomber/relaxed-cotton-bomber-jacket-black-1219372001/',
-        'https://uk.louisvuitton.com/eng-gb/products/leather-blouson-nvprod4920020v/1AFAJW'
+        "https://www.crtz.xyz/collections/tops-jerseys/products/open-mesh-panel-jersey-2",
+        "https://www.crtz.xyz/collections/tops-jerseys/products/open-mesh-panel-jersey-3",
+        "https://www.crtz.xyz/collections/tops-jerseys/products/open-mesh-panel-jersey-4",
+        "https://www.crtz.xyz/collections/tops-jerseys/products/open-mesh-panel-jersey-6",
+        "https://www.crtz.xyz/products/boy-better-know-shuku-jacket",
+        "https://www.crtz.xyz/products/bbk-royale-open-hem-pant",
+        "https://www.crtz.xyz/products/bbk-royale-zip-hoodie",
+        "https://www.crtz.xyz/products/boy-better-know-shuku-pant",
+        "https://www.crtz.xyz/products/sponsors-training-pullover",
+        "https://www.crtz.xyz/products/dual-stripe-denim-short-one-wash-indigo",
+        "https://www.crtz.xyz/products/stencil-camo-bball-jersey",
+        "https://www.crtz.xyz/products/stars-bball-jersey",
+        "https://www.crtz.xyz/products/acetate-wrap-sunglasses-blue",
+        "https://www.crtz.xyz/products/serie-a-knit-jersey",
+        "https://www.crtz.xyz/products/serie-a-knit-jersey-blue",
+        "https://www.crtz.xyz/products/serie-a-knit-jersey-2",
+        "https://www.crtz.xyz/products/flames-football-jersey-white",
+        "https://www.crtz.xyz/collections/jackets/products/rtw-racing-jacket-black",
+        "https://www.crtz.xyz/collections/jackets/products/da-skydive-jacket-grey",
+        "https://www.crtz.xyz/collections/jackets/products/da-skydive-jacket-black",
+        "https://www.crtz.xyz/products/western-open-mesh-jersey-white",
+
         // Add more URLs as needed
     ];
     console.log("calling app.js")
 
     // Load existing data if available
     let existingData = [];
-    if (fs.existsSync('product_details.json')) {
-        const rawData = fs.readFileSync('product_details.json');
+    if (fs.existsSync('corteiz.json')) {
+        const rawData = fs.readFileSync('corteiz.json');
         existingData = JSON.parse(rawData);
     }
 
@@ -209,13 +234,13 @@ async function autoScroll(page) {
             console.log(details)
         }
     }
-    return;
+    // return;
 
     // Append new results to existing data
     const updatedData = existingData.concat(results);
 
-    fs.writeFileSync('product_details.json', JSON.stringify(updatedData, null, 2), 'utf-8');
-    console.log('Product details saved to product_details.json');
+    fs.writeFileSync('corteiz.json', JSON.stringify(updatedData, null, 2), 'utf-8');
+    console.log('Product details saved to corteiz.json');
 })();
 
 
