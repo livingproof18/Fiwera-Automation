@@ -49,8 +49,8 @@ async function summarizeDescription(brand, name, category, description) {
 
 // Main function to read products, summarize descriptions, and save new data
 async function main() {
-    const inputFilePath = path.join(__dirname, 'corteiz.json');
-    const outputFilePath = path.join(__dirname, 'corteizGPT.json');
+    const inputFilePath = path.join(__dirname, 'brokenplanet.json');
+    const outputFilePath = path.join(__dirname, 'brokenplanetGPT.json');
 
     let products = [];
 
