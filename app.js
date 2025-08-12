@@ -2,13 +2,12 @@ const puppeteer = require('puppeteer');
 const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
-const { type } = require('os');
 
 
-const BRAND_NAME = "Broken Planet";
-const CATEGORY_VALUE = "HOODIE";
-const GENDER = "All";
-var colorCode;
+const BRAND_NAME = "Off-White";
+const CATEGORY_VALUE = "SNEAKERS";
+const GENDER = "ALL";
+
 async function getProductDetails(url) {
     console.log("getProductDetails " + url);
     const browser = await puppeteer.launch({
@@ -19,172 +18,144 @@ async function getProductDetails(url) {
     });
 
     const page = await browser.newPage();
-    // const image = document.querySelector(MAIN_IMG);
-    // const MAIN_IMG = '#root > div.styles__Root-sc-1nscchl-0.eKhoXc > main > div.product__MainWrapper-sc-793f58-0.djgxcI > div.product__ProductPageWrapper-sc-793f58-11.eIGFqA > div > div.Flex-sc-1fsfqp0-0.fSrsso > div > div.ProductImages__MainImageWrapper-sc-192tdi7-4.dBvqHV > img';
-    // const THUMB_SEL = '#root > div.styles__Root-sc-1nscchl-0.eKhoXc > main > div.product__MainWrapper-sc-793f58-0.djgxcI > div.product__ProductPageWrapper-sc-793f58-11.eIGFqA > div > div.Flex-sc-1fsfqp0-0.fSrsso > div > div.ProductImages__Embla-sc-192tdi7-1.bRXdtC > div > div > div:nth-child(1)';
-
-    // 1) Selectors (note: no :nth-child here, we want all thumbs)
-    const MAIN_IMG = 'div.ProductImages__MainImageWrapper-sc-192tdi7-4 img';
-    const THUMB_ITEM_SEL = 'div.ProductImages__Embla-sc-192tdi7-1 div > div > div';
-
-    // const THUMB_ITEM_SEL = 'div.ProductImages__Embla-sc-192tdi7-1.bRXdtC div > div > div:nth-child(1)';
-
-    const sanitize = (str) =>
-        String(str)
-            .replace(/\s+/g, '-')
-            .replace(/[\/\\\[\]'":]/g, '')
-            .replace(/-+/g, '-');
 
     // Set viewport to desired width and height
     await page.setViewport({ width: 1920, height: 1080 });
+
     await page.goto(url, { waitUntil: 'networkidle2' });
 
-
-    // Scroll down to load all images
     await autoScroll(page);
     // Custom wait function
     await new Promise(resolve => setTimeout(resolve, 4000)); // Wait for images to load
 
     console.log("Scroll, and now entering page")
+    // Wait for the specific elements to ensure they are loaded
 
-    await page.waitForSelector(MAIN_IMG);
+    await page.waitForSelector('.product-images > div:nth-child(1) > picture > img');
 
-    // const imgSelector = document.querySelector("#root > div.styles__Root-sc-1nscchl-0.eKhoXc > main > div.product__MainWrapper-sc-793f58-0.djgxcI > div.product__ProductPageWrapper-sc-793f58-11.eIGFqA > div > div.Flex-sc-1fsfqp0-0.fSrsso > div > div.ProductImages__MainImageWrapper-sc-192tdi7-4.dBvqHV > img")
-
-    const details = await page.evaluate((BRAND_NAME, CATEGORY_VALUE, GENDER, MAIN_IMG) => {
+    const details = await page.evaluate((BRAND_NAME, CATEGORY_VALUE, GENDER) => {
         const brand = BRAND_NAME;
-        const name = document.querySelector("#root > div.styles__Root-sc-1nscchl-0.eKhoXc > main > div.product__MainWrapper-sc-793f58-0.djgxcI > div.product__ProductPageWrapper-sc-793f58-11.eIGFqA > div > div.styles__FlashSaleProductDescription-sc-1nscchl-11.fwxOZQ > h1")?.innerText.trim() || "";
+        const gender = GENDER;
+        const category = CATEGORY_VALUE;
 
-        const priceText = document.querySelector('div.flash-sale-price > span')?.innerText.trim();
+
+        const name = document.querySelector('.ProductDetailDescriptionData__product-detail__description__name-wrapper--_tA56 > h1')?.innerText.trim();
+        const priceText = document.querySelector('.product-price.ProductPrice__product-price--iMHPE > div > span')?.innerText.trim();
         const price = priceText ? parseFloat(priceText.replace(/[^\d.-]/g, '')) : null;
+        const descriptionElements = document.querySelector("#app-main > div.app-container > main > div > div.container-fluid > div:nth-child(1) > div.product-detail__product-detail__description__wrapper--o1ovn.col-lg-3 > div.product-detail__product-detail__description--eJT1y > div.product-detail__product-detail__additional-links--ohh0M.product-detail__product-detail__additional-links--dsk--aXGWo > div.accordion_group.ProductAccordion__product-accordion__group--s58ug.AccordionGroup__accordion_group--sHDFM > div.accordion.SubComponents__accordion_group--Ym1sI.active > div > div > div > span")
+        const description = (descriptionElements)?.innerText.trim();
+        const color = document.querySelector(".ProductColorSelection__product-color-selection__info-color--vURi1")?.innerText.trim();
 
-        const description = document.querySelector("#root div.styles__FlashSaleProductDescription-sc-1nscchl-11.fwxOZQ > div:nth-child(3) > ul")?.innerText.trim() || "";
-        const color = document.querySelector("div.flash-sale-color > p")?.innerText.trim().replace(/^COLOR:\s*/i, '') || "";
 
+        const imagesUrl = [];
+        const imageNames = [];
+        // /Get first Image,
+        // console.log("getting image")
 
-        function pickSrc(img) {
-            const ss = img.getAttribute('srcset');
-            if (!ss) return img.src || null;
-            // pick the last (usually largest) candidate
-            const parts = ss.split(',').map(s => s.trim().split(' ')[0]).filter(Boolean);
-            return parts[parts.length - 1] || null;
-        }
-
+        // const onlyImage = document.querySelector("#main > div.lv-product > div > section > div.lv-product-page-header__primary > div > div > ul > li.-critical > div > div > picture > img");
         const sanitize = (str) =>
             String(str)
-                .replace(/\s+/g, '-')
-                .replace(/[\/\\\[\]'":]/g, '')
-                .replace(/-+/g, '-');
+                .replace(/\s+/g, '-')   // Replace spaces with hyphens
+                .replace(/[\/\\\[\]'":]/g, '') // Remove problematic chars
+                .replace(/-+/g, '-');   // Collapse repeated dashes
 
-        const main = document.querySelector(MAIN_IMG);
-        const firstSrc = main ? pickSrc(main) : null;
-        // colorCode = color.substring(0, 3);
+        // const onlyImage = document.querySelector(".product-images > div:nth-child(1) > picture > img");
+
+        // if (onlyImage) {
+        //     const srcset = onlyImage.getAttribute('srcset');
+        //     if (srcset) {
+        //         const firstSrc = srcset.split(',')[4].trim().split(' ')[0]; // Get the first srcset URL
+        //         imagesUrl.push(firstSrc);
+        //         const imageName = `${sanitize(brand)}-${sanitize(name)}-0`;
+        //         imageNames.push(imageName);
+        //     } else {
+        //         imagesUrl.push(onlyImage.src);
+        //         const imageName = `${sanitize(brand)}-${sanitize(name)}-1`;
+        //         imageNames.push(imageName);
+        //     }
+        // }
+        const firstImage = document.querySelector(".product-images > div:nth-child(1) > picture > img");
+
+        if (firstImage) {
+            const srcset = firstImage.getAttribute('srcset');
+            if (srcset) {
+                const firstSrc = srcset.split(',')[2].trim().split(' ')[0]; // Get the first srcset URL
+                imagesUrl.push(firstSrc);
+                const imageName = `${sanitize(brand)}-${sanitize(name)}-0`;
+                imageNames.push(imageName);
+            } else {
+                imagesUrl.push(firstImage.src);
+                const imageName = `${sanitize(brand)}-${sanitize(name)}-0`;
+                imageNames.push(imageName);
+            }
+        }
+        const secondImage = document.querySelector(".product-images > div:nth-child(2) > picture > img");
+        if (secondImage) {
+            const srcset = secondImage.getAttribute('srcset');
+            if (srcset) {
+                const firstSrc = srcset.split(',')[2].trim().split(' ')[0]; // Get the first srcset URL
+                imagesUrl.push(firstSrc);
+                const imageName = `${sanitize(brand)}-${sanitize(name)}-1`;
+                imageNames.push(imageName);
+            }
+            else {
+                imagesUrl.push(secondImage.src);
+                const imageName = `${sanitize(brand)}-${sanitize(name)}-1`;
+                imageNames.push(imageName);
+            }
+        }
+
+        const thirdImage = document.querySelector(".product-images > div:nth-child(3) > picture > img");
+        if (thirdImage) {
+            const srcset = thirdImage.getAttribute('srcset');
+            if (srcset) {
+                const firstSrc = srcset.split(',')[2].trim().split(' ')[0]; // Get the first srcset URL
+                imagesUrl.push(firstSrc);
+                const imageName = `${sanitize(brand)}-${sanitize(name)}-2`;
+                imageNames.push(imageName);
+            }
+            else {
+                imagesUrl.push(thirdImage.src);
+                const imageName = `${sanitize(brand)}-${sanitize(name)}-2`;
+                imageNames.push(imageName);
+            }
+        }
+
+
+
+
         return {
             Brand: brand,
-            name,
-            category: CATEGORY_VALUE,
+            name: name,
+            category: category,
             id: '',
             code: '',
             url: window.location.href,
             Price: price,
             currency: 'GBP',
-            gender: GENDER,
-            description,
+            gender: gender,
+            description: description,
             color: color,
-            from: 'brokenplanet',
+            from: brand,
             info: 'Retail Price',
-            // image: firstSrc ? [`${sanitize(brand)}-${sanitize(name)}-${sanitize(colorCode)}-0`] : [],
-            imagesUrl: firstSrc ? [firstSrc] : [],
-            type: "jpg"
+            'image': imageNames,
+            'imagesUrl': imagesUrl,
+            // Debug: {
+            //     'imgElement for index 0': document.querySelector('#main > div.lv-product > div > section > div.lv-product-page-header__primary > div > div > ul > li:nth-child(2) > div > div > picture > img') ? document.querySelector('#main > div.lv-product > div > section > div.lv-product-page-header__primary > div > div > ul > li:nth-child(2) > div > div > picture > img').getAttribute('srcset') : null
+            //     //     'imgElement for index 4': document.querySelector('li[data-index="4"] img') ? document.querySelector('li[data-index="4"] img').getAttribute('srcset') : null
+            // }
         };
-    }, BRAND_NAME, CATEGORY_VALUE, GENDER, MAIN_IMG);
-
-    // 3) Build the FIRST image filename in Node (uses same sanitize everywhere)
-    const colorCode = (details.color || '').slice(0, 3); // or .toUpperCase()
-    details.image = [];
-    if (details.imagesUrl[0]) {
-        details.image.push(`${sanitize(details.Brand)}-${sanitize(details.name)}-${sanitize(colorCode)}-0`);
-    }
-
-
+    }, BRAND_NAME, CATEGORY_VALUE, GENDER);
+    // console.log(details.Debug);  // Log the intermediate results
+    // Print details for debugging
     console.log('Product details:', details);
-
-    // ...after you log details:
-    // console.log('Product details:', details);
-
-    // try to grab a second image, but don't block long if it's not there
-    try {
-        // wait a bit for thumbnails to render (short timeout)
-        await page.waitForSelector(THUMB_ITEM_SEL, { timeout: 2000 });
-        const thumbs = await page.$$(THUMB_ITEM_SEL);
-
-        console.log('Found thumbnails:', thumbs.length);
-        console.log(thumbs);
-
-        if (thumbs.length > 0) {
-            // read current main image src (largest candidate)
-            const prevSrc = await page.$eval(MAIN_IMG, (img) => {
-                const ss = img.getAttribute('srcset');
-                if (!ss) return img.src || '';
-                const parts = ss.split(',').map(s => s.trim().split(' ')[0]).filter(Boolean);
-                return parts[parts.length - 1] || '';
-            });
-
-            // click the SECOND thumbnail (index 1), not the first
-            await thumbs[0].click();
-
-            // wait briefly for the main image to change, then proceed either way
-            try {
-                await page.waitForFunction(
-                    (sel, previous) => {
-                        const img = document.querySelector(sel);
-                        if (!img) return false;
-                        const ss = img.getAttribute('srcset');
-                        const current = ss
-                            ? ss.split(',').map(s => s.trim().split(' ')[0]).filter(Boolean).pop()
-                            : img.src;
-                        return !!current && current !== previous;
-                    },
-                    { timeout: 2000 }, // <= short, "decent amount of time"
-                    MAIN_IMG,
-                    prevSrc
-                );
-            } catch {
-                // No change within 4s—probably only one real image. Just continue.
-                console.log('No second image found or image did not change in time. Skipping.');
-            }
-
-            // read main image again (if it changed, this will be new)
-            const maybeSecondSrc = await page.$eval(MAIN_IMG, (img) => {
-                const ss = img.getAttribute('srcset');
-                if (!ss) return img.src || '';
-                const parts = ss.split(',').map(s => s.trim().split(' ')[0]).filter(Boolean);
-                return parts[parts.length - 1] || '';
-            });
-
-            if (maybeSecondSrc && !details.imagesUrl.includes(maybeSecondSrc)) {
-                details.imagesUrl.push(maybeSecondSrc);
-                details.image.push(`${sanitize(details.Brand)}-${sanitize(details.name)}-${sanitize(colorCode)}-1`);
-            }
-        } else {
-            console.log('Only one thumbnail found; skipping second image.');
-        }
-    } catch (e) {
-        // Thumbnails never appeared or click failed—just carry on with the first image
-        console.log('Could not get a second image (thumbs missing or not clickable). Continuing.', e?.message || e);
-    }
-
-
-
-
-
     // Download images
     for (let i = 0; i < details.image.length; i++) {
         const imageUrl = details.imagesUrl[i];
         const imageName = details.image[i];
         try {
             console.log(`Downloading image ${imageName} from ${imageUrl}`);
-            await downloadImage(imageUrl, path.join(__dirname, 'brokenplanet', `${imageName}.jpg`));
+            await downloadImage(imageUrl, path.join(__dirname, 'offwhite', `${imageName}.jpg`));
         } catch (error) {
             console.error(`Failed to download image ${imageName} from ${imageUrl}:`, error);
         }
@@ -246,29 +217,22 @@ async function autoScroll(page) {
 
 (async () => {
     const urls = [
-        // "https://www.brokenplanet.com/product/star-logo-zip-up-hoodie-old-copy",
-        // "https://www.brokenplanet.com/product/basics-hoodie-copy-1",
-        "https://www.brokenplanet.com/product/basics-hoodie-5",
-        "https://www.brokenplanet.com/product/basics-cuffed-sweatpants",
-        "https://www.brokenplanet.com/product/basics-straight-leg-sweatpants-copy",
-        "https://www.brokenplanet.com/product/straight-leg-sweatpants-5",
-        "https://www.brokenplanet.com/product/reversible-mesh-jersey-1",
-        // "https://www.brokenplanet.com/product/snow-camo-waffle-long-sleeve",
-        "https://www.brokenplanet.com/product/button-up-shirt",
-        "https://www.brokenplanet.com/product/basics-t-shirt-copy-1",
-        "https://www.brokenplanet.com/product/distressed-denim-shorts-1",
-        "https://www.brokenplanet.com/product/basics-shorts-copy-1",
-        "https://www.brokenplanet.com/product/cargo-pants-1",
-        "https://www.brokenplanet.com/product/2-in-1-ripstop-camo-cargo-pants",
-        "https://www.brokenplanet.com/product/top-league-track-jacket",
-        "https://www.brokenplanet.com/product/top-league-track-pants",
-        "https://www.brokenplanet.com/product/camo-mesh-jersey",
-        "https://www.brokenplanet.com/product/waffle-beanie",
-        "https://www.brokenplanet.com/product/broken-planet-t-shirt",
-        "https://www.brokenplanet.com/product/distressed-denim-shorts",
-        "https://www.brokenplanet.com/product/basics-shorts-3",
-        "https://www.brokenplanet.com/product/stargirl-grafitti-tee-1",
-        "https://www.brokenplanet.com/product/star-camo-waffle-long-sleeve",
+
+        // 'https://www.off---white.com/en-gb/shopping/off-white-xray-denim-shorts-22102695',
+        "https://www.off---white.com/en-gb/women/shoes/sneakers/dark-gray%2Fblack-out-of-office-OWIA259C99LEA0120710.html",
+        "https://www.off---white.com/en-gb/women/shoes/sneakers/dusty-blue%2Fice-out-of-office-suede-OWIA259S25LEA0064204.html",
+        "https://www.off---white.com/en-gb/men/shoes/sneakers/out-of-office-OMIA189S25LEA001016G.html",
+        "https://www.off---white.com/en-gb/men/shoes/sneakers/jet-green%2Fecru-out-of-office-suede-OMIA189S25LEA0074A6F.html",
+        "https://www.off---white.com/en-gb/men/shoes/sneakers/chocolate%2Fcream-out-of-office-OMIA189S25LEA0026G0A.html",
+        "https://www.off---white.com/en-gb/men/shoes/sneakers/white%2Flight-grey-out-of-office-OMIA189S25LEA0010105.html",
+        "https://www.off---white.com/en-gb/men/shoes/sneakers/purple%2Flaw-green-floating-arrow-OMIA244S25LEA002373A.html",
+        "https://www.off---white.com/en-gb/men/shoes/sneakers/brick-red%2Fwhite-out-of-office-suede-OMIA189S25LEA0072701.html",
+        "https://www.off---white.com/en-gb/men/shoes/sneakers/blue%2Fwhite-out-of-office-sneakers-OMIA189C99LEA0070142.html",
+        "https://www.off---white.com/en-gb/men/shoes/sneakers/out-of-office-basket-leather-OMIA189F24LEA00D4525.html",
+        "https://www.off---white.com/en-gb/men/shoes/sneakers/petrol-blue%2Fwhite-out-of-office-OMIA189S25LEA0024801.html",
+        "https://www.off---white.com/en-gb/men/shoes/sneakers/beige%2Fcamo-out-of-office-OMIA189Z25LEA0016184.html",
+
+
 
         // Add more URLs as needed
     ];
@@ -276,8 +240,8 @@ async function autoScroll(page) {
 
     // Load existing data if available
     let existingData = [];
-    if (fs.existsSync('brokenplanet.json')) {
-        const rawData = fs.readFileSync('brokenplanet.json');
+    if (fs.existsSync('offwhite.json')) {
+        const rawData = fs.readFileSync('offwhite.json');
         existingData = JSON.parse(rawData);
     }
 
@@ -294,8 +258,8 @@ async function autoScroll(page) {
     // Append new results to existing data
     const updatedData = existingData.concat(results);
 
-    fs.writeFileSync('brokenplanet.json', JSON.stringify(updatedData, null, 2), 'utf-8');
-    console.log('Product details saved to brokenplanet.json');
+    fs.writeFileSync('offwhite.json', JSON.stringify(updatedData, null, 2), 'utf-8');
+    console.log('Product details saved to offwhite.json');
 })();
 
 
