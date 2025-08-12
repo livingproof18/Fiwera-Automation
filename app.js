@@ -4,15 +4,15 @@ const path = require('path');
 const axios = require('axios');
 
 
-const BRAND_NAME = "Off-White";
+const BRAND_NAME = "Nike";
 const CATEGORY_VALUE = "SNEAKERS";
 const GENDER = "ALL";
 
 async function getProductDetails(url) {
     console.log("getProductDetails " + url);
     const browser = await puppeteer.launch({
-        // headless: false,
-        headless: 'new',
+        headless: false,
+        // headless: 'new',
         args: ['--no-sandbox', '--disable-setuid-sandbox', '--ignore-certificate-errors', '--enable-http2', '--disable-web-security'],
         ignoreHTTPSErrors: true
     });
@@ -31,7 +31,7 @@ async function getProductDetails(url) {
     console.log("Scroll, and now entering page")
     // Wait for the specific elements to ensure they are loaded
 
-    await page.waitForSelector('.product-images > div:nth-child(1) > picture > img');
+    await page.waitForSelector('#hero-image > div.hero-image.selected.css-2qo0n7 > div > div > div > picture > img');
 
     const details = await page.evaluate((BRAND_NAME, CATEGORY_VALUE, GENDER) => {
         const brand = BRAND_NAME;
@@ -39,12 +39,14 @@ async function getProductDetails(url) {
         const category = CATEGORY_VALUE;
 
 
-        const name = document.querySelector('.ProductDetailDescriptionData__product-detail__description__name-wrapper--_tA56 > h1')?.innerText.trim();
-        const priceText = document.querySelector('.product-price.ProductPrice__product-price--iMHPE > div > span')?.innerText.trim();
+        const headline = document.querySelector('.product-info.ncss-col-sm-12.full.product-info-padding > h2')?.innerText.trim();
+        const headlineSecond = document.querySelector('.product-info.ncss-col-sm-12.full.product-info-padding > h1')?.innerText.trim();
+        const name = `${headline} ${headlineSecond}`.trim();
+        const priceText = document.querySelector('[data-qa=price]')?.innerText.trim() || document.querySelector('.product-info.ncss-col-sm-12.full.product-info-padding > div')?.innerText.trim();
         const price = priceText ? parseFloat(priceText.replace(/[^\d.-]/g, '')) : null;
-        const descriptionElements = document.querySelector("#app-main > div.app-container > main > div > div.container-fluid > div:nth-child(1) > div.product-detail__product-detail__description__wrapper--o1ovn.col-lg-3 > div.product-detail__product-detail__description--eJT1y > div.product-detail__product-detail__additional-links--ohh0M.product-detail__product-detail__additional-links--dsk--aXGWo > div.accordion_group.ProductAccordion__product-accordion__group--s58ug.AccordionGroup__accordion_group--sHDFM > div.accordion.SubComponents__accordion_group--Ym1sI.active > div > div > div > span")
+        const descriptionElements = document.querySelector(".description-text.text-color-grey.mb9-sm > p")
         const description = (descriptionElements)?.innerText.trim();
-        const color = document.querySelector(".ProductColorSelection__product-color-selection__info-color--vURi1")?.innerText.trim();
+        // const color = document.querySelector(".ProductColorSelection__product-color-selection__info-color--vURi1")?.innerText.trim();
 
 
         const imagesUrl = [];
@@ -74,7 +76,7 @@ async function getProductDetails(url) {
         //         imageNames.push(imageName);
         //     }
         // }
-        const firstImage = document.querySelector(".product-images > div:nth-child(1) > picture > img");
+        const firstImage = document.querySelector("#hero-image > div.hero-image.selected.css-2qo0n7 > div > div > div > picture > img");
 
         if (firstImage) {
             const srcset = firstImage.getAttribute('srcset');
@@ -89,7 +91,7 @@ async function getProductDetails(url) {
                 imageNames.push(imageName);
             }
         }
-        const secondImage = document.querySelector(".product-images > div:nth-child(2) > picture > img");
+        const secondImage = document.querySelector("#hero-image > div:nth-child(3) > div > div > div > picture > img");
         if (secondImage) {
             const srcset = secondImage.getAttribute('srcset');
             if (srcset) {
@@ -105,7 +107,7 @@ async function getProductDetails(url) {
             }
         }
 
-        const thirdImage = document.querySelector(".product-images > div:nth-child(3) > picture > img");
+        const thirdImage = document.querySelector("#hero-image > div:nth-child(4) > div > div > div > picture > img");
         if (thirdImage) {
             const srcset = thirdImage.getAttribute('srcset');
             if (srcset) {
@@ -122,6 +124,21 @@ async function getProductDetails(url) {
         }
 
 
+        const fourImage = document.querySelector("#hero-image > div:nth-child(6) > div > div > div > picture > img");
+        if (fourImage) {
+            const srcset = fourImage.getAttribute('srcset');
+            if (srcset) {
+                const firstSrc = srcset.split(',')[2].trim().split(' ')[0]; // Get the first srcset URL
+                imagesUrl.push(firstSrc);
+                const imageName = `${sanitize(brand)}-${sanitize(name)}-2`;
+                imageNames.push(imageName);
+            }
+            else {
+                imagesUrl.push(fourImage.src);
+                const imageName = `${sanitize(brand)}-${sanitize(name)}-2`;
+                imageNames.push(imageName);
+            }
+        }
 
 
         return {
@@ -135,7 +152,7 @@ async function getProductDetails(url) {
             currency: 'GBP',
             gender: gender,
             description: description,
-            color: color,
+            color: "",
             from: brand,
             info: 'Retail Price',
             'image': imageNames,
@@ -155,7 +172,7 @@ async function getProductDetails(url) {
         const imageName = details.image[i];
         try {
             console.log(`Downloading image ${imageName} from ${imageUrl}`);
-            await downloadImage(imageUrl, path.join(__dirname, 'offwhite', `${imageName}.jpg`));
+            await downloadImage(imageUrl, path.join(__dirname, 'nike', `${imageName}.jpg`));
         } catch (error) {
             console.error(`Failed to download image ${imageName} from ${imageUrl}:`, error);
         }
@@ -219,19 +236,9 @@ async function autoScroll(page) {
     const urls = [
 
         // 'https://www.off---white.com/en-gb/shopping/off-white-xray-denim-shorts-22102695',
-        "https://www.off---white.com/en-gb/women/shoes/sneakers/dark-gray%2Fblack-out-of-office-OWIA259C99LEA0120710.html",
-        "https://www.off---white.com/en-gb/women/shoes/sneakers/dusty-blue%2Fice-out-of-office-suede-OWIA259S25LEA0064204.html",
-        "https://www.off---white.com/en-gb/men/shoes/sneakers/out-of-office-OMIA189S25LEA001016G.html",
-        "https://www.off---white.com/en-gb/men/shoes/sneakers/jet-green%2Fecru-out-of-office-suede-OMIA189S25LEA0074A6F.html",
-        "https://www.off---white.com/en-gb/men/shoes/sneakers/chocolate%2Fcream-out-of-office-OMIA189S25LEA0026G0A.html",
-        "https://www.off---white.com/en-gb/men/shoes/sneakers/white%2Flight-grey-out-of-office-OMIA189S25LEA0010105.html",
-        "https://www.off---white.com/en-gb/men/shoes/sneakers/purple%2Flaw-green-floating-arrow-OMIA244S25LEA002373A.html",
-        "https://www.off---white.com/en-gb/men/shoes/sneakers/brick-red%2Fwhite-out-of-office-suede-OMIA189S25LEA0072701.html",
-        "https://www.off---white.com/en-gb/men/shoes/sneakers/blue%2Fwhite-out-of-office-sneakers-OMIA189C99LEA0070142.html",
-        "https://www.off---white.com/en-gb/men/shoes/sneakers/out-of-office-basket-leather-OMIA189F24LEA00D4525.html",
-        "https://www.off---white.com/en-gb/men/shoes/sneakers/petrol-blue%2Fwhite-out-of-office-OMIA189S25LEA0024801.html",
-        "https://www.off---white.com/en-gb/men/shoes/sneakers/beige%2Fcamo-out-of-office-OMIA189Z25LEA0016184.html",
-
+        "https://www.nike.com/gb/launch/t/air-jordan-4-rare-air-emea",
+        "https://www.nike.com/gb/launch/t/shox-ride-2-black-and-cargo-khaki",
+        "https://www.nike.com/gb/launch/t/shox-ride-2-metallic-silver-and-desert-khaki"
 
 
         // Add more URLs as needed
@@ -240,8 +247,8 @@ async function autoScroll(page) {
 
     // Load existing data if available
     let existingData = [];
-    if (fs.existsSync('offwhite.json')) {
-        const rawData = fs.readFileSync('offwhite.json');
+    if (fs.existsSync('nike.json')) {
+        const rawData = fs.readFileSync('nike.json');
         existingData = JSON.parse(rawData);
     }
 
@@ -258,8 +265,8 @@ async function autoScroll(page) {
     // Append new results to existing data
     const updatedData = existingData.concat(results);
 
-    fs.writeFileSync('offwhite.json', JSON.stringify(updatedData, null, 2), 'utf-8');
-    console.log('Product details saved to offwhite.json');
+    fs.writeFileSync('nike.json', JSON.stringify(updatedData, null, 2), 'utf-8');
+    console.log('Product details saved to nike.json');
 })();
 
 
