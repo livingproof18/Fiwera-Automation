@@ -12,6 +12,9 @@ acero
 footwear/
 transparent/
 corteiz/
+offwhite/
+nike/
+nike.json
 # Ignore all .DS_Store files
 .DS_Store
 # Ignore all .vscode directories
@@ -24,6 +27,8 @@ corteiz/
 .cache/
 # Ignore all .tmp files
 *.tmp
+ignore all json files
+*.json
 
 .venv
 .venv/
