@@ -4,16 +4,16 @@ const path = require('path');
 const axios = require('axios');
 
 
-const BRAND_NAME = "Nike";
-const CATEGORY_VALUE = "SNEAKERS";
+const BRAND_NAME = "Casio";
+const CATEGORY_VALUE = "ACCESSORIES";
 const GENDER = "ALL";
-const DATA_PATH = 'nike.json';
+const DATA_PATH = 'goat.json';
 
 async function getProductDetails(url) {
     console.log("getProductDetails " + url);
     const browser = await puppeteer.launch({
-        headless: false,
-        // headless: 'new',
+        // headless: false,
+        headless: 'new',
         args: ['--no-sandbox', '--disable-setuid-sandbox', '--ignore-certificate-errors', '--enable-http2', '--disable-web-security'],
         ignoreHTTPSErrors: true
     });
@@ -34,7 +34,7 @@ async function getProductDetails(url) {
 
     try {
         // Try waiting up to 30 seconds
-        await page.waitForSelector('#hero-image > div:nth-child(1) > img', { timeout: 10000 });
+        await page.waitForSelector('#main > div > div.swiper-slide.swiper-slide-active > div > img', { timeout: 10000 });
     } catch (err) {
         console.warn('Image not found within 30s, waiting an extra 5 seconds...');
         await page.waitForTimeout(5000); // extra wait without checking selector
@@ -45,22 +45,12 @@ async function getProductDetails(url) {
         const gender = GENDER;
         const category = CATEGORY_VALUE;
 
-        // NIKE SNEAKERS SITE   
-        const headline = document.querySelector('.product-info.ncss-col-sm-12.full.product-info-padding > h2')?.innerText.trim();
-        const headlineSecond = document.querySelector('.product-info.ncss-col-sm-12.full.product-info-padding > h1')?.innerText.trim();
-        // const name = `${headline} ${headlineSecond}`.trim();
-        // const priceText = document.querySelector('[data-qa=price]')?.innerText.trim() || document.querySelector('.product-info.ncss-col-sm-12.full.product-info-padding > div')?.innerText.trim();
-        // const price = priceText ? parseFloat(priceText.replace(/[^\d.-]/g, '')) : null;
-        // const descriptionElements = document.querySelector(".description-text.text-color-grey.mb9-sm > p")
-        // const description = (descriptionElements)?.innerText.trim();
-
-        const name = document.querySelector("[data-testid=\"product_title\"]")?.innerText.trim() || document.querySelector("#pdp_product_title")?.innerText.trim();
-        const priceText = document.querySelector('[data-testid="currentPrice-container"]')?.innerText.trim() || document.querySelector('#price-container > span')?.innerText.trim();
+        const name = document.querySelector(".ProductInfo__Name-sc-yvcr9v-2")?.innerText.trim();
+        const priceText = document.querySelector('.BigBuyBarDesktopSwiperSection__Wrapper-sc-196rppg-0.fhyWHl > div > div > div > div > span')?.innerText.trim();
         const price = priceText ? parseFloat(priceText.replace(/[^\d.-]/g, '')) : null;
 
-        const descriptionElements = document.querySelector('[data-testid="product-description"]')?.innerText.trim() || document.querySelector("#product-description-container > p")?.innerText.trim()
-        const description = (descriptionElements)
-        // const color = document.querySelector(".ProductColorSelection__product-color-selection__info-color--vURi1")?.innerText.trim();
+        // const description = document.querySelector("#main > div.lv-product > section > div.lv-product-seo-details > p")?.innerText.trim();
+        const color = document.querySelector("#pdp-wrapper > div > div.FactsWindow__Wrapper-sc-1hjbbqw-1.dnjWGj > div:nth-child(6) > span.WindowItemShortText__Right-sc-jrzdw-2.kZeLHw > button > span")?.innerText.trim();
 
 
         const imagesUrl = [];
@@ -75,27 +65,13 @@ async function getProductDetails(url) {
                 .replace(/[\/\\\[\]'":]/g, '') // Remove problematic chars
                 .replace(/-+/g, '-');   // Collapse repeated dashes
 
-        // const onlyImage = document.querySelector(".product-images > div:nth-child(1) > picture > img");
 
-        // if (onlyImage) {
-        //     const srcset = onlyImage.getAttribute('srcset');
-        //     if (srcset) {
-        //         const firstSrc = srcset.split(',')[4].trim().split(' ')[0]; // Get the first srcset URL
-        //         imagesUrl.push(firstSrc);
-        //         const imageName = `${sanitize(brand)}-${sanitize(name)}-0`;
-        //         imageNames.push(imageName);
-        //     } else {
-        //         imagesUrl.push(onlyImage.src);
-        //         const imageName = `${sanitize(brand)}-${sanitize(name)}-1`;
-        //         imageNames.push(imageName);
-        //     }
-        // }
-        const firstImage = document.querySelector("#hero-image > div:nth-child(1) > img");
+        const firstImage = document.querySelector("#main > div > div.swiper-slide.swiper-slide-active > div > img");
 
         if (firstImage) {
             const srcset = firstImage.getAttribute('srcset');
             if (srcset) {
-                const firstSrc = srcset.split(',')[2].trim().split(' ')[0]; // Get the first srcset URL
+                const firstSrc = srcset.split(',')[19].trim().split(' ')[0]; // Get the first srcset URL
                 imagesUrl.push(firstSrc);
                 const imageName = `${sanitize(brand)}-${sanitize(name)}-0`;
                 imageNames.push(imageName);
@@ -105,42 +81,25 @@ async function getProductDetails(url) {
                 imageNames.push(imageName);
             }
         }
-        const secondImage = document.querySelector("#hero-image > div:nth-child(3) > img");
-        if (secondImage) {
-            const srcset = secondImage.getAttribute('srcset');
-            if (srcset) {
-                const firstSrc = srcset.split(',')[2].trim().split(' ')[0]; // Get the first srcset URL
-                imagesUrl.push(firstSrc);
-                const imageName = `${sanitize(brand)}-${sanitize(name)}-1`;
-                imageNames.push(imageName);
-            }
-            else {
-                imagesUrl.push(secondImage.src);
-                const imageName = `${sanitize(brand)}-${sanitize(name)}-1`;
-                imageNames.push(imageName);
-            }
-        }
+        // const secondImage = document.querySelector("#hero-image > div:nth-child(3) > img");
+        // if (secondImage) {
+        //     const srcset = secondImage.getAttribute('srcset');
+        //     if (srcset) {
+        //         const firstSrc = srcset.split(',')[2].trim().split(' ')[0]; // Get the first srcset URL
+        //         imagesUrl.push(firstSrc);
+        //         const imageName = `${sanitize(brand)}-${sanitize(name)}-1`;
+        //         imageNames.push(imageName);
+        //     }
+        //     else {
+        //         imagesUrl.push(secondImage.src);
+        //         const imageName = `${sanitize(brand)}-${sanitize(name)}-1`;
+        //         imageNames.push(imageName);
+        //     }
+        // }
 
-        const thirdImage = document.querySelector("#hero-image > div:nth-child(5) > img");
-        if (thirdImage) {
-            const srcset = thirdImage.getAttribute('srcset');
-            if (srcset) {
-                const firstSrc = srcset.split(',')[2].trim().split(' ')[0]; // Get the first srcset URL
-                imagesUrl.push(firstSrc);
-                const imageName = `${sanitize(brand)}-${sanitize(name)}-2`;
-                imageNames.push(imageName);
-            }
-            else {
-                imagesUrl.push(thirdImage.src);
-                const imageName = `${sanitize(brand)}-${sanitize(name)}-2`;
-                imageNames.push(imageName);
-            }
-        }
-
-
-        // const fourImage = document.querySelector("#hero-image > div:nth-child(6) > div > div > div > picture > img");
-        // if (fourImage) {
-        //     const srcset = fourImage.getAttribute('srcset');
+        // const thirdImage = document.querySelector("#hero-image > div:nth-child(5) > img");
+        // if (thirdImage) {
+        //     const srcset = thirdImage.getAttribute('srcset');
         //     if (srcset) {
         //         const firstSrc = srcset.split(',')[2].trim().split(' ')[0]; // Get the first srcset URL
         //         imagesUrl.push(firstSrc);
@@ -148,12 +107,11 @@ async function getProductDetails(url) {
         //         imageNames.push(imageName);
         //     }
         //     else {
-        //         imagesUrl.push(fourImage.src);
+        //         imagesUrl.push(thirdImage.src);
         //         const imageName = `${sanitize(brand)}-${sanitize(name)}-2`;
         //         imageNames.push(imageName);
         //     }
         // }
-
 
         return {
             Brand: brand,
@@ -165,9 +123,9 @@ async function getProductDetails(url) {
             Price: price,
             currency: 'GBP',
             gender: gender,
-            description: description,
-            color: "",
-            from: brand,
+            description: "",
+            color: color,
+            from: 'GOAT',
             info: 'Retail Price',
             'image': imageNames,
             'imagesUrl': imagesUrl,
@@ -186,7 +144,7 @@ async function getProductDetails(url) {
         const imageName = details.image[i];
         try {
             console.log(`Downloading image ${imageName} from ${imageUrl}`);
-            await downloadImage(imageUrl, path.join(__dirname, 'nike', `${imageName}.jpg`));
+            await downloadImage(imageUrl, path.join(__dirname, 'goat', `${imageName}.jpg`));
         } catch (error) {
             console.error(`Failed to download image ${imageName} from ${imageUrl}:`, error);
         }
@@ -287,24 +245,18 @@ function saveProgress(existing, results) {
 (async () => {
     const urls = [
         // 'https://www.off---white.com/en-gb/shopping/off-white-xray-denim-shorts-22102695',
-        "https://www.nike.com/gb/t/air-jordan-5-retro-grape-shoes-qUtJBbwU/HQ7978-100",
-        "https://www.nike.com/gb/t/air-jordan-12-retro-french-blue-shoes-yElRhxBT/CT8013-114",
-        "https://www.nike.com/gb/t/air-max-plus-shoes-JZMlsj0s/IB7671-700",
-        "https://www.nike.com/gb/t/air-max-plus-shoes-WWM1O4Lz/IH4458-001",
-        "https://www.nike.com/gb/t/air-max-95-shoes-cbxu16ox/IB7683-001",
-        "https://www.nike.com/gb/t/shox-ride-2-shoes-VMBVws/HV4447-010",
-        "https://www.nike.com/gb/t/air-max-plus-3-shoes-2WxEl2Ed/IF6319-001",
-        "https://www.nike.com/gb/t/air-jordan-1-high-og-rare-air-shoes-oSRhapAE/DZ5485-100",
-        "https://www.nike.com/gb/t/air-max-tl-2-5-shoes-5tS7MV/FZ4110-002",
-        "https://www.nike.com/gb/t/shox-ride-2-shoes-4zXvzP2v/II7635-001",
-        "https://www.nike.com/gb/t/air-max-90-shoes-9gBgRX5l/IB6392-001",
-        "https://www.nike.com/gb/u/custom-nike-air-max-90-shoes-by-you-10002041/4103055326",
-        "https://www.nike.com/gb/t/clogposite-shoes-CoxofkPn/HJ4478-001",
-        "https://www.nike.com/gb/t/p-6000-shoes-kkM7cNNT/IF6199-003",
-        "https://www.nike.com/gb/t/p-6000-se-shoes-MurbK6lc/IB2986-002",
-        "https://www.nike.com/gb/t/p-6000-denim-shoes-HvFifNLx/IH3646-499",
-        "https://www.nike.com/gb/t/p-6000-shoes-OUU4WGqE/BV1021-109",
-        "https://www.nike.com/gb/t/acg-rufus-shoes-8pTVF3/FV2923-400"
+        // "https://www.goat.com/en-gb/apparel/g-shock-by-casio-vintage-digital-watch-silver-abl100we-1avt",
+        // "https://www.goat.com/en-gb/apparel/g-shock-by-casio-digital-bg-169-series-watch-pink-bg169ch-4",
+        // "https://www.goat.com/en-gb/apparel/supreme-x-the-north-face-x-g-shock-watch-yellow-fw22a4-yellow",
+        // "https://www.goat.com/en-gb/apparel/supreme-x-the-north-face-x-g-shock-watch-white-fw22a4-white",
+        // "https://www.goat.com/en-gb/apparel/bape-type-1-bapex-green-1i80-187-001-green",
+        // "https://www.goat.com/en-gb/apparel/bape-type-1-bapex-watch-blue-1j30-187-012-blue",
+        // "https://www.goat.com/en-gb/apparel/bape-type-1-bapex-pink-1i80-187-001-pink",
+        // "https://www.goat.com/en-gb/apparel/bape-classic-type-1-bapex-purple-1i80-187-005-purple",
+        // "https://www.goat.com/en-gb/apparel/bape-type-1-bapex-orange-1i80-187-001-orange",
+        // "https://www.goat.com/en-gb/apparel/supreme-x-the-north-face-x-g-shock-watch-black-fw22a4-black",
+        "https://www.goat.com/en-gb/apparel/supreme-repeat-leather-belt-black-ss22a47-black"
+
         // Add more URLs as needed
     ];
     console.log("calling app.js")
@@ -346,9 +298,9 @@ function saveProgress(existing, results) {
 
     // Final save (noop if nothing new since last URL)
     existingData = saveProgress(existingData, results);
-    console.log('Product details saved to nike.json');
+    console.log('Product details saved to json');
 
-    console.log('Product details saved to nike.json');
+    // console.log('Product details saved to nike.json');
 })();
 
 
