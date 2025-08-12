@@ -2,43 +2,34 @@ const puppeteer = require('puppeteer');
 const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
-const { type } = require('os');
 
 
-const BRAND_NAME = "Broken Planet";
-const CATEGORY_VALUE = "HOODIE";
+const BRAND_NAME = "StockX";
+const CATEGORY_VALUE = "ACCESSORIES";
 const GENDER = "All";
-var colorCode;
+
 async function getProductDetails(url) {
     console.log("getProductDetails " + url);
     const browser = await puppeteer.launch({
-        // headless: false,
-        headless: 'new',
+        headless: false,
+        // headless: 'new',
         args: ['--no-sandbox', '--disable-setuid-sandbox', '--ignore-certificate-errors', '--enable-http2', '--disable-web-security'],
         ignoreHTTPSErrors: true
     });
 
     const page = await browser.newPage();
-    // const image = document.querySelector(MAIN_IMG);
-    // const MAIN_IMG = '#root > div.styles__Root-sc-1nscchl-0.eKhoXc > main > div.product__MainWrapper-sc-793f58-0.djgxcI > div.product__ProductPageWrapper-sc-793f58-11.eIGFqA > div > div.Flex-sc-1fsfqp0-0.fSrsso > div > div.ProductImages__MainImageWrapper-sc-192tdi7-4.dBvqHV > img';
-    // const THUMB_SEL = '#root > div.styles__Root-sc-1nscchl-0.eKhoXc > main > div.product__MainWrapper-sc-793f58-0.djgxcI > div.product__ProductPageWrapper-sc-793f58-11.eIGFqA > div > div.Flex-sc-1fsfqp0-0.fSrsso > div > div.ProductImages__Embla-sc-192tdi7-1.bRXdtC > div > div > div:nth-child(1)';
-
-    // 1) Selectors (note: no :nth-child here, we want all thumbs)
-    const MAIN_IMG = 'div.ProductImages__MainImageWrapper-sc-192tdi7-4 img';
-    const THUMB_ITEM_SEL = 'div.ProductImages__Embla-sc-192tdi7-1 div > div > div';
-
-    // const THUMB_ITEM_SEL = 'div.ProductImages__Embla-sc-192tdi7-1.bRXdtC div > div > div:nth-child(1)';
-
-    const sanitize = (str) =>
-        String(str)
-            .replace(/\s+/g, '-')
-            .replace(/[\/\\\[\]'":]/g, '')
-            .replace(/-+/g, '-');
 
     // Set viewport to desired width and height
     await page.setViewport({ width: 1920, height: 1080 });
-    await page.goto(url, { waitUntil: 'networkidle2' });
 
+    await page.goto(url, { waitUntil: 'networkidle2' });
+    // // Handle cookie modal
+    // try {
+    //     await page.waitForSelector('#ucm-details > div.ucm-popin.ucm-popin--pushpop.ucm-popin--active > div', { timeout: 5000 }); // Change selector to match the actual cookie modal
+    //     await page.click('#ucm-details > div.ucm-popin.ucm-popin--pushpop.ucm-popin--active > div > form > ul > li:nth-child(3) > button'); // Change selector to match the actual accept button
+    // } catch (error) {
+    //     console.log('No cookie modal found or failed to accept cookies:', error);
+    // }
 
     // Scroll down to load all images
     await autoScroll(page);
@@ -46,145 +37,175 @@ async function getProductDetails(url) {
     await new Promise(resolve => setTimeout(resolve, 4000)); // Wait for images to load
 
     console.log("Scroll, and now entering page")
+    // Wait for the specific elements to ensure they are loaded
+    // Cwith fugazi I have to keep chaning the image ids--- longgggg
+    // await page.waitForSelector('#\\:R6l35\\:-slide-1 > div > img');
+    // await page.waitForSelector('#main > div.lv-product > div > section > div.lv-product-page-header__primary > div > div > ul > li:nth-child(2) > div > div > picture > img');
+    await page.waitForSelector('#main-content > div > section.css-58l4sv > div > div.css-102uabd > div > div > div > div > img');
 
-    await page.waitForSelector(MAIN_IMG);
 
-    // const imgSelector = document.querySelector("#root > div.styles__Root-sc-1nscchl-0.eKhoXc > main > div.product__MainWrapper-sc-793f58-0.djgxcI > div.product__ProductPageWrapper-sc-793f58-11.eIGFqA > div > div.Flex-sc-1fsfqp0-0.fSrsso > div > div.ProductImages__MainImageWrapper-sc-192tdi7-4.dBvqHV > img")
-
-    const details = await page.evaluate((BRAND_NAME, CATEGORY_VALUE, GENDER, MAIN_IMG) => {
+    const details = await page.evaluate(async (BRAND_NAME, CATEGORY_VALUE, GENDER) => {
         const brand = BRAND_NAME;
-        const name = document.querySelector("#root > div.styles__Root-sc-1nscchl-0.eKhoXc > main > div.product__MainWrapper-sc-793f58-0.djgxcI > div.product__ProductPageWrapper-sc-793f58-11.eIGFqA > div > div.styles__FlashSaleProductDescription-sc-1nscchl-11.fwxOZQ > h1")?.innerText.trim() || "";
+        const name = document.querySelector("#main-content > div > section.css-58l4sv > div > div.css-hfp9tp > div > div > h1")?.innerText.trim();
 
-        const priceText = document.querySelector('div.flash-sale-price > span')?.innerText.trim();
+        const category = CATEGORY_VALUE;
+        const gender = GENDER;
+
+        let priceText = document.querySelector('#main-content > div > section.css-58l4sv > div > div.css-1dwax6t > div > div.css-1y6ibuq > div.css-13azw4r > div > div > p')?.innerText.trim() || null; //last sale price
+        if (!priceText) {
+            priceText = document.querySelector('#main-content > div > section.css-58l4sv > div > div.css-1dwax6t > div > div.css-1y6ibuq > div.css-0 > div.css-1s0m9m0 > div.css-0 > h2')?.innerText.trim(); //buy now price, to be use only if last sale price not found
+
+        }
         const price = priceText ? parseFloat(priceText.replace(/[^\d.-]/g, '')) : null;
 
-        const description = document.querySelector("#root div.styles__FlashSaleProductDescription-sc-1nscchl-11.fwxOZQ > div:nth-child(3) > ul")?.innerText.trim() || "";
-        const color = document.querySelector("div.flash-sale-color > p")?.innerText.trim().replace(/^COLOR:\s*/i, '') || "";
+
+        let description = document.querySelector("#main-content > div > section:nth-child(5) > div > div:nth-child(1) > div > div > div.css-13qkkpi > div > div > p")?.innerText.trim() || null;
+        if (!description) {
+            description = document.querySelector("div.css-13qkkpi > p")?.innerText.trim() || null;
+        }
+        const color = document.querySelector("#main-content > div > section.css-58l4sv > div > div.css-hfp9tp > div > div > h1 > span")?.innerText.trim() || null;
 
 
-        function pickSrc(img) {
-            const ss = img.getAttribute('srcset');
-            if (!ss) return img.src || null;
-            // pick the last (usually largest) candidate
-            const parts = ss.split(',').map(s => s.trim().split(' ')[0]).filter(Boolean);
-            return parts[parts.length - 1] || null;
+        const imagesUrl = [];
+        const imageNames = [];
+
+        function findFirstImage(root = document) {
+            const selectors = [
+                // Be as general as you can while still specific enough
+                '#main-content section.css-58l4sv img',
+                // Any tab panel image whose ID follows the "tabs-<something>--tabpanel-0" pattern
+                '[id^="tabs-"][id$="--tabpanel-0"] img',
+                // Add other stable, structure-based selectors here if needed
+                '#main-content img'
+            ];
+
+            for (const sel of selectors) {
+                const img = root.querySelector(sel);
+                if (img) return img;
+            }
+
+            console.warn('First image not found');
+            return null;
         }
 
+        async function waitForFirstImage(timeoutMs = 1000, root = document) {
+            const found = findFirstImage(root);
+            if (found) return found;
+
+            return new Promise((resolve) => {
+                const timeout = setTimeout(() => {
+                    observer.disconnect();
+                    resolve(null);
+                }, timeoutMs);
+
+                const observer = new MutationObserver(() => {
+                    const img = findFirstImage(root);
+                    if (img) {
+                        clearTimeout(timeout);
+                        observer.disconnect();
+                        resolve(img);
+                    }
+                });
+
+                observer.observe(root, { childList: true, subtree: true });
+            });
+        }
+
+        // usage
+        const firstImage = await waitForFirstImage();
+
+
+
+        // let firstImage = document.querySelector("#main-content > div > section.css-58l4sv > div > div.css-102uabd > div > div > div > div > img");
+        // if (!firstImage) {
+        //     console.error("First image not found");
+        //     // return null; // Return null if the first image is not found
+        //     firstImage = document.querySelector("#tabs-«r6»--tabpanel-0 > div > div > img")
+
+        //     if (!firstImage) {
+        //         firstImage = document.querySelector("#tabs-«ra»--tabpanel-0 > div > div > img")
+        //     }
+        //     if (!firstImage) {
+        //         firstImage = document.querySelector("#tabs-«r1p»--tabpanel-0 > div > div > img")
+        //     }
+        //     if (!firstImage) {
+        //         firstImage = document.querySelector("#tabs-«r1p»--tabpanel-0 > div > div > img")
+        //     }
+        // }
+        // if (!firstImage) {
+        //     firstImage = document.querySelector("#tabs-«r9»--tabpanel-0 > div > div > img")
+        // }
+
+        // const onlyImage = document.querySelector("#main > div.lv-product > div > section > div.lv-product-page-header__primary > div > div > ul > li.-critical > div > div > picture > img");
         const sanitize = (str) =>
             String(str)
-                .replace(/\s+/g, '-')
-                .replace(/[\/\\\[\]'":]/g, '')
-                .replace(/-+/g, '-');
+                .replace(/\s+/g, '-')   // Replace spaces with hyphens
+                .replace(/[\/\\\[\]'":]/g, '') // Remove problematic chars
+                .replace(/-+/g, '-');   // Collapse repeated dashes
 
-        const main = document.querySelector(MAIN_IMG);
-        const firstSrc = main ? pickSrc(main) : null;
-        // colorCode = color.substring(0, 3);
+        if (firstImage) {
+            const srcset = firstImage.getAttribute('srcset');
+            if (srcset) {
+                const firstSrc = srcset.split(',')[4].trim().split(' ')[0]; // Get the first srcset URL
+                imagesUrl.push(firstSrc);
+                const imageName = `${sanitize(brand)}-${sanitize(name)}-0`;
+                imageNames.push(imageName);
+            } else {
+                imagesUrl.push(firstImage.src);
+                const imageName = `${sanitize(brand)}-${sanitize(name)}-0`;
+                imageNames.push(imageName);
+            }
+        }
+        // const secondImage = document.querySelector("#ProductSection > div > div:nth-child(1) > div.flexslider.product-gallery-slider > div > ul > li:nth-child(2) > a > img");
+        // if (secondImage) {
+        //     const srcset = secondImage.getAttribute('srcset');
+        //     if (srcset) {
+        //         const firstSrc = srcset.split(',')[8].trim().split(' ')[0]; // Get the first srcset URL
+        //         imagesUrl.push(firstSrc);
+        //         const imageName = `${sanitize(brand)}-${sanitize(name)}-1`;
+        //         imageNames.push(imageName);
+        //     }
+        //     else {
+        //         imagesUrl.push(secondImage.src);
+        //         const imageName = `${sanitize(brand)}-${sanitize(name)}-1`;
+        //         imageNames.push(imageName);
+        //     }
+        // }
+
+
+
         return {
             Brand: brand,
-            name,
-            category: CATEGORY_VALUE,
+            name: name,
+            category: category,
             id: '',
             code: '',
             url: window.location.href,
             Price: price,
             currency: 'GBP',
-            gender: GENDER,
-            description,
+            gender: gender,
+            description: description,
             color: color,
-            from: 'brokenplanet',
-            info: 'Retail Price',
-            // image: firstSrc ? [`${sanitize(brand)}-${sanitize(name)}-${sanitize(colorCode)}-0`] : [],
-            imagesUrl: firstSrc ? [firstSrc] : [],
-            type: "jpg"
+            from: 'stockx',
+            info: 'Reseller Price',
+            'image': imageNames,
+            'imagesUrl': imagesUrl,
+            // Debug: {
+            //     'imgElement for index 0': document.querySelector('#main > div.lv-product > div > section > div.lv-product-page-header__primary > div > div > ul > li:nth-child(2) > div > div > picture > img') ? document.querySelector('#main > div.lv-product > div > section > div.lv-product-page-header__primary > div > div > ul > li:nth-child(2) > div > div > picture > img').getAttribute('srcset') : null
+            //     //     'imgElement for index 4': document.querySelector('li[data-index="4"] img') ? document.querySelector('li[data-index="4"] img').getAttribute('srcset') : null
+            // }
         };
-    }, BRAND_NAME, CATEGORY_VALUE, GENDER, MAIN_IMG);
-
-    // 3) Build the FIRST image filename in Node (uses same sanitize everywhere)
-    const colorCode = (details.color || '').slice(0, 3); // or .toUpperCase()
-    details.image = [];
-    if (details.imagesUrl[0]) {
-        details.image.push(`${sanitize(details.Brand)}-${sanitize(details.name)}-${sanitize(colorCode)}-0`);
-    }
-
-
+    }, BRAND_NAME, CATEGORY_VALUE, GENDER);
+    // console.log(details.Debug);  // Log the intermediate results
+    // Print details for debugging
     console.log('Product details:', details);
-
-    // ...after you log details:
-    // console.log('Product details:', details);
-
-    // try to grab a second image, but don't block long if it's not there
-    try {
-        // wait a bit for thumbnails to render (short timeout)
-        await page.waitForSelector(THUMB_ITEM_SEL, { timeout: 2000 });
-        const thumbs = await page.$$(THUMB_ITEM_SEL);
-
-        console.log('Found thumbnails:', thumbs.length);
-        console.log(thumbs);
-
-        if (thumbs.length > 0) {
-            // read current main image src (largest candidate)
-            const prevSrc = await page.$eval(MAIN_IMG, (img) => {
-                const ss = img.getAttribute('srcset');
-                if (!ss) return img.src || '';
-                const parts = ss.split(',').map(s => s.trim().split(' ')[0]).filter(Boolean);
-                return parts[parts.length - 1] || '';
-            });
-
-            // click the SECOND thumbnail (index 1), not the first
-            await thumbs[0].click();
-
-            // wait briefly for the main image to change, then proceed either way
-            try {
-                await page.waitForFunction(
-                    (sel, previous) => {
-                        const img = document.querySelector(sel);
-                        if (!img) return false;
-                        const ss = img.getAttribute('srcset');
-                        const current = ss
-                            ? ss.split(',').map(s => s.trim().split(' ')[0]).filter(Boolean).pop()
-                            : img.src;
-                        return !!current && current !== previous;
-                    },
-                    { timeout: 2000 }, // <= short, "decent amount of time"
-                    MAIN_IMG,
-                    prevSrc
-                );
-            } catch {
-                // No change within 4s—probably only one real image. Just continue.
-                console.log('No second image found or image did not change in time. Skipping.');
-            }
-
-            // read main image again (if it changed, this will be new)
-            const maybeSecondSrc = await page.$eval(MAIN_IMG, (img) => {
-                const ss = img.getAttribute('srcset');
-                if (!ss) return img.src || '';
-                const parts = ss.split(',').map(s => s.trim().split(' ')[0]).filter(Boolean);
-                return parts[parts.length - 1] || '';
-            });
-
-            if (maybeSecondSrc && !details.imagesUrl.includes(maybeSecondSrc)) {
-                details.imagesUrl.push(maybeSecondSrc);
-                details.image.push(`${sanitize(details.Brand)}-${sanitize(details.name)}-${sanitize(colorCode)}-1`);
-            }
-        } else {
-            console.log('Only one thumbnail found; skipping second image.');
-        }
-    } catch (e) {
-        // Thumbnails never appeared or click failed—just carry on with the first image
-        console.log('Could not get a second image (thumbs missing or not clickable). Continuing.', e?.message || e);
-    }
-
-
-
-
-
     // Download images
     for (let i = 0; i < details.image.length; i++) {
         const imageUrl = details.imagesUrl[i];
         const imageName = details.image[i];
         try {
             console.log(`Downloading image ${imageName} from ${imageUrl}`);
-            await downloadImage(imageUrl, path.join(__dirname, 'brokenplanet', `${imageName}.jpg`));
+            await downloadImage(imageUrl, path.join(__dirname, 'stockx', `${imageName}.jpg`));
         } catch (error) {
             console.error(`Failed to download image ${imageName} from ${imageUrl}:`, error);
         }
@@ -246,38 +267,40 @@ async function autoScroll(page) {
 
 (async () => {
     const urls = [
-        // "https://www.brokenplanet.com/product/star-logo-zip-up-hoodie-old-copy",
-        // "https://www.brokenplanet.com/product/basics-hoodie-copy-1",
-        "https://www.brokenplanet.com/product/basics-hoodie-5",
-        "https://www.brokenplanet.com/product/basics-cuffed-sweatpants",
-        "https://www.brokenplanet.com/product/basics-straight-leg-sweatpants-copy",
-        "https://www.brokenplanet.com/product/straight-leg-sweatpants-5",
-        "https://www.brokenplanet.com/product/reversible-mesh-jersey-1",
-        // "https://www.brokenplanet.com/product/snow-camo-waffle-long-sleeve",
-        "https://www.brokenplanet.com/product/button-up-shirt",
-        "https://www.brokenplanet.com/product/basics-t-shirt-copy-1",
-        "https://www.brokenplanet.com/product/distressed-denim-shorts-1",
-        "https://www.brokenplanet.com/product/basics-shorts-copy-1",
-        "https://www.brokenplanet.com/product/cargo-pants-1",
-        "https://www.brokenplanet.com/product/2-in-1-ripstop-camo-cargo-pants",
-        "https://www.brokenplanet.com/product/top-league-track-jacket",
-        "https://www.brokenplanet.com/product/top-league-track-pants",
-        "https://www.brokenplanet.com/product/camo-mesh-jersey",
-        "https://www.brokenplanet.com/product/waffle-beanie",
-        "https://www.brokenplanet.com/product/broken-planet-t-shirt",
-        "https://www.brokenplanet.com/product/distressed-denim-shorts",
-        "https://www.brokenplanet.com/product/basics-shorts-3",
-        "https://www.brokenplanet.com/product/stargirl-grafitti-tee-1",
-        "https://www.brokenplanet.com/product/star-camo-waffle-long-sleeve",
+        "https://stockx.com/apple-airpods-pro-2nd-gen-2023-magsafe-case-usb-c-mtjv3am-a",
+        "https://stockx.com/beats-by-dr-dre-solo3-wireless-headphones-mx442ll-a-rose-gold",
+        "https://stockx.com/beats-by-dr-dre-solo-3-wireless-on-ear-headphones-mx472ll-a-product-red",
+        "https://stockx.com/ray-ban-meta-wayfarer-limited-edition-rw4006-transparent-blue",
+        "https://stockx.com/pop-mart-the-monsters-big-into-energy-series-wireless-charger",
+        "https://stockx.com/supreme-blu-burner-phone-red",
+        "https://stockx.com/pop-mart-labubu-the-monsters-big-into-energy-series-id-secret-version-vinyl-plush-pendant",
+        "https://stockx.com/pop-mart-labubu-time-to-chill-vinyl-plush-doll",
+        "https://stockx.com/pop-mart-labubu-the-monsters-have-a-seat-duoduo-vinyl-plush",
+        "https://stockx.com/bearbrick-star-wars-the-mandalorian-1000-chrome#main-content",
+        "https://stockx.com/bearbrick-x-care-bears-love-a-lot-bear-tm-400",
+        "https://stockx.com/bearbrick-x-fragment-design-karimoku-haroshi-vertical-carved-wooden-2g-exclusive-400",
+        "https://stockx.com/bearbrick-x-fifa-world-cup-qatar-2022-1000-gold",
+        "https://stockx.com/kaws-star-wars-storm-trooper-companion-vinyl-figure-white",
+        "https://stockx.com/apple-airpods-max-2024-mww43am-a-midnight",
+        "https://stockx.com/apple-airpods-max-2024-mww63am-a-blue",
+        "https://stockx.com/supreme-koss-portapro-headphones-silver",
 
+        "https://stockx.com/supreme-koss-portapro-headphones-white",
+        "https://stockx.com/bose-headphones-700-wireless-noise-cancelling-over-the-ear-headphones-794297-0300-luxe-silver",
+        "https://stockx.com/sony-wireless-noise-cancelling-over-the-ear-headphones-wh1000xm4-s-silver",
+        "https://stockx.com/sony-wireless-noise-cancelling-over-the-ear-headphones-wh1000xm4-b-black",
+        "https://stockx.com/apple-beats-solo-pro-wireless-noise-cancelling-headphones-mrj72ll-a-ivory",
+        "https://stockx.com/beats-x-stussy-studio-pro-headphones",
+
+        // "https://www.crtz.xyz/collections/tops-jerseys/products/open-mesh-panel-jersey-2",
         // Add more URLs as needed
     ];
     console.log("calling app.js")
 
     // Load existing data if available
     let existingData = [];
-    if (fs.existsSync('brokenplanet.json')) {
-        const rawData = fs.readFileSync('brokenplanet.json');
+    if (fs.existsSync('stockx.json')) {
+        const rawData = fs.readFileSync('stockx.json');
         existingData = JSON.parse(rawData);
     }
 
@@ -294,8 +317,8 @@ async function autoScroll(page) {
     // Append new results to existing data
     const updatedData = existingData.concat(results);
 
-    fs.writeFileSync('brokenplanet.json', JSON.stringify(updatedData, null, 2), 'utf-8');
-    console.log('Product details saved to brokenplanet.json');
+    fs.writeFileSync('stockx.json', JSON.stringify(updatedData, null, 2), 'utf-8');
+    console.log('Product details saved to stockx.json');
 })();
 
 
