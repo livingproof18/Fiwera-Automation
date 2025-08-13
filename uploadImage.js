@@ -26,7 +26,7 @@ const SUPABASE_KEY =
     process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY;
 
 const BUCKET = process.env.BUCKET || 'acero';
-const SRC_DIR = process.env.SRC_DIR || 'transparent/goat';
+const SRC_DIR = process.env.SRC_DIR || 'test';
 const OVERWRITE = String(process.env.OVERWRITE || 'true').toLowerCase() === 'true';
 const CACHE_SECONDS = Number(process.env.CACHE_SECONDS || 31536000);
 

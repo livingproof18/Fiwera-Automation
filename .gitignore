@@ -17,6 +17,8 @@ nike/
 nike.json
 goat/
 goat.json
+diesel/
+diesel.json
 # Ignore all .DS_Store files
 .DS_Store
 # Ignore all .vscode directories
