@@ -8,7 +8,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: black;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
@@ -47,48 +47,100 @@
         .card p {
             margin: 0 0 10px;
         }
+
+        .bg {
+            width: 100vw;
+            height: 100vh;
+            background-color: #afe1fa;
+            position: relative;
+            padding: 10px;
+
+        }
+
+        .circle {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            animation: animate 20s linear infinite;
+            box-shadow: inset 1px 2px 2px;
+        }
     </style>
 </head>
 
 <body>
 
-    <div id="products"></div>
+    <!-- <div id="products"></div> -->
+
+    <section class="bg">
+
+    </section>
 
     <script>
-        async function fetchProducts() {
-            try {
-                const response = await fetch('aceroGPT_details.json');
-                const products = await response.json();
-                const productsContainer = document.getElementById('products');
 
-                products.forEach(product => {
-                    const card = document.createElement('div');
-                    card.className = 'card';
 
-                    const img = document.createElement('img');
-                    img.src = product.imagesUrl[0];
-                    card.appendChild(img);
 
-                    const name = document.createElement('h2');
-                    name.textContent = product.name;
-                    card.appendChild(name);
+        document.addEventListener('DOMContentLoaded', () => {
+            start()
+        });
 
-                    const brand = document.createElement('p');
-                    brand.innerHTML = `<strong>Brand:</strong> ${product.Brand}`;
-                    card.appendChild(brand);
 
-                    const description = document.createElement('p');
-                    description.innerHTML = `<strong>Description:</strong> ${product.description}`;
-                    card.appendChild(description);
+        function start() {
+            console.log("page loaded");
 
-                    productsContainer.appendChild(card);
-                });
-            } catch (error) {
-                console.error('Error fetching products:', error);
-            }
+            const bg = document.querySelector('.bg');
+            const circleArray = [0.3, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+            circleArray.forEach((circle, index) => {
+                console.log(circle)
+                const div = document.createElement('div');
+                div.className = 'circle';
+                div.style.top = circle * 85 + 'px';
+                div.style.left = 1.2 + 'vw';
+
+                // div.textContent = circle;
+                bg.appendChild(div);
+            });
+
         }
 
-        fetchProducts();
+
+
+        // async function fetchProducts() {
+        // try {
+        //     const response = await fetch('aceroGPT_details.json');
+        //     const products = await response.json();
+        //     const productsContainer = document.getElementById('products');
+
+        //     products.forEach(product => {
+        //         const card = document.createElement('div');
+        //         card.className = 'card';
+
+        //         const img = document.createElement('img');
+        //         img.src = product.imagesUrl[0];
+        //         card.appendChild(img);
+
+        //         const name = document.createElement('h2');
+        //         name.textContent = product.name;
+        //         card.appendChild(name);
+
+        //         const brand = document.createElement('p');
+        //         brand.innerHTML = `<strong>Brand:</strong> ${product.Brand}`;
+        //         card.appendChild(brand);
+
+        //         const description = document.createElement('p');
+        //         description.innerHTML = `<strong>Description:</strong> ${product.description}`;
+        //         card.appendChild(description);
+
+        //         productsContainer.appendChild(card);
+        //     });
+        // } catch (error) {
+        //     console.error('Error fetching products:', error);
+        // }
+        // }
+
+        // fetchProducts();
     </script>
 
 </body>

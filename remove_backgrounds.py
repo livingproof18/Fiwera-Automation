@@ -2,7 +2,7 @@
 """
 Batch-remove backgrounds with rembg.
 Usage:
-    python remove_backgrounds.py -i acero -o transparent/acero
+    python remove_backgrounds.py -i test -o transparent/diesel
 """
 import argparse
 from io import BytesIO
