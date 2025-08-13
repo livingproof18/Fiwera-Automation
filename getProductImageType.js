@@ -6,7 +6,7 @@ function getImageType(imageName) {
     console.log("getImageType :" + imageName)
     const extensions = ['jpg', 'jpeg', 'png', 'avif'];
     for (let ext of extensions) {
-        const imagePath = path.join(__dirname, 'transparent/nike', `${imageName}.${ext}`);
+        const imagePath = path.join(__dirname, 'transparent/goat', `${imageName}.${ext}`);
         console.log("Checking path:", imagePath);
         if (fs.existsSync(imagePath)) {
             console.log("Image path exists");
@@ -18,8 +18,8 @@ function getImageType(imageName) {
 
 // Main function to update the JSON file with image types
 async function main() {
-    const inputFilePath = path.join(__dirname, 'nike.json');
-    const outputFilePath = path.join(__dirname, 'nikeFinal.json');
+    const inputFilePath = path.join(__dirname, 'goat.json');
+    const outputFilePath = path.join(__dirname, 'goatFinal.json');
 
     let products = [];
 
