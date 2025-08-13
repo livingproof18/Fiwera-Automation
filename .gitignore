@@ -39,3 +39,6 @@ venv/
 # Ignore all .pyc files
 *.pyc
 corteiz.json
+
+meaculpa
+meaculpa.json
