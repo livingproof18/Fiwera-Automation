@@ -3,8 +3,8 @@ const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
 
-const BRAND_NAME = "Diesel";
-const DATA_PATH = 'test.json';
+const BRAND_NAME = "Meaculpa";
+const DATA_PATH = 'meaculpa.json';
 
 // ========= Inference helpers =========
 
@@ -128,7 +128,7 @@ async function getProductDetails(task) {
     // Tolerant wait (your helper below also exists)
     try {
         // Try waiting up to 30 seconds
-        await page.waitForSelector('#swiperCarousel-items > div.swiper-slide.product-slide.swiper-slide-active > picture > img', { timeout: 10000 });
+        await page.waitForSelector('#Slider-Gallery-template--18890165616798__main', { timeout: 10000 });
     } catch (err) {
         console.warn('Image not found within 30s, waiting an extra 5 seconds...');
         await page.waitForTimeout(5000); // extra wait without checking selector
@@ -152,18 +152,28 @@ async function getProductDetails(task) {
     //     gender = gender || fromDom.gender;
     // }
 
+
+
+
     // Final fallbacks
     if (!category) category = 'ACCESSORIES';
     if (!gender) gender = 'ALL';
 
     const details = await page.evaluate((BRAND_NAME, category, gender) => {
         const brand = BRAND_NAME;
-        const name = document.querySelector("#product-content__body > div.info-box > div.d-flex.align-items-start.justify-content-between.section-title_product > div > h1")?.innerText.trim();
-
-        const priceText = document.querySelector('#product-content__body > div.info-box > div.pdp__price > div > div > div.price-default > span')?.innerText.trim();
+        const name = document.querySelector("#xtitle")?.innerText.trim();
+        console.log(name);
+        // var name;
+        const priceText = document.querySelector('#price-template--18890165616798__main > div > div > div.price__regular > span')?.innerText.trim();
         const price = priceText ? parseFloat(priceText.replace(/[^\d.-]/g, '')) : null;
+        console.log(priceText, price);
+        const selectedSwatch = document.querySelector('.swatch-view-item[aria-checked="true"]');
+        const swatchValue = selectedSwatch.getAttribute('orig-value');
+        console.log(swatchValue);
 
-        const color = document.querySelector("span.js-selected-color.selected-color")?.innerText.trim();
+        const color = swatchValue || '';
+
+        // const imageName = `${sanitize(brand)}-${sanitize(name)}-${color}-0`;
 
         // const description = document.querySelector("#main > div.lv-product > section > div.lv-product-seo-details > p")?.innerText.trim();
 
@@ -172,66 +182,82 @@ async function getProductDetails(task) {
 
         const sanitize = (str) =>
             String(str)
-                .replace(/\s+/g, '-')   // Replace spaces with hyphens
-                .replace(/[\/\\\[\]'":]/g, '') // Remove problematic chars
-                .replace(/-+/g, '-');   // Collapse repeated dashes
+                .replace(/\s+/g, '-')            // Replace spaces with hyphens
+                .replace(/[:\/\\\[\]'"]/g, '')   // Remove colon and other problematic chars
+                .replace(/&/g, 'and')            // Optional: replace & with 'and'
+                .replace(/-+/g, '-');            // Collapse repeated dashes
 
 
-        const firstImage = document.querySelector("#swiperCarousel-items > div.swiper-slide.product-slide.swiper-slide-active > picture > img");
+        // const cell = document.querySelector("#Slider-Gallery-template--18890165616798__main").firstChild;
+        // const img = cell.querySelector("img");
+        // const imgSrc = img ? img.src : null; // Get the src attribute, if img exists
+        // console.log(imgSrc);
+
+        function getImageNameFromUrl(url) {
+            const regex = /\/([^\/]+?)(?=\.\w+$)/; // Matches the image name before the extension
+            const match = url.match(regex);
+            return match ? match[1] : null;
+        }
+
+        const firstImageCell = document.querySelector("#Slider-Gallery-template--18890165616798__main");
+        const firstImage = firstImageCell.querySelector("img");
 
         // const secondImage = document.querySelector("#swiperCarousel-items > div.swiper-slide.product-slide.swiper-slide-prev > picture > img");
         // const thirdImage = document.querySelector("#swiperCarousel-items > div.swiper-slide.product-slide.swiper-slide-next > picture > img");
-
+        var ImageNameFromUrl;
         if (firstImage) {
             const srcset = firstImage.getAttribute('srcset');
             if (srcset) {
-                const firstSrc = srcset.split(',')[19].trim().split(' ')[0]; // Get the first srcset URL
+                const firstSrc = srcset.split(',')[6].trim().split(' ')[0]; // Get the first srcset URL
+                // ImageNameFromUrl = getImageNameFromUrl(firstSrc);
                 imagesUrl.push(firstSrc);
-                const imageName = `${sanitize(brand)}-${sanitize(name)}-${color}-0`;
+                const imageName = `${sanitize(name)}-${color}-0`;
+                console.log(imageName);
                 imageNames.push(imageName);
             } else {
                 imagesUrl.push(firstImage.src);
-                const imageName = `${sanitize(brand)}-${sanitize(name)}-${color}-0`;
+                // ImageNameFromUrl = getImageNameFromUrl(firstImage.src);
+                const imageName = `${sanitize(name)}-${color}-0`;
                 imageNames.push(imageName);
             }
         }
 
 
-        const secondImage = document.querySelector("#swiperCarousel-items > div.swiper-slide.product-slide.swiper-slide-prev > picture > img");
-        if (secondImage) {
-            const srcset = secondImage.getAttribute('srcset');
-            if (srcset) {
-                const firstSrc = srcset.split(',')[2].trim().split(' ')[0]; // Get the first srcset URL
-                imagesUrl.push(firstSrc);
-                const imageName = `${sanitize(brand)}-${sanitize(name)}-${color}-1`;
-                imageNames.push(imageName);
-            }
-            else {
-                imagesUrl.push(secondImage.src);
-                const imageName = `${sanitize(brand)}-${sanitize(name)}-${color}-1`;
-                imageNames.push(imageName);
-            }
-        }
+        // const secondImage = document.querySelector("#swiperCarousel-items > div.swiper-slide.product-slide.swiper-slide-prev > picture > img");
+        // if (secondImage) {
+        //     const srcset = secondImage.getAttribute('srcset');
+        //     if (srcset) {
+        //         const firstSrc = srcset.split(',')[2].trim().split(' ')[0]; // Get the first srcset URL
+        //         imagesUrl.push(firstSrc);
+        //         const imageName = `${sanitize(brand)}-${sanitize(name)}-${color}-1`;
+        //         imageNames.push(imageName);
+        //     }
+        //     else {
+        //         imagesUrl.push(secondImage.src);
+        //         const imageName = `${sanitize(brand)}-${sanitize(name)}-${color}-1`;
+        //         imageNames.push(imageName);
+        //     }
+        // }
 
-        const thirdImage = document.querySelector("#swiperCarousel-items > div.swiper-slide.product-slide.swiper-slide-next > picture > img");
-        if (thirdImage) {
-            const srcset = thirdImage.getAttribute('srcset');
-            if (srcset) {
-                const firstSrc = srcset.split(',')[2].trim().split(' ')[0]; // Get the first srcset URL
-                imagesUrl.push(firstSrc);
-                const imageName = `${sanitize(brand)}-${sanitize(name)}-${color}-2`;
-                imageNames.push(imageName);
-            }
-            else {
-                imagesUrl.push(thirdImage.src);
-                const imageName = `${sanitize(brand)}-${sanitize(name)}-${color}-2`;
-                imageNames.push(imageName);
-            }
-        }
+        // const thirdImage = document.querySelector("#swiperCarousel-items > div.swiper-slide.product-slide.swiper-slide-next > picture > img");
+        // if (thirdImage) {
+        //     const srcset = thirdImage.getAttribute('srcset');
+        //     if (srcset) {
+        //         const firstSrc = srcset.split(',')[2].trim().split(' ')[0]; // Get the first srcset URL
+        //         imagesUrl.push(firstSrc);
+        //         const imageName = `${sanitize(brand)}-${sanitize(name)}-${color}-2`;
+        //         imageNames.push(imageName);
+        //     }
+        //     else {
+        //         imagesUrl.push(thirdImage.src);
+        //         const imageName = `${sanitize(brand)}-${sanitize(name)}-${color}-2`;
+        //         imageNames.push(imageName);
+        //     }
+        // }
 
         return {
             Brand: brand,
-            name,
+            name: name + " " + color,
             category,
             id: '',
             code: '',
@@ -241,7 +267,7 @@ async function getProductDetails(task) {
             gender,
             description: "",
             color,
-            from: 'Diesel',
+            from: 'meaculpa',
             info: 'Retail Price',
             image: imageNames,
             imagesUrl
@@ -255,7 +281,7 @@ async function getProductDetails(task) {
         const imageName = details.image[i];
         try {
             console.log(`Downloading image ${imageName} from ${imageUrl}`);
-            await downloadImage(imageUrl, path.join(__dirname, 'test', `${imageName}.jpg`));
+            await downloadImage(imageUrl, path.join(__dirname, 'meaculpa', `${imageName}.jpg`));
         } catch (error) {
             console.error(`Failed to download image ${imageName} from ${imageUrl}:`, error);
         }
@@ -356,68 +382,47 @@ function saveProgress(existing, results) {
 (async () => {
     const urls = [
 
-        { url: "https://uk.diesel.com/en/accessories/holy-c-black/X09691PR581T8013.html", category: "ACCESSORIES", gender: "ALL" },
-        { url: "https://uk.diesel.com/en/accessories/k-lollo-scarf-tobedefined/A196920JLCD79TA.html", category: "Scarves & Wraps", gender: "ALL" },
+        { url: "https://meaculpa.us/products/fun-day-beanie?variant=43768084955294", category: "Hats & Headwear", gender: "ALL" },
 
 
-        // { url: "https://uk.diesel.com/en/boots/d-donald-montone-white/Y03586P6898H9345.html", category: "Boots", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/sneakers/melissa-quantum-sneakers-x-black/P01607PS916T8246.html", category: "Sneakers", gender: "ALL" },
+        // // { url: "https://uk.diesel.com/en/accessories/holy-c-black/X09691PR581T8013.html", category: "ACCESSORIES", gender: "ALL" },
+        // { url: "https://meaculpa.us/products/fun-day-beanie-mohair?variant=43377319248030", category: "Hats & Headwear", gender: "ALL" },
+        // { url: "https://meaculpa.us/products/fun-day-beanie-mohair?variant=43377319280798", category: "Hats & Headwear", gender: "ALL" },
+        // { url: "https://meaculpa.us/products/fun-day-beanie-mohair?variant=43377319313566", category: "Hats & Headwear", gender: "ALL" },
+        // { url: "https://meaculpa.us/products/fun-day-beanie-mohair?variant=43377319346334", category: "Hats & Headwear", gender: "ALL" },
+        // { url: "https://meaculpa.us/products/fun-day-beanie-mohair?variant=43377319379102", category: "Hats & Headwear", gender: "ALL" },
 
-        // ACCESSORIES
-        // { url: "https://uk.diesel.com/en/earbuds/60215-true-wireless-earbuds-grey/DP08750PHIN01.html", category: "Tech Accessories", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/earbuds/60214-true-wireless-earbuds-black/DP08740PHIN01.html", category: "Tech Accessories", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/eyewear/0dl3005u-black/LX300500LEN00287.html", category: "Eyewear", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/eyewear/0dl3004u-black/LX300400LEN0026G.html", category: "Eyewear", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/eyewear/0dl2003-size-57-grey/LX200300LEN70187.html", category: "Eyewear", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/eyewear/0dl2002-size-56-black/LX200200LEN70187.html", category: "Eyewear", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/eyewear/0dl3002-multicolor/LX300200LEC505B5.html", category: "Eyewear", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/accessories/holy-c-black/X09691PR581T8013.html", category: "ACCESSORIES", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/accessories/holy-c-yellow/X09691PR581H2382.html", category: "ACCESSORIES", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/accessories/k-frok-blue/A196750KICC8AT.html", category: "Hats & Headwear", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/accessories/s-tevie-tobedefined/A175720AKBM7FGA.html", category: "Scarves & Wraps", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/accessories/k-lollo-scarf-tobedefined/A196920JLCD79TA.html", category: "Scarves & Wraps", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/accessories/k-lollo-scarf-tobedefined/A196920JLCD9AW.html", category: "Scarves & Wraps", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/accessories/k-fur-violet/A178730DBCR61T.html", category: "Hats & Headwear", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/wallets/card-case-brown/X09018P0685H0738.html", category: "Wallets", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/wallets/holi--d-bi-fold-zip-l-blue/X10398PR818T6052.html", category: "Wallets", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/wallets/1dr-pouch-iii-black/X10273PS202T8013.html", category: "Wallets", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/belts/b-1dr-oval-d-loop-black/X10127P6364T8013.html", category: "Belts", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/belts/b-1dr-oval-d-loop-black/X10127P6364H8206.html", category: "Belts", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/belts/b-1dr-layer-brown/X09813PR271T2184.html", category: "Belts", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/belts/b-1dr-2.0-brown/X10462PR488H0738.html", category: "Belts", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/belts/b-1dr-embraced-brown/X10377P8245T2331.html", category: "Belts", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/watches/dz2212-silver/DZ221200QQQ01.html", category: "Watches", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/watches/dz2216-black/DZ221600QQQ01.html", category: "Watches", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/watches/dz2200-silver/DZ220000QQQ01.html", category: "Watches", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/watches/dz4683-silver/DZ468300QQQ01.html", category: "Watches", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/watches/dz2200-silver/DZ220000QQQ01.html", category: "Watches", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/watches/dz2202-black/DZ220200QQQ01.html", category: "Watches", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/necklaces/dx1342-silver/DX134200DJW01.html", category: "Jewellery", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/rings/dx1525-jewel-silver/DX152500DJW01.html", category: "Jewellery", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/rings/dx1526-jewel-red/DX152600DJW01.html", category: "Jewellery", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/rings/dx1444-silver/DX144400DJW01.html", category: "Jewellery", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/necklaces/dx1470-silver/DX147000DJW01.html", category: "Jewellery", gender: "ALL" },
 
-        // // FOOTWEAR
-        // { url: "https://uk.diesel.com/en/boots/d-donald-montone-white/Y03586P6898H9345.html", category: "Boots", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/boots/d-donald-montone-black/Y03586P6898T8013.html", category: "Boots", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/lace-ups-and-clogs/d-hammer-ab-d-black/Y03324P1770T8013.html", category: "Mules & Clogs", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/sneakers/melissa-quantum-sneakers-x-black/P01607PS916T8246.html", category: "Sneakers", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/sneakers/melissa-quantum-sneakers-x-grey/P01607PS916H7589.html", category: "Sneakers", gender: "ALL" },
 
-        // CLOTHING
-        // { url: "https://uk.diesel.com/en/outerwear-%26-jackets/l-pop-grey/A166810AKBA98B.html", category: "JACKET", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/outerwear-%26-jackets/l-pop-grey/A166810AKBA98B.html", category: "JACKET", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/outerwear-%26-jackets/w-ostend-multicolor/A144050DBCH9XX.html", category: "JACKET", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/relaxed/relaxed-jeans-2001-d-macro-068td-blue/A19404068TD01.html", category: "BOTTOM", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/relaxed/relaxed-jeans-1997-d-enim-09m74-blue/A1803309M7401.html", category: "BOTTOM", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/relaxed/relaxed-jeans-2001-d-macro-09m53-blue/A1159809M5301.html", category: "BOTTOM", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/relaxed/relaxed-jeans-d-rise-09m06-blue/A0637009M0601.html", category: "BOTTOM", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/relaxed/relaxed-jeans-d-touch-007z9-black/A15766007Z902.html", category: "BOTTOM", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/relaxed/relaxed-jeans-d-touch-0dcbe-grey/A157660DCBE02.html", category: "BOTTOM", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/relaxed/relaxed-jeans-d-rise-007f6-black/A06370007F602.html", category: "BOTTOM", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/relaxed/relaxed-jeans-2001-d-macro-0abdj-blue/A173020ABDJ01.html", category: "BOTTOM", gender: "ALL" },
-        // { url: "https://uk.diesel.com/en/relaxed/relaxed-jeans-2001-d-macro-007bg-blue/A19189007BG01.html", category: "BOTTOM", gender: "ALL" }
+        // { url: "https://meaculpa.us/products/fun-day-beanie?variant=43768084955294", category: "Hats & Headwear", gender: "ALL" },
+        // { url: "https://meaculpa.us/products/fun-day-beanie?variant=43768084988062", category: "Hats & Headwear", gender: "ALL" },
+        // { url: "https://meaculpa.us/products/fun-day-beanie?variant=43377387438238", category: "Hats & Headwear", gender: "ALL" },
+        // { url: "https://meaculpa.us/products/fun-day-beanie?variant=43768085086366", category: "Hats & Headwear", gender: "ALL" },
+        // { url: "https://meaculpa.us/products/fun-day-beanie?variant=43768085151902", category: "Hats & Headwear", gender: "ALL" },
+        // { url: "https://meaculpa.us/products/fun-day-beanie?variant=43768089084062", category: "Hats & Headwear", gender: "ALL" },
+        // { url: "https://meaculpa.us/products/fun-day-beanie?variant=43768085217438", category: "Hats & Headwear", gender: "ALL" },
+        // { url: "https://meaculpa.us/products/fun-day-beanie?variant=43377387536542", category: "Hats & Headwear", gender: "ALL" },
+        // { url: "https://meaculpa.us/products/fun-day-beanie?variant=43377387471006", category: "Hats & Headwear", gender: "ALL" },
+        // { url: "https://meaculpa.us/products/fun-day-beanie?variant=43768085348510", category: "Hats & Headwear", gender: "ALL" },
+        // { url: "https://meaculpa.us/products/fun-day-beanie?variant=43768085381278", category: "Hats & Headwear", gender: "ALL" },
+        // { url: "https://meaculpa.us/products/fun-day-beanie?variant=43377387405470", category: "Hats & Headwear", gender: "ALL" },
+        // { url: "https://meaculpa.us/products/fun-day-beanie?variant=43768085610654", category: "Hats & Headwear", gender: "ALL" },
+
+
+
+
+        // { url: "https://meaculpa.us/products/mea-culpa-fun-day-beanie-blue-rhinestone?variant=43377289167006", category: "Hats & Headwear", gender: "ALL" },
+        // { url: "https://meaculpa.us/products/mea-culpa-fun-day-beanie-blue-rhinestone?variant=43377289199774", category: "Hats & Headwear", gender: "ALL" },
+
+
+        // { url: "https://meaculpa.us/products/camo-fun-day-beanie?variant=43377304928414", category: "Hats & Headwear", gender: "ALL" },
+        // { url: "https://meaculpa.us/products/camo-fun-day-beanie?variant=43377304961182", category: "Hats & Headwear", gender: "ALL" },
+        // { url: "https://meaculpa.us/products/camo-fun-day-beanie?variant=43377304993950", category: "Hats & Headwear", gender: "ALL" },
+
+        // { url: "https://meaculpa.us/products/mc-logo-ring?variant=44451553575070", category: "Jewellery", gender: "ALL" }
+
+
+
     ];
 
 
