@@ -11,13 +11,8 @@ config()
 // return;
 // Load OpenAI API key from environment variable
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY; // Replace with your actual API key
-
-// new Configuration({
-
-// })
-// // const configuration = new Configuration({
-// //     apiKey: OPENAI_API_KEY,
-// // });
+const INPUT_FILE = "nike.json";
+const OUTPUT_FILE = "nikeFinal.json";
 const openai = new OpenAI({
     apiKey: OPENAI_API_KEY,
 });
@@ -49,8 +44,8 @@ async function summarizeDescription(brand, name, category, description) {
 
 // Main function to read products, summarize descriptions, and save new data
 async function main() {
-    const inputFilePath = path.join(__dirname, 'brokenplanet.json');
-    const outputFilePath = path.join(__dirname, 'brokenplanetGPT.json');
+    const inputFilePath = path.join(__dirname, INPUT_FILE);
+    const outputFilePath = path.join(__dirname, OUTPUT_FILE);
 
     let products = [];
 
@@ -70,12 +65,6 @@ async function main() {
                 product.description = "";
             }
         }
-
-        // Check if index is 2, then break out of the loop
-        // if (i === 2) {
-        //     console.log(i, + " i")
-        //     break;
-        // }
     }
 
     fs.writeFileSync(outputFilePath, JSON.stringify(products, null, 2));

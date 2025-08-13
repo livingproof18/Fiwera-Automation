@@ -255,7 +255,7 @@ function saveProgress(existing, results) {
         // "https://www.goat.com/en-gb/apparel/bape-classic-type-1-bapex-purple-1i80-187-005-purple",
         // "https://www.goat.com/en-gb/apparel/bape-type-1-bapex-orange-1i80-187-001-orange",
         // "https://www.goat.com/en-gb/apparel/supreme-x-the-north-face-x-g-shock-watch-black-fw22a4-black",
-        "https://www.goat.com/en-gb/apparel/supreme-repeat-leather-belt-black-ss22a47-black"
+        // "https://www.goat.com/en-gb/apparel/supreme-repeat-leather-belt-black-ss22a47-black"
 
         // Add more URLs as needed
     ];
